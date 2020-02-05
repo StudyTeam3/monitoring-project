@@ -1,0 +1,27 @@
+{
+  "name": "monitoring-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "cd server && npm start",
+    "front": "cd front && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StudyTeam3/monitoring-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StudyTeam3/monitoring-project/issues"
+  },
+  "homepage": "https://github.com/StudyTeam3/monitoring-project#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0",
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1",
+    "nodemon": "^2.0.2"
+  }
+}
