@@ -6,7 +6,7 @@ const Sequelize = require('sequelize');
     - test: 테스트용
 */
 const env = process.env.NODE_ENV || 'development';
-const config = require('../config/config.json')[env];
+const config = require('../config/config.js')[env];
 
 // db객체를 모듈화시켜서 사용
 const db = {};

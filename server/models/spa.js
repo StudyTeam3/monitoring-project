@@ -54,6 +54,10 @@ const Spa = sequelize.define('spa', {
     car_id: {
         type: Sequelize.STRING,
     },
+}, {
+    freezeTableName: true, // Model tableName will be the same as the model name
+    timestamps: false,
+    underscored: true
 });
 
 module.exports = Spa;
