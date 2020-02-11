@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "notab12",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": "notab12",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "postgres",
+    "password": "notab12",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}
