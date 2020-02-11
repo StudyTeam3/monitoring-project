@@ -27,7 +27,6 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-
 // db간 관계 설정 - foreignKey로 설정 가능
 // db.User.hasMany(db.Comment, {foreignKey: 'commenter', sourceKey: 'employee_number'});
 // db.Comment.belongsTo(db.User, {foreignKey: 'commenter', targetKey: 'employee_number'});
