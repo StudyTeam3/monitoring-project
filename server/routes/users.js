@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 var ExampleSchema = require('../models/exampleSchema')
 
 /* GET users listing. */
@@ -12,6 +13,7 @@ router.get('/', function(req, res, next) {
     console.error(err);
     next(err);
   })
+
 });
 
 module.exports = router;
