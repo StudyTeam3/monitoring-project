@@ -27,10 +27,6 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-// db table 정의
-// db.User = require('./users')(sequelize, Sequelize);
-// db.Comment = require('./comment')(sequelize, Sequelize);
-
 
 // db간 관계 설정 - foreignKey로 설정 가능
 // db.User.hasMany(db.Comment, {foreignKey: 'commenter', sourceKey: 'employee_number'});

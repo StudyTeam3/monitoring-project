@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var ExampleSchema = require('../models/exampleSchema')
+var Spa = require('../models/Spa')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  ExampleSchema.findAll()
+  Spa.findAll()
   .then((users) => {
     res.json(users);
   })
