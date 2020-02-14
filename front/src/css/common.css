@@ -15,10 +15,10 @@ div {
 }
 
 .drawerLeft {
-    /* float:left; */
     display: inline-block;
     position: relative;
-    height: calc(100vh - 50px);
+    height: 100%;
+    height: 100vh;
 }
 
 .notDrawers {

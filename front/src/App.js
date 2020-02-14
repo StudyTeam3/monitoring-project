@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import NavigationDrawer from "./component/navigationDrawer/navigationDrawer";
 import logo from "./logo.svg";
-import "./App.css";
 import "./css/common.css";
 import "@material/react-icon-button/dist/icon-button.css";
 import TransactionDetail from "./TransactionDetail";
 
 function App() {
   return (
-    <div className={"App"}>
+    <div>
       <div className={"drawerLeft"}>
         <div>
           <NavigationDrawer />
