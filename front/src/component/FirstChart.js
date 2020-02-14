@@ -16,12 +16,13 @@ class FirstChart extends Component {
           <div className="App">
             <XYPlot height={300} width={300}>
               <LineMarkSeries data={data}
-                markStyle={{stroke: '#000066', fill: '#FFFFFF'}}
-                lineStyle={{stroke: '#000066'}}/>
+                size = {6}
+                markStyle = {{stroke: '#000066', fill: '#FFFFFF'}}
+                lineStyle = {{stroke: '#000066'}}/>
               {/* <MarkSeries data={data} /> */}
 
-              <XAxis title = "시간" position = "middle" tickTotal = {5} style={{text:{},line:{},title: {}}}/>
-              <YAxis title = "요청" position = "middle" style={{title: {writingMode: 'vertical-rl'}}}/>
+              <XAxis title = "시간" position = "end" tickTotal = {5} xDoamin={[0,10]} style={{text:{},line:{},title: {}}}/>
+              <YAxis title = "요청" position = "start" style={{title: {transform:'rotate(180deg)'}}}/>
             </XYPlot>
           </div>
         );
