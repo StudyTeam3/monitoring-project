@@ -368,9 +368,16 @@
 
 .bottomIcons {
   position:relative;
-  /* bottom: 0px; */
-  /* float: none; */
-  /* padding: 10px; */
+}
+
+.drawerUserName {
+  color : #fff;
+}
+
+.drawerHeaderLine {
+  color : #fff;
+  height : 1.5px;
+  background-color: #fff;
 }
 
   /* # sourceMappingURL=react-sidenav.css.map */
