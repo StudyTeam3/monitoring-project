@@ -1,35 +1,11 @@
 import React, { Component } from 'react';
-import '../../../node_modules/react-vis/dist/style.css';
+
 import FirstChart from './FirstChart';
 import SecondChart from './SecondChart';
 import ThirdChart from './ThirdChart';
+
 import '../../css/dashboard.css'
-// const headerStyle = {
-//     color : "#000066",
-//     textAlign : 'left',
-//     marginLeft : '30px',
-//     fontFamily : 'hyundai harmony L'
-// };
-
-// const chartStyle = {
-//     marginLeft : '100px',
-//     marginRight : '100px',
-//     padding: '0',
-//     display: 'webkit-box',
-//     display: 'moz-box',
-//     display: 'ms-flexbox',
-//     display: 'moz-flex',
-//     display: 'webkit-flex',
-//     display: 'flex',
-//     justifyContent: 'space-between',
-//     listStyle: 'none',
-//     fontFamily : 'hyundai harmony L',
-// };
-
-// const tableStyle = {
-//     display: "flex",
-//     fontFamily : 'hyundai harmony L',
-// }
+import '../../../node_modules/react-vis/dist/style.css';
 
 class Dashboard extends Component {
 
@@ -55,9 +31,11 @@ class Dashboard extends Component {
                 <div className="tableStyle">
                     <div>
                         <h2>서버 현황</h2>
+                        {/* <search></search> */}
                     </div>
                     <div>
                         <h2>최근 실패 로그</h2>
+                        {/* <search></search> */}
                     </div>
                 </div>
             </div>

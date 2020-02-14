@@ -2,7 +2,7 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import '../transaction.css';
+// import '../transaction.css';
 
 const StyledTableRow = withStyles(theme => ({
     root: {
