@@ -4,16 +4,32 @@ import FirstChart from './FirstChart';
 import SecondChart from './SecondChart';
 import ThirdChart from './ThirdChart';
 
-const chartStyle = {
-    display : "flex",
-};
-
 const headerStyle = {
-    color : "#00287A",
+    color : "#000066",
     textAlign : 'left',
-    marginLeft : '30px'
+    marginLeft : '30px',
+    fontFamily : 'hyundai harmony L'
 };
 
+const chartStyle = {
+    marginLeft : '100px',
+    marginRight : '100px',
+    padding: '0',
+    display: 'webkit-box',
+    display: 'moz-box',
+    display: 'ms-flexbox',
+    display: 'moz-flex',
+    display: 'webkit-flex',
+    display: 'flex',
+    justifyContent: 'space-between',
+    listStyle: 'none',
+    fontFamily : 'hyundai harmony L',
+};
+
+const tableStyle = {
+    display: "flex",
+    fontFamily : 'hyundai harmony L',
+}
 
 class Dashboard extends Component {
 
@@ -21,7 +37,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <h1 style={headerStyle}>Dashboard</h1>
-                <hr style={{color : '#00287A', height : '1.5px', background : '#00287A'}}/>
+                <hr style={{color : '#000066', height : '1px', background : '#00287A', marginLeft : '20px', marginRight : '20px'}}/>
                 <div style={chartStyle}>
                     <div>
                         <h2>시간대별 요청 흐름</h2>
@@ -36,9 +52,13 @@ class Dashboard extends Component {
                         <ThirdChart></ThirdChart>
                     </div>
                 </div>
-                <div style={chartStyle}>
-                    <h2>서버 현황</h2>
-                    <h2>최근 실패 로그</h2>
+                <div style={tableStyle}>
+                    <div>
+                        <h2>서버 현황</h2>
+                    </div>
+                    <div>
+                        <h2>최근 실패 로그</h2>
+                    </div>
                 </div>
             </div>
         );

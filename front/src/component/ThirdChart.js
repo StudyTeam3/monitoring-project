@@ -1,52 +1,50 @@
 import React, { Component } from 'react';
 import '../App.css';
 import '../../node_modules/react-vis/dist/style.css';
-import {Sunburst} from 'react-vis';
+import {XYPlot, ArcSeries} from 'react-vis';
+
+const wrap = {
+  position: 'relative',
+  textAline:'center'
+};
+
+const over = {
+  position: 'absolute',
+  top: '85px',
+  left: '135px',
+  color: '#000066'
+}
 
 class ThirdChart extends Component {
-    render() {
-        const data = {
-            "title": "analytics",
-            "color": "#12939A",
-            "children": [
-             {
-              "title": "cluster",
-              "children": [
-               {"title": "AgglomerativeCluster", "color": "#12939A", "size": 3938},
-               {"title": "CommunityStructure", "color": "#12939A", "size": 3812},
-               {"title": "HierarchicalCluster", "color": "#12939A", "size": 6714},
-               {"title": "MergeEdge", "color": "#12939A", "size": 743}
-              ]
-             },
-             {
-              "title": "graph",
-              "children": [
-               {"title": "BetweennessCentrality", "color": "#12939A", "size": 3534},
-               {"title": "LinkDistance", "color": "#12939A", "size": 5731},
-               {"title": "MaxFlowMinCut", "color": "#12939A", "size": 7840},
-               {"title": "ShortestPaths", "color": "#12939A", "size": 5914},
-               {"title": "SpanningTree", "color": "#12939A", "size": 3416}
-              ]
-             },
-             {
-              "title": "optimization",
-              "children": [
-               {"title": "AspectRatioBanker", "color": "#12939A", "size": 7074}
-              ]
-             }
-            ]
-           }
-        return (
-          <div className="App">
-            <Sunburst
-                hideRootNode
-                colorType="literal"
-                data={data}
-                height={300}
-                width={350}/>
-          </div>
-        );
-      }
+  render() {
+    const PI = Math.PI * 2;
+    const myData = [
+      {angle0: 0, angle: PI * 3/4, radius: 1.9, radius0: 2, color: '#000066'},
+      {angle0: PI * 3/4, angle: PI * 3/4, radius: 1.7, radius0: 2.2, color: '#000066'},
+    ]
+    
+    return (
+      <div style={wrap}>
+        <div style={over}>
+          <p>success</p>
+          <p style={{fontSize: '30px',margin:'0 0', display:'inline'}}>75</p>
+          <p style={{display:'inline'}}>%</p>
+        </div>
+        <XYPlot
+          xDomain={[-100, 100]}
+          yDomain={[-100, 100]}
+          width={300}
+          height={300}>
+          <ArcSeries
+            colorType = "literal"
+            radiusDomain={[0,3]}
+            center={{x: 0, y: 0}}
+            data={myData}
+          />
+        </XYPlot>
+      </div>
+    );
+  }
 }
 
 export default ThirdChart;
