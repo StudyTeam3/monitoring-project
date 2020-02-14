@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavigationDrawer from "./component/navigationDrawer/navigationDrawer";
+import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
 import "./css/common.css";
 import "@material/react-icon-button/dist/icon-button.css";
 import TransactionDetail from "./pages/TransactionDetail";
