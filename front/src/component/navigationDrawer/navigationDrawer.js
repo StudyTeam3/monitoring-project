@@ -9,7 +9,7 @@ import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
 import { GoSignOut, GoBell } from "react-icons/go";
 import "../../css/NavigationDrawer.css";
 
-const NavigationDrawer = () => {
+const NavigationDrawer = (props) => {
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
    * isToggled: 토글 되었는지 확인하는 변수
@@ -36,6 +36,7 @@ const NavigationDrawer = () => {
             isToggled: false
           });
         }
+        props.onSubmit(isToggled);
       }}
       onSelect={selected => {
         // Add your code here
