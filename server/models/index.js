@@ -16,6 +16,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.Users = require('./users')(sequelize, Sequelize);
 
 // Connection Test
 sequelize
