@@ -3,42 +3,42 @@ import '../../node_modules/react-vis/dist/style.css';
 import FirstChart from './FirstChart';
 import SecondChart from './SecondChart';
 import ThirdChart from './ThirdChart';
+import '../css/dashboard.css'
+// const headerStyle = {
+//     color : "#000066",
+//     textAlign : 'left',
+//     marginLeft : '30px',
+//     fontFamily : 'hyundai harmony L'
+// };
 
-const headerStyle = {
-    color : "#000066",
-    textAlign : 'left',
-    marginLeft : '30px',
-    fontFamily : 'hyundai harmony L'
-};
+// const chartStyle = {
+//     marginLeft : '100px',
+//     marginRight : '100px',
+//     padding: '0',
+//     display: 'webkit-box',
+//     display: 'moz-box',
+//     display: 'ms-flexbox',
+//     display: 'moz-flex',
+//     display: 'webkit-flex',
+//     display: 'flex',
+//     justifyContent: 'space-between',
+//     listStyle: 'none',
+//     fontFamily : 'hyundai harmony L',
+// };
 
-const chartStyle = {
-    marginLeft : '100px',
-    marginRight : '100px',
-    padding: '0',
-    display: 'webkit-box',
-    display: 'moz-box',
-    display: 'ms-flexbox',
-    display: 'moz-flex',
-    display: 'webkit-flex',
-    display: 'flex',
-    justifyContent: 'space-between',
-    listStyle: 'none',
-    fontFamily : 'hyundai harmony L',
-};
-
-const tableStyle = {
-    display: "flex",
-    fontFamily : 'hyundai harmony L',
-}
+// const tableStyle = {
+//     display: "flex",
+//     fontFamily : 'hyundai harmony L',
+// }
 
 class Dashboard extends Component {
 
     render() {
         return (
             <div>
-                <h1 style={headerStyle}>Dashboard</h1>
+                <h1 className="headerStyle">Dashboard</h1>
                 <hr style={{color : '#000066', height : '1px', background : '#00287A', marginLeft : '20px', marginRight : '20px'}}/>
-                <div style={chartStyle}>
+                <div className="chartStyle">
                     <div>
                         <h2>시간대별 요청 흐름</h2>
                         <FirstChart></FirstChart>
@@ -52,7 +52,7 @@ class Dashboard extends Component {
                         <ThirdChart></ThirdChart>
                     </div>
                 </div>
-                <div style={tableStyle}>
+                <div className="tableStyle">
                     <div>
                         <h2>서버 현황</h2>
                     </div>
