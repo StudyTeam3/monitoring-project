@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../App.css';
-import '../../node_modules/react-vis/dist/style.css';
+import '../../App.css';
+import '../../../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineMarkSeries, LineSeries, MarkSeries, XAxis, YAxis } from 'react-vis';
 
 class FirstChart extends Component {

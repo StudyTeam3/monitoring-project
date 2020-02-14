@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../../node_modules/react-vis/dist/style.css';
+import '../../../node_modules/react-vis/dist/style.css';
 import FirstChart from './FirstChart';
 import SecondChart from './SecondChart';
 import ThirdChart from './ThirdChart';
-import '../css/dashboard.css'
+import '../../css/dashboard.css'
 // const headerStyle = {
 //     color : "#000066",
 //     textAlign : 'left',
