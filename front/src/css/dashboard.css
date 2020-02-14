@@ -21,6 +21,20 @@
 }
 
 .tableStyle {
+    margin-left : 100px;
+    margin-right : 100px;
+    padding: 0;
+    display: 'webkit-box';
+    display: 'moz-box';
+    display: 'ms-flexbox';
+    display: 'moz-flex';
+    display: 'webkit-flex';
     display: flex;
+    justify-content: space-between;
+    list-style: none;
     font-family : 'hyundai harmony L';
+}
+
+h2{
+    text-align: left;
 }

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import FirstChart from './FirstChart';
 import SecondChart from './SecondChart';
 import ThirdChart from './ThirdChart';
+import DashboardTable from './DashboardTable';
+import DashboardLogTable from './DashboardLogTable';
 
 import '../../css/dashboard.css'
 import '../../../node_modules/react-vis/dist/style.css';
@@ -29,13 +31,13 @@ class Dashboard extends Component {
                     </div>
                 </div>
                 <div className="tableStyle">
-                    <div>
+                    <div style={{width:'35%'}}>
                         <h2>서버 현황</h2>
-                        {/* <search></search> */}
+                        <DashboardTable></DashboardTable>
                     </div>
-                    <div>
+                    <div style={{width:'60%'}}>
                         <h2>최근 실패 로그</h2>
-                        {/* <search></search> */}
+                        <DashboardLogTable style={{width:'70%'}}></DashboardLogTable>
                     </div>
                 </div>
             </div>
