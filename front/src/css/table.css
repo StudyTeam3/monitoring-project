@@ -1,0 +1,16 @@
+.tableRoot {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableContainer {
+  max-height: 440;
+  max-width: 70%;
+}
+
+.tableHeader {
+  background-color: 'linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)';
+}

@@ -1,5 +1,25 @@
+/*
+*  Auto: #006
+*  Blue: #002c5f
+*  Sand: #e4dcd3
+*  Light Sand: #f6f3f2
+*  Red: #bb162b
+*  Dark Gray: #7e8083
+*/
+
 div {
     display: block;
+}
+
+.title {
+    max-width: 90vw;
+}
+
+.titleInLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header {
@@ -12,6 +32,12 @@ div {
     color : #006;
     height : 1.5px;
     background-color: #006;
+}
+
+.mid {
+    color : #002c5f;
+    text-align: left;
+    margin-left: 40px;
 }
 
 .drawerLeft {

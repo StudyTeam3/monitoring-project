@@ -3,7 +3,7 @@ import NavigationDrawer from "./component/navigationDrawer/navigationDrawer";
 import logo from "./logo.svg";
 import "./css/common.css";
 import "@material/react-icon-button/dist/icon-button.css";
-import TransactionDetail from "./TransactionDetail";
+import TransactionDetail from "./pages/TransactionDetail";
 
 function App() {
   return (
