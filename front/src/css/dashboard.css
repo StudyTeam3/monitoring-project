@@ -1,8 +1,6 @@
-.headerStyle {
-    color : #000066;
-    text-align : left;
-    margin-left : 30px;
-    font-family : 'hyundai harmony L';
+.dashBoard {
+    width: 100vw;
+  padding: 10px;
 }
 
 .chartStyle {
