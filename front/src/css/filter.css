@@ -1,0 +1,10 @@
+.FormControl{
+    margin-top: 10px;
+    margin-left: 20px;
+    min-width: 170px;
+}
+.FormControl .input {
+    margin-top: 10;
+    margin-left: 20;
+    width:170;
+}

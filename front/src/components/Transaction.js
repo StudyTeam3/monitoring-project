@@ -11,14 +11,16 @@ const StyledTableRow = withStyles(theme => ({
       },
     },
   }))(TableRow);
-const handleClick = () => {
-    console.log('click event')
-}
+  
+
 class Transaction extends React.Component {
     render(){
-   
+        const handleClick = () => {
+            console.log(this.props)
+        }
+
         return (
-            <StyledTableRow  onClick = {handleClick}>
+            <StyledTableRow onClick = {handleClick}>
                 <TableCell>{this.props.startTime}</TableCell>
                 <TableCell>{this.props.endTime}</TableCell>
                 <TableCell>{this.props.MID}</TableCell>
@@ -26,8 +28,7 @@ class Transaction extends React.Component {
                 <TableCell>{this.props.service}</TableCell>
                 <TableCell>{this.props.CID}</TableCell>
                 <TableCell>{this.props.function}</TableCell>
-                <TableCell>{this.props.status}</TableCell>
-                
+                <TableCell>{this.props.status}</TableCell>            
             </StyledTableRow>
         )
     }
