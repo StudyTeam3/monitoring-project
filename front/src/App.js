@@ -16,18 +16,20 @@ function App() {
 
   return (
     <div>
-      <div className={"drawerLeft"}>
-        <div>
-          <NavigationDrawer onSubmit={onSearchSubmit} />
-        </div>
-        <div className={whatDrawers}>
-          <Router>
+      <Router>
+        <div className={"drawerLeft"}>
+          <div>
+            <NavigationDrawer
+              onSubmit={onSearchSubmit}
+            />
+          </div>
+          <div className={whatDrawers}>
             <Route path="/detail" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
-            <Route path= "/search" component={TransactionSearch}/>
-          </Router>
+            <Route path="/search" component={TransactionSearch} />
+          </div>
         </div>
-      </div>
+      </Router>
     </div>
   );
 }

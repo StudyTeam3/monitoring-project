@@ -9,7 +9,7 @@
 .tableContainer {
   max-height: 440;
   max-width: 80vw;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 
 .tableHead {
@@ -19,8 +19,4 @@
 .tableHeadFont {
   text-decoration-color: white;
   color: #fff;
-}
-
-.tableCellMargin {
-  column-width: 6;
 }
