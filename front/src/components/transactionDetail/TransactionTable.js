@@ -78,6 +78,7 @@ const TransactionTable = () => {
                 <TableCell
                   key={column.id}
                   align={column.align}
+                  className={"tableCellMargin"}
                 >
                   <p className={"tableHeadFont"}>{column.label}</p>
                 </TableCell>
@@ -93,7 +94,7 @@ const TransactionTable = () => {
                     {columns.map(column => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell key={column.id} align={column.align} className={"tableCellMargin"}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
@@ -108,7 +109,7 @@ const TransactionTable = () => {
       </TableContainer>
       <TablePagination
         className={"tableContainer"}
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
