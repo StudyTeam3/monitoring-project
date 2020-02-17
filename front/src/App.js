@@ -1,26 +1,21 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Search from './components/search'
+import Filter from './components/filter'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div><h1>트랜잭션 검색</h1></div>
+      <hr class = 'line'/>
+
+      <div><Filter/></div>
+      <div class = 'table'><Search></Search></div>
+
+    </Fragment>
   );
 }
- 
+
 export default App;
