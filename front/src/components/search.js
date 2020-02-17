@@ -143,10 +143,10 @@ export default function CustomPaginationActionsTable() {
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map(t => (
-            <Transaction startTime = {t.startTime} endTime = {t.endTime}
-                         MID = {t.MID} server = {t.server} service = {t.service}
-                         CID = {t.CID} function = {t.function} status = {t.status}
-            />
+              <Transaction startTime = {t.startTime} endTime = {t.endTime}
+                          MID = {t.MID} server = {t.server} service = {t.service}
+                          CID = {t.CID} function = {t.function} status = {t.status}
+              />
           ))}
 
           {emptyRows > 0 && (

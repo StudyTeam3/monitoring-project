@@ -22,9 +22,9 @@ class Transaction extends React.Component {
 
       return (
           <StyledTableRow onClick = {handleClick}>
-            <Link to='/detail'>
+            <Link to="/detail" style={{ textDecoration: 'none' }}>
             <TableCell>{this.props.startTime}</TableCell>
-            </Link>       
+            </Link>
             <TableCell>{this.props.endTime}</TableCell>
             <TableCell>{this.props.MID}</TableCell>
             <TableCell>{this.props.server}</TableCell>
