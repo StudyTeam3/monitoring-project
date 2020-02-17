@@ -1,20 +1,33 @@
-import React, {Fragment} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Search from './components/search'
-import Filter from './components/filter'
-
+import React, { useState } from "react";
+import Dashboard from "./components/dashboard/Dashboard";
+import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
+import "@material/react-icon-button/dist/icon-button.css";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import { TransactionDetail } from "./pages";
+import "./css/common.css";
+import "./App.css";
 
 function App() {
+  const [whatDrawers, setWhatDrawers] = useState("notDrawers");
+  const onSearchSubmit = props => {
+    if (!props) setWhatDrawers("notDrawersWhenToggled");
+    else setWhatDrawers("notDrawers");
+  };
+
   return (
-    <Fragment>
-      <div><h1>트랜잭션 검색</h1></div>
-      <hr class = 'line'/>
-
-      <div><Filter/></div>
-      <div class = 'table'><Search></Search></div>
-
-    </Fragment>
+    <div>
+      <div className={"drawerLeft"}>
+        <div>
+          <NavigationDrawer onSubmit={onSearchSubmit} />
+        </div>
+        <div className={whatDrawers}>
+          <Router>
+            <Route path="/detail" component={TransactionDetail} />
+            <Route path="/home" component={Dashboard} />
+          </Router>
+        </div>
+      </div>
+    </div>
   );
 }
 

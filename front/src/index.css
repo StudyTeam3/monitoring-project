@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'hyundai harmony L'; src: url(./fonts/현대하모니\ L.ttf) format('truetype');
+}
