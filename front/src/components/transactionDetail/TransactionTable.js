@@ -78,16 +78,16 @@ const TransactionTable = () => {
   return (
     <Paper className={"tableRoot"}>
       <TableContainer className={"tableContainer"}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow className={"tableHeader"}>
+        <Table>
+          <TableHead className={"tableHead"}>
+            <TableRow>
               {columns.map(column => (
                 <TableCell
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
-                  {column.label}
+                  <p className={"tableHeadFont"}>{column.label}</p>
                 </TableCell>
               ))}
             </TableRow>
