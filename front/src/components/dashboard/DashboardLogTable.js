@@ -32,7 +32,7 @@ class DashboardLogTable extends Component {
 
         return (
             
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} style = {{padding:'20px', maxWidth: '80%'}}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead className="TableHead">
                     <TableRow>

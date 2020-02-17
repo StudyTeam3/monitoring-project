@@ -19,8 +19,8 @@
 }
 
 .tableStyle {
-    margin-left : 100px;
-    margin-right : 100px;
+    /* margin-left : 100px;
+    margin-right : 100px; */
     padding: 0;
     display: 'webkit-box';
     display: 'moz-box';

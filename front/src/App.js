@@ -24,7 +24,7 @@ function App() {
           <Router>
             <Route path="/detail" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
-            <Route path= "/search" component={TransactionSearch}/>
+            <Route path="/search" component={TransactionSearch}/>
           </Router>
         </div>
       </div>
