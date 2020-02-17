@@ -133,6 +133,7 @@ const SearchCarID = () => {
 
   const handleChange = event => {
     setCarID(event.target.value);
+
   };
 
   return (
@@ -173,7 +174,7 @@ class filter extends Component {
       MID: '',
       server: '',
       service: '',
-      CID: '',
+      carID: '',
       function: '',
       status: '',
   }
@@ -189,7 +190,9 @@ class filter extends Component {
     console.log(this.state);
 
   }
-
+  handleTest = (data) =>{
+    console.log(data)
+  }
   render() {
 
     return (
@@ -210,7 +213,7 @@ class filter extends Component {
          </div>
          <div>
            <SearchMessageID/>
-           <SearchCarID/>
+           <SearchCarID />
            <SelectServer/>
          </div>
         </div>
