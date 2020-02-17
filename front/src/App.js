@@ -3,7 +3,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
 import "@material/react-icon-button/dist/icon-button.css";
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import { TransactionDetail } from "./pages";
+import { TransactionDetail, TransactionSearch } from "./pages";
 import "./css/common.css";
 import "./App.css";
 
@@ -24,6 +24,7 @@ function App() {
           <Router>
             <Route path="/detail" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
+            <Route path= "/search" component={TransactionSearch}/>
           </Router>
         </div>
       </div>
