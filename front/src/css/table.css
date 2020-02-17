@@ -8,7 +8,7 @@
 
 .tableContainer {
   max-height: 440;
-  max-width: 70%;
+  max-width: 90vw;
 }
 
 .tableHead {
@@ -18,4 +18,8 @@
 .tableHeadFont {
   text-decoration-color: white;
   color: #fff;
+}
+
+.tableCell {
+  max-width: 1vw;
 }

@@ -15,43 +15,36 @@ const columns = [
   {
     id: "time",
     label: "Time",
-    minWidth: 50,
     format: value => value.toLocaleString()
   },
   {
     id: "duration",
     label: "Duration",
-    minWidth: 50,
     format: value => value.toLocaleString()
   },
   {
     id: "source",
     label: "Source",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "destination",
     label: "Destination",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "method",
     label: "Method",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "url",
     label: "URL",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "status",
     label: "Status",
-    minWidth: 100,
     align: "right"
   }
 ];
@@ -85,7 +78,6 @@ const TransactionTable = () => {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
                 >
                   <p className={"tableHeadFont"}>{column.label}</p>
                 </TableCell>
