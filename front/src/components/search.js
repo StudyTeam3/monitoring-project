@@ -125,7 +125,7 @@ export default function CustomPaginationActionsTable() {
     axios.get('http://localhost:5000/spa')
     .then((res) => {
       // setRows();
-      console.log("res: ",res);
+      console.log("res: ",res.data);
     })
     .catch((err) => {
       console.error(err);

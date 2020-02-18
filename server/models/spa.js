@@ -5,7 +5,6 @@ const Spa = sequelize.define('spa', {
     time: {
         type: Sequelize.TIME,
         allowNull: false,
-        primaryKey: true,
     },
     log_level: {
         type: Sequelize.STRING,
