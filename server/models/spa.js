@@ -21,6 +21,7 @@ const Spa = sequelize.define('spa', {
     message_id: {
         type: Sequelize.STRING,
         allowNull: false,
+        primaryKey: true,
     },
     protocol: {
         type: Sequelize.STRING,
@@ -46,10 +47,10 @@ const Spa = sequelize.define('spa', {
     success: {
         type: Sequelize.BOOLEAN,
     },
-    function: {
+    car_id: {
         type: Sequelize.STRING,
     },
-    car_id: {
+    function: {
         type: Sequelize.STRING,
     },
 }, {
