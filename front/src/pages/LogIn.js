@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { FacebookLoginButton, InstagramLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import SocialLogin from '../components/SocialLogin';
 
 const LogIn = () => {
     return (
@@ -21,16 +22,14 @@ const LogIn = () => {
                 <Label style={{color:'#000066', fontFamily:'현대하모니', fontSize:25, marginBottom: 2 }}>비밀번호</Label>
                 <Input type="password" placeholder="********"/>
             </FormGroup>
-            <Button className="btn-lg btn-dark btn-block mt-2">로그인</Button>
-            <div className="text-center pt-3">Or continue with your social account</div>
-            <FacebookLoginButton size="30px" className="mt-2 mb-2"/>
-            <InstagramLoginButton size="30px" className="mt-2 mb-2"/>
-            <GoogleLoginButton size="30px" className="mt-2 mb-2" onClick={() => alert("Google Login")}/>
-            <div className="text-center">
+            <Button className="btn-lg btn-block mt-2 mb-2" color="primary">로그인</Button>
+            <div className="text-center mt-2 mb-4">
             <Link to="/SignUp">회원가입</Link>
             <span className="p-2">|</span>
-            <Link to="/forgot-password">비밀번호 찾기</Link>
+            <Link to="/ForgotPassword">비밀번호 찾기</Link>
             </div>
+            <SocialLogin></SocialLogin>
+            
       </Form>
       </Fragment>
     );
