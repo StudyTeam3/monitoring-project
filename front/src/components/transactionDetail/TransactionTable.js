@@ -15,43 +15,36 @@ const columns = [
   {
     id: "time",
     label: "Time",
-    minWidth: 50,
     format: value => value.toLocaleString()
   },
   {
     id: "duration",
     label: "Duration",
-    minWidth: 50,
     format: value => value.toLocaleString()
   },
   {
     id: "source",
     label: "Source",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "destination",
     label: "Destination",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "method",
     label: "Method",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "url",
     label: "URL",
-    minWidth: 50,
     align: "right"
   },
   {
     id: "status",
     label: "Status",
-    minWidth: 100,
     align: "right"
   }
 ];
@@ -78,16 +71,16 @@ const TransactionTable = () => {
   return (
     <Paper className={"tableRoot"}>
       <TableContainer className={"tableContainer"}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow className={"tableHeader"}>
+        <Table>
+          <TableHead className={"tableHead"}>
+            <TableRow>
               {columns.map(column => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  className={"tableCellMargin"}
                 >
-                  {column.label}
+                  <p className={"tableHeadFont"}>{column.label}</p>
                 </TableCell>
               ))}
             </TableRow>
@@ -101,7 +94,7 @@ const TransactionTable = () => {
                     {columns.map(column => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell key={column.id} align={column.align} className={"tableCellMargin"}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
@@ -116,7 +109,7 @@ const TransactionTable = () => {
       </TableContainer>
       <TablePagination
         className={"tableContainer"}
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

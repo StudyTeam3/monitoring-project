@@ -5,7 +5,6 @@ const Spa = sequelize.define('spa', {
     time: {
         type: Sequelize.TIME,
         allowNull: false,
-        primaryKey: true
     },
     log_level: {
         type: Sequelize.STRING,
@@ -22,7 +21,6 @@ const Spa = sequelize.define('spa', {
     message_id: {
         type: Sequelize.STRING,
         allowNull: false,
-        primaryKey: true
     },
     protocol: {
         type: Sequelize.STRING,
