@@ -3,7 +3,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
 import "@material/react-icon-button/dist/icon-button.css";
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import { TransactionDetail, TransactionSearch } from "./pages";
+import { TransactionDetail, TransactionSearch, Setting } from "./pages";
 import "./css/common.css";
 import "./App.css";
 import 'react-notifications/lib/notifications.css';
@@ -28,6 +28,8 @@ function App() {
             <Route path="/detail" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
             <Route path="/search" component={TransactionSearch}/>
+            <Route path="/setting" component={Setting}/>
+
           </div>
         </div>
       </Router>
