@@ -124,13 +124,13 @@ export default function CustomPaginationActionsTable() {
   useEffect(() => {
     axios.get('http://localhost:5000/spa')
     .then((res) => {
-      // setRows();
+      setRows(res.data);
       console.log("res: ",res.data);
     })
     .catch((err) => {
       console.error(err);
     })
-  });
+  },[]);
 
   return (
     <Table style={{ width: "80%" }}>
@@ -152,12 +152,12 @@ export default function CustomPaginationActionsTable() {
           : rows
         ).map(t => (
           <Transaction
-            startTime={t.startTime}
-            endTime={t.endTime}
-            MID={t.MID}
+            startTime={t.start}
+            endTime={t.end}
+            MID={t.message_id}
             server={t.server}
             service={t.service}
-            CID={t.CID}
+            CID={t.car_id}
             function={t.function}
             status={t.status}
           />
