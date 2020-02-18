@@ -22,7 +22,7 @@ class Transaction extends React.Component {
 
     return (
       <StyledTableRow onClick={handleClick}>
-        <Link to="/detail" style={{ textDecoration: "none" }}>
+        <Link to={`/detail/${this.props.MID}`} style={{ textDecoration: "none" }}>
           <TableCell>{this.props.startTime}</TableCell>
         </Link>
         <TableCell>{this.props.endTime}</TableCell>

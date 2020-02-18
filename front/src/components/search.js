@@ -15,6 +15,7 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import Transaction from "./Transaction";
 import axios from "axios";
+const config = require("./../config/config");
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -122,7 +123,7 @@ export default function CustomPaginationActionsTable() {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:5000/spa')
+    axios.get(config.development.url + '/spa')
     .then((res) => {
       setRows(res.data);
     })

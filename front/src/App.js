@@ -25,7 +25,7 @@ function App() {
             />
           </div>
           <div className={whatDrawers}>
-            <Route path="/detail" component={TransactionDetail} />
+            <Route path="/detail/:mid" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
             <Route path="/search" component={TransactionSearch}/>
             <Route path="/setting" component={Setting}/>
