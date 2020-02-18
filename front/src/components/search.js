@@ -125,7 +125,6 @@ export default function CustomPaginationActionsTable() {
     axios.get('http://localhost:5000/spa')
     .then((res) => {
       setRows(res.data);
-      console.log("res: ",res.data);
     })
     .catch((err) => {
       console.error(err);
@@ -162,7 +161,6 @@ export default function CustomPaginationActionsTable() {
             status={t.status}
           />
         ))}
-
         {emptyRows > 0 && (
           <TableRow style={{ height: 53 * emptyRows }}>
             <TableCell colSpan={6} />

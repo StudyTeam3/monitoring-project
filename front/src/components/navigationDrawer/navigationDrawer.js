@@ -3,8 +3,20 @@ import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
 import { GoSignOut, GoBell } from "react-icons/go";
-import { Route, BrowserRouter } from "react-router-dom";
+import { Route, BrowserRouter, Link } from "react-router-dom";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import "../../css/NavigationDrawer.css";
+import "../../css/alarm.css";
+
+const createNotification = (type) => {
+  return () => {
+    for(var i = 0; i < 5; i++){
+      NotificationManager.error('Error message', 'Click me!', 5000, () => {
+        alert('callback');
+      });
+    }
+  }
+}
 
 const NavigationDrawer = props => {
   /*
@@ -75,16 +87,17 @@ const NavigationDrawer = props => {
           </SideNav.Nav>
           <div className={"bottomBigDivs"}>
             <div className={states.bottomIconState}>
-              <NavItem eventKey="signout" className={"bottomIcons"}>
+              <NavItem eventKey="alarm" className={"bottomIcons"}>
                 <NavIcon>
-                  <IconButton>
+                  <IconButton onClick={createNotification('error')}>
                     <GoBell color={"white"} />
+                    <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>5</p>  
                   </IconButton>
                 </NavIcon>
               </NavItem>
             </div>
             <div className={states.bottomIconState}>
-              <NavItem eventKey="alarm" className={"bottomIcons"}>
+              <NavItem eventKey="signout" className={"bottomIcons"}>
                 <NavIcon>
                   <IconButton>
                     <GoSignOut color={"white"} />
@@ -93,6 +106,7 @@ const NavigationDrawer = props => {
               </NavItem>
             </div>
           </div>
+          {/* <NotificationContainer/> */}
         </SideNav>
       )}
     />

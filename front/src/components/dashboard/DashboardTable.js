@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import '../../css/dashboardtable.css';
+import { Link } from 'react-router-dom';
 
 const classes = makeStyles({
     table: {
@@ -31,8 +32,7 @@ class DashboardTable extends Component {
     render() {
 
         return (
-            
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} style = {{padding:'20px', maxWidth: '80%'}}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead className="TableHead">
                     <TableRow>
@@ -43,9 +43,11 @@ class DashboardTable extends Component {
                     <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.serverName}>
+                        <Link to='/search' style={{ textDecoration: 'none' }}>
                         <TableCell component="th" scope="row">
                             {row.serverName}
                         </TableCell>
+                        </Link>
                         <TableCell align="right">{row.lastUseTime}</TableCell>
                         </TableRow>
                     ))}

@@ -6,6 +6,7 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import { TransactionDetail, TransactionSearch } from "./pages";
 import "./css/common.css";
 import "./App.css";
+import 'react-notifications/lib/notifications.css';
 
 function App() {
   const [whatDrawers, setWhatDrawers] = useState("notDrawers");
@@ -26,7 +27,7 @@ function App() {
           <div className={whatDrawers}>
             <Route path="/detail" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
-            <Route path="/search" component={TransactionSearch} />
+            <Route path="/search" component={TransactionSearch}/>
           </div>
         </div>
       </Router>
