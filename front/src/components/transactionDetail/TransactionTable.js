@@ -73,8 +73,6 @@ const TransactionTable = (props) => {
     axios.post(config.development.url + '/spa/detail', {"message_id": message_id})
     .then((res) => {
       setRows(res.data);
-      console.log(res.data);
-      console.log(typeof res.data[3].success);
     })
     .catch((err) => {
       console.error(err);

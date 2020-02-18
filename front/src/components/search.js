@@ -108,6 +108,7 @@ export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [show, setShow] = React.useState(false);
 
   const emptyRows =
     rowsPerPage -
@@ -126,6 +127,7 @@ export default function CustomPaginationActionsTable() {
     axios.get(config.development.url + '/spa')
     .then((res) => {
       setRows(res.data);
+      setShow(true);
     })
     .catch((err) => {
       console.error(err);
@@ -146,6 +148,7 @@ export default function CustomPaginationActionsTable() {
           <StyledTableCell>Status</StyledTableCell>
         </TableRow>
       </TableHead>
+      { show &&
       <TableBody>
         {(rowsPerPage > 0
           ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -167,7 +170,7 @@ export default function CustomPaginationActionsTable() {
             <TableCell colSpan={6} />
           </TableRow>
         )}
-      </TableBody>
+      </TableBody>}
       <TableFooter>
         <TableRow>
           <TablePagination
@@ -186,6 +189,6 @@ export default function CustomPaginationActionsTable() {
           />
         </TableRow>
       </TableFooter>
-    </Table>
+      </Table>
   );
 }
