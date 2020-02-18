@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 const sequelize = require('./index').sequelize;
 
 const Spa = sequelize.define('spa', {
+// module.exports = (sequelize, DataTypes) => (
+//     sequelize.define('spa', { 
     time: {
         type: Sequelize.TIME,
         allowNull: false,
@@ -55,9 +57,15 @@ const Spa = sequelize.define('spa', {
         type: Sequelize.STRING,
     },
 }, {
+    classMethods: {
+        associate: function(models) {
+          Spa.belongsTo(models.User);
+        }
+      },
     freezeTableName: true, // Model tableName will be the same as the model name
-    timestamps: false,
+    timestamps: true,
     underscored: true
 });
 
+// return Spa;
 module.exports = Spa;

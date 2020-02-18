@@ -1,0 +1,68 @@
+extends layout
+
+block content
+  .timeline
+    if user
+      div
+        form#twit-form(action='/spa' method='post' enctype='multipart/form-data')
+          .input-group
+            textarea#twit(name='message_id' maxlength=140)
+    .twits
+      form#hashtag-form(action='/spa/search')
+        input(type='text' name='search' placeholder='태그 검색')
+        button.btn 검색
+      for twit in twits
+        .twit
+          input.twit-user-id(type='hidden' value=twit.user.id)
+          input.twit-id(type='hidden' value=twit.id)
+          .twit-author= twit.user.nick
+          -const follow = user && user.Followings.map(f => f.id).includes(twit.user.id);
+          if user && user.id !== twit.user.id && !follow
+            button.twit-follow 팔로우하기
+          .twit-content= twit.content
+  
+  script.
+  
+    //- if (document.getElementById('img')) {
+    //-   document.getElementById('img').addEventListener('change', function (e) {
+    //-     var formData = new FormData();
+    //-     console.log(this, this.files);
+    //-     formData.append('img', this.files[0]);
+    //-     var xhr = new XMLHttpRequest();
+    //-     xhr.onload = function () {
+    //-       if (xhr.status === 200) {
+    //-         var url = JSON.parse(xhr.responseText).url;
+    //-         document.getElementById('img-url').value = url;
+    //-         document.getElementById('img-preview').src = url;
+    //-         document.getElementById('img-preview').style.display = 'inline';
+    //-       } else {
+    //-         console.error(xhr.responseText);
+    //-       }
+    //-     };
+    //-     xhr.open('POST', '/spa/img');
+    //-     xhr.send(formData);
+    //-   });
+    //- } 
+    document.querySelectorAll('.twit-follow').forEach(function (tag) {
+      tag.addEventListener('click', function () {
+        var isLoggedIn = document.querySelector('#my-id');
+        if (isLoggedIn) {
+          var userId = tag.parentNode.querySelector('.twit-user-id').value;
+          var myId = isLoggedIn.value;
+          if (userId !== myId) {
+            if (confirm('팔로잉하시겠습니까?')) {
+              var xhr = new XMLHttpRequest();
+              xhr.onload = function () {
+                if (xhr.status === 200) {
+                  location.reload();
+                } else {
+                  console.error(xhr.responseText);
+                }
+              };
+              xhr.open('POST', '/user/' + userId + '/follow');
+              xhr.send();
+            }
+          }
+        }
+      });
+    });

@@ -17,6 +17,25 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+
+// db.User.hasMany(db.Spa);
+// db.Spa.belongsTo(db.User);
+// db.Spa.belongsToMany(db.Search, { through: 'searchTag' });
+// db.Search.belongsToMany(db.Spa, { through: 'searchTag' });
+// db.User.belongsToMany(db.User, {
+//   foreignKey: 'followingId',
+//   as: 'Followers',
+//   through: 'Follow',
+// });
+// db.User.belongsToMany(db.User, {
+//   foreignKey: 'followerId',
+//   as: 'Followings',
+//   through: 'Follow',
+// });
+
+
+
+
 // Connection Test
 sequelize
   .authenticate()
