@@ -1,22 +1,20 @@
-import React, { Component, Fragment }  from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles, makeStyles, useTheme } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
 import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
-import rows from '../data'
-import Transaction from './Transaction'
+import Transaction from "./Transaction";
+import axios from "axios";
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -95,11 +93,10 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired
 };
 
-
 const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: "#000066",
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   body: {
     fontSize: 30
@@ -108,6 +105,7 @@ const StyledTableCell = withStyles(theme => ({
 
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
+  const [rows, setRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const emptyRows =
@@ -123,56 +121,72 @@ export default function CustomPaginationActionsTable() {
     setPage(0);
   };
 
- 
-  return (
-      <Table style = {{width:'80%'}}>
-        <TableHead>
-          <TableRow >
-            <StyledTableCell>Start TIme</StyledTableCell>
-            <StyledTableCell>End Time</StyledTableCell>
-            <StyledTableCell>Message ID</StyledTableCell>
-            <StyledTableCell>Server</StyledTableCell>
-            <StyledTableCell>Service</StyledTableCell>
-            <StyledTableCell>Car ID</StyledTableCell>
-            <StyledTableCell>Function</StyledTableCell>
-            <StyledTableCell>Status</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map(t => (
-            <Transaction startTime = {t.startTime} endTime = {t.endTime}
-                         MID = {t.MID} server = {t.server} service = {t.service}
-                         CID = {t.CID} function = {t.function} status = {t.status}
-            />
-          ))}
+  useEffect(() => {
+    axios.get('http://localhost:5000/spa')
+    .then((res) => {
+      // setRows();
+      console.log("res: ",res);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  });
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={8}
-              count={Object.keys(rows).length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
-                native: true
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
+  return (
+    <Table style={{ width: "80%" }}>
+      <TableHead>
+        <TableRow>
+          <StyledTableCell>Start TIme</StyledTableCell>
+          <StyledTableCell>End Time</StyledTableCell>
+          <StyledTableCell>Message ID</StyledTableCell>
+          <StyledTableCell>Server</StyledTableCell>
+          <StyledTableCell>Service</StyledTableCell>
+          <StyledTableCell>Car ID</StyledTableCell>
+          <StyledTableCell>Function</StyledTableCell>
+          <StyledTableCell>Status</StyledTableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {(rowsPerPage > 0
+          ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          : rows
+        ).map(t => (
+          <Transaction
+            startTime={t.startTime}
+            endTime={t.endTime}
+            MID={t.MID}
+            server={t.server}
+            service={t.service}
+            CID={t.CID}
+            function={t.function}
+            status={t.status}
+          />
+        ))}
+
+        {emptyRows > 0 && (
+          <TableRow style={{ height: 53 * emptyRows }}>
+            <TableCell colSpan={6} />
           </TableRow>
-        </TableFooter>
-      </Table>
+        )}
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+            colSpan={8}
+            count={Object.keys(rows).length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            SelectProps={{
+              inputProps: { "aria-label": "rows per page" },
+              native: true
+            }}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            ActionsComponent={TablePaginationActions}
+          />
+        </TableRow>
+      </TableFooter>
+    </Table>
   );
 }

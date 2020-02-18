@@ -38,6 +38,11 @@ app.use(cookieParser());
 // }));
 app.use(flash());
 
+// For CORS
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config/config')[env];
+if(config.cors) app.use(require('cors')());
+
 // Router Connection to app
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
