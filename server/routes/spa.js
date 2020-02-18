@@ -4,7 +4,7 @@ var Spa = require("../models/Spa");
 const { Op } = require("sequelize");
 
 /* GET SPA for search pages */
-router.get("/", function(req, res, next) {
+router.get("/", (req, res, next) => {
   let response = [];
 
   // MAKE Response FORM
@@ -71,6 +71,33 @@ router.get("/", function(req, res, next) {
       console.error(err);
       next(err);
     });
+});
+
+/* Get Spa for detail pages */
+router.post("/detail", (req, res, next) => {
+  let response = [];
+
+  const formEach = array => {
+    return new Promise(resolve => {
+      for (const element of array) {
+        response.push({...element.dataValues});
+        if(element === array[array.length - 1]) res.json(response);
+      }
+    });
+  };
+
+  Spa.findAll({
+    where: {
+      message_id: req.body.message_id
+    },
+    order: [["time", "ASC"]]
+  })
+  .then((each) => {
+    formEach(each);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
 });
 
 module.exports = router;
