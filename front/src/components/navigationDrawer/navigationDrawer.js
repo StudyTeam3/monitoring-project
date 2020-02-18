@@ -11,8 +11,8 @@ import "../../css/alarm.css";
 const createNotification = (type) => {
   return () => {
     for(var i = 0; i < 5; i++){
-      NotificationManager.error('Error message', 'Click me!', 5000, () => {
-        alert('callback');
+      NotificationManager.error('dstd-fewq-1234-asdz', '00:00:00 에러발생', 5000, () => {
+        alert('detail page로 이동');
       });
     }
   }

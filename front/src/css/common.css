@@ -44,7 +44,7 @@ div {
 .drawerLeft {
     display: inline-block;
     position: relative;
-    width: 100vw;
+    width: 98vw;
 }
 
 .notDrawers {
