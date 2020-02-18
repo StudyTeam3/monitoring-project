@@ -6,24 +6,14 @@ import { GoSignOut, GoBell } from "react-icons/go";
 import { Route, BrowserRouter, Link } from "react-router-dom";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import "../../css/NavigationDrawer.css";
+import "../../css/alarm.css";
 
 const createNotification = (type) => {
   return () => {
-    switch (type) {
-      case 'info':
-        NotificationManager.info('Info message');
-        break;
-      case 'success':
-        NotificationManager.success('Success message', 'Title here');
-        break;
-      case 'warning':
-        NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-        break;
-      case 'error':
-        NotificationManager.error('Error message', 'Click me!', 5000, () => {
-          alert('callback');
-        });
-        break;
+    for(var i = 0; i < 5; i++){
+      NotificationManager.error('Error message', 'Click me!', 5000, () => {
+        alert('callback');
+      });
     }
   }
 }
@@ -101,6 +91,7 @@ const NavigationDrawer = props => {
                 <NavIcon>
                   <IconButton onClick={createNotification('error')}>
                     <GoBell color={"white"} />
+                    <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>5</p>  
                   </IconButton>
                 </NavIcon>
               </NavItem>
