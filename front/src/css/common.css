@@ -11,6 +11,30 @@ div {
     display: block;
 }
 
+.auto {
+    background-color: #006;
+}
+
+.blue {
+    background-color: #002c5f;
+}
+
+.red {
+    background-color: #bb162b;
+}
+
+.darkGray {
+    background-color: #7e8083;
+}
+
+.sand {
+    background-color: #e4dcd3;
+}
+
+.lightSand {
+    background-color: #f6f3f2;
+}
+
 .title {
     max-width: 90vw;
 }
@@ -44,7 +68,7 @@ div {
 .drawerLeft {
     display: inline-block;
     position: relative;
-    height: 100vh;
+    width: 100vw;
 }
 
 .notDrawers {
