@@ -67,7 +67,7 @@ const TransactionTable = props => {
 
   useEffect(() => {
     setRows(props.data);
-  })
+  });
 
   return (
     <Paper className={"tableRoot"}>

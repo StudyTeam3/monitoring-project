@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material/react-icon-button";
 import { IoIosUndo } from "react-icons/io";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "../css/common.css";
 import "../css/canvas.css";
@@ -50,13 +50,15 @@ const TransactionDetail = props => {
         end: rows[rows.length - 1].time
       });
       const tempRowConnection = [];
-      for(let element in rows) {
-        tempRowConnection.push({
-          source: element.source,
-          destination: element.destination,
-          time: element.time
-        });
+      for (let element of rows) {
+        if (element.source !== element.destination && element !== rows[0]) {
+          tempRowConnection.push({
+            source: element.source,
+            destination: element.destination,
+          });
+        }
       }
+      setRowConnection(tempRowConnection);
     }
   }, [rows]);
 
