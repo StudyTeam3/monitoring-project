@@ -19,9 +19,6 @@ const TransactionDetail = props => {
   const [rows, setRows] = useState([]);
   const [transactionSummaryInfo, setTransactionSummaryInfo] = useState({});
   const [rowConnection, setRowConnection] = useState([]);
-  const onSummarySubmit = props => {
-    setTransactionSummaryInfo(props);
-  };
 
   useEffect(() => {
     axios
@@ -55,6 +52,8 @@ const TransactionDetail = props => {
           tempRowConnection.push({
             source: element.source,
             destination: element.destination,
+            method: element.http_method,
+            function: element.function,
           });
         }
       }

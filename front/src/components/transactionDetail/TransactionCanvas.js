@@ -8,6 +8,7 @@ const TransactionCanvas = props => {
   const [realLoc, setRealLoc] = useState({});
   const [realNodeLoc, setRealLocArr] = useState([]);
   const [arrows, setArrows] = useState([]);
+  const [textInterval, setTextInterval] = useState(0);
   const Width = window.innerWidth / 2;
   const Height = 400;
 
@@ -26,6 +27,7 @@ const TransactionCanvas = props => {
       }
     }
     let interval = Width / tempLoc.length;
+    setTextInterval(interval/7);
     let index = 0;
     // 노드 위치 정하기
     for (let element of tempLoc) {
@@ -47,17 +49,16 @@ const TransactionCanvas = props => {
         from: realLoc[element.source].x + 50,
         to: realLoc[element.destination].x + 50,
         y: ( index * interval ) + 80,
-        isRight: isRight
+        isRight: isRight,
+        text: element.method + ' ' + element.function
       });
       index++;
     }
-    console.log(tempArrows);
     setArrows(tempArrows);
   };
 
   useEffect(() => {
     if (data.length !== 0) {
-      console.log(data);
       makeRealLoc();
     }
   }, [data]);
@@ -81,6 +82,8 @@ const TransactionCanvas = props => {
               to={element.to}
               y={element.y}
               isRight={element.isRight}
+              text={element.text}
+              textInterval={textInterval}
             />
           );
         })}
