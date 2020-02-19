@@ -13,13 +13,20 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflow: "auto",
-    maxHeight: 300
+    maxHeight: 450
   }
 }));
 
+const capitalize = (str) => {
+  str = str.charAt(0).toUpperCase() + str.slice(1);
+  return str.replace("_"," ");
+}
+
+
 export default function ColumnList() {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(["wifi"]);
+  const preChecked = window.sessionStorage.getItem("column");
+  const [checked, setChecked] = React.useState(JSON.parse(preChecked));
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
@@ -32,9 +39,13 @@ export default function ColumnList() {
     }
 
     setChecked(newChecked);
+    console.log(newChecked);
+    window.sessionStorage.setItem('column', JSON.stringify(newChecked));
   };
+
   const columns = [
-    "time",
+    "start_time",
+    "end_time",
     "log_level",
     "server_range",
     "server_name",
@@ -55,7 +66,7 @@ export default function ColumnList() {
     <List className={classes.root}>
       {columns.map(name => (
         <ListItem>
-          <ListItemText id={name} primary={name} />
+          <ListItemText id={name} primary={capitalize(name)} />
           <ListItemSecondaryAction>
             <Switch
               edge="end"
@@ -70,3 +81,4 @@ export default function ColumnList() {
     </List>
   );
 }
+
