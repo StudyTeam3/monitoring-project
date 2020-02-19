@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,53 +9,46 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import "./../../css/table.css";
 
-import sample from "./sampledata";
-
 const columns = [
   {
     id: "time",
-    label: "Time",
+    label: "시간",
     format: value => value.toLocaleString()
   },
   {
     id: "duration",
-    label: "Duration",
+    label: "처리시간",
     format: value => value.toLocaleString()
   },
   {
     id: "source",
-    label: "Source",
-    align: "right"
+    label: "송신시스템",
+    align: "center"
   },
   {
     id: "destination",
-    label: "Destination",
-    align: "right"
+    label: "수신시스템",
+    align: "center"
   },
   {
-    id: "method",
-    label: "Method",
-    align: "right"
+    id: "http_method",
+    label: "메서드",
+    align: "center"
   },
   {
-    id: "url",
+    id: "uri",
     label: "URL",
-    align: "right"
+    align: "center"
   },
   {
-    id: "status",
-    label: "Status",
-    align: "right"
+    id: "success",
+    label: "상태",
+    align: "center"
   }
 ];
 
-function createData(time, duration, source, destination, method, url, status) {
-  return { time, duration, source, destination, method, url, status };
-}
-
-const rows = sample.map(element => createData(...element));
-
-const TransactionTable = () => {
+const TransactionTable = props => {
+  const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -67,6 +60,14 @@ const TransactionTable = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const inspectValue = value => {
+    return value === null ? "-" : value === true ? "200 OK" : value;
+  };
+
+  useEffect(() => {
+    setRows(props.data);
+  });
 
   return (
     <Paper className={"tableRoot"}>
@@ -94,10 +95,12 @@ const TransactionTable = () => {
                     {columns.map(column => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align} className={"tableCellMargin"}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          className={"tableCellMargin"}
+                        >
+                          {inspectValue(value)}
                         </TableCell>
                       );
                     })}

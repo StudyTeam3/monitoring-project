@@ -110,7 +110,7 @@ const NavigationDrawer = props => {
               </NavItem>
             </div>
           </div>
-          <NotificationContainer/>
+          {/* <NotificationContainer/> */}
         </SideNav>
       )}
     />

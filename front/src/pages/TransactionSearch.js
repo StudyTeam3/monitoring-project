@@ -10,7 +10,7 @@ class Dashboard extends Component {
     return (
         <Fragment>
             <div className="dashBoard">
-                <h1 className="header">트랜젝션 검색</h1>
+                <h1 className="header">트랜잭션 검색</h1>
                 <hr
                     style={{
                     color: "#000066",

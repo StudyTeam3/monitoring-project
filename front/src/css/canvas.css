@@ -13,7 +13,8 @@ width: 100vw;
   padding: 10px auto;
   margin: 10px auto;
   display:inline-block;
-  text-align: center;
+  text-align: left;
+  white-space: pre;
 }
 
 .CardTitle {

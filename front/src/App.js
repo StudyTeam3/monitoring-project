@@ -4,7 +4,6 @@ import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
 import "@material/react-icon-button/dist/icon-button.css";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import { TransactionDetail, TransactionSearch, SignUp, LogIn, ForgotPassword } from "./pages";
-import notification from "./components/notification";
 import "./css/common.css";
 import "./App.css";
 import 'react-notifications/lib/notifications.css';
@@ -31,10 +30,9 @@ function App() {
             />
           </div>
           <div className={whatDrawers}>
-            <Route path="/detail" component={TransactionDetail} />
+            <Route path="/detail/:mid" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
             <Route path="/search" component={TransactionSearch}/>
-            <Route path="/alarm" component={notification}/>
             <Route path='/LogIn' component={LogIn}/>
             <Route path='/SignUp' component={SignUp}/>
             <Route path='/ForgotPassword' component={ForgotPassword}/>

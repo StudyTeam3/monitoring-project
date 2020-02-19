@@ -1,105 +1,92 @@
-import React from "react";
-import { Stage, Label, Layer, Rect, Line, Arrow, Text } from "react-konva";
+import React, { useEffect, useState } from "react";
+import { Stage, Layer } from "react-konva";
+import TransactionBar from "./TransactionBar";
+import TransactionArrow from "./TransactionArrow";
 
-const TransactionCanvas = () => {
+const TransactionCanvas = props => {
+  const { data } = props;
+  const [realLoc, setRealLoc] = useState({});
+  const [realNodeLoc, setRealLocArr] = useState([]);
+  const [arrows, setArrows] = useState([]);
+  const [textInterval, setTextInterval] = useState(0);
+  const Width = window.innerWidth / 2;
+  const Height = 400;
+
+  const makeRealLoc = () => {
+    let tempLoc = [];
+    let tempObj = {};
+    // 노드 개수 구하기
+    for (let element of data) {
+      if (!tempObj.hasOwnProperty(element.source)) {
+        tempLoc.push({ node: element.source });
+        tempObj[element.source] = {};
+      }
+      if (!tempObj.hasOwnProperty(element.destination)) {
+        tempLoc.push({ node: element.destination });
+        tempObj[element.destination] = {};
+      }
+    }
+    let interval = Width / tempLoc.length;
+    setTextInterval(interval/7);
+    let index = 0;
+    // 노드 위치 정하기
+    for (let element of tempLoc) {
+      element["x"] = interval * index;
+      tempObj[element.node]["x"] = interval * index;
+      index++;
+    }
+    setRealLocArr(tempLoc);
+    setRealLoc(tempObj);
+  };
+
+  const makeArrows = () => {
+    const interval = 300 / realNodeLoc.length;
+    let index = 0;
+    const tempArrows = [];
+    for (let element of data) {
+      const isRight = (realLoc[element.source].x < realLoc[element.destination].x + 50);
+      tempArrows.push({
+        from: realLoc[element.source].x + 50,
+        to: realLoc[element.destination].x + 50,
+        y: ( index * interval ) + 80,
+        isRight: isRight,
+        text: element.method + ' ' + element.function
+      });
+      index++;
+    }
+    setArrows(tempArrows);
+  };
+
+  useEffect(() => {
+    if (data.length !== 0) {
+      makeRealLoc();
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data.length !== 0) {
+      makeArrows();
+    }
+  }, [realLoc]);
+
   return (
-    <Stage x={0} y={0} width={window.innerWidth / 2} height={400}>
+    <Stage x={0} y={0} width={Width} height={Height}>
       <Layer>
-        <Arrow
-          points={[50, 100, 243, 100]}
-          stroke={"#006"}
-          fill={"#006"}
-          strokeWidth={3}
-        />
-        <Arrow
-          points={[250, 150, 443, 150]}
-          stroke={"#006"}
-          fill={"#006"}
-          strokeWidth={3}
-        />
-        <Arrow
-          points={[450, 200, 257, 200]}
-          stroke={"#7e8083"}
-          fill={"#7e8083"}
-          strokeWidth={3}
-          dash={[10, 10]}
-        />
-        <Arrow
-          points={[250, 250, 57, 250]}
-          stroke={"#7e8083"}
-          fill={"#7e8083"}
-          strokeWidth={3}
-          dash={[10, 10]}
-        />
-        <Line
-          points={[50, 0, 50, 300]}
-          stroke={"#006"}
-          strokeWidth={15}
-          lineCap={"round"}
-          lineJoin={"round"}
-        />
-        <Line
-          points={[250, 0, 250, 300]}
-          stroke={"#006"}
-          strokeWidth={15}
-          lineCap={"round"}
-          lineJoin={"round"}
-        />
-        <Line
-          points={[450, 0, 450, 300]}
-          stroke={"#006"}
-          strokeWidth={15}
-          lineCap={"round"}
-          lineJoin={"round"}
-        />
-        <Label x={0} y={0}>
-          <Rect cornerRadius={10} width={100} height={50} fill="#006" />
-          <Text
-            text={"client"}
-            x={25}
-            y={15}
-            fontSize={20}
-            fontFamily={"Calibri"}
-            fill={"#fff"}
-          />
-        </Label>
-        <Label x={0} y={0}>
-          <Rect
-            cornerRadius={10}
-            x={200}
-            y={0}
-            width={100}
-            height={50}
-            fill="#006"
-          />
-          <Text
-            text={"spa"}
-            x={225}
-            y={15}
-            fontSize={20}
-            fontFamily={"Calibri"}
-            fill={"#fff"}
-          />
-        </Label>
-        <Label x={0} y={0}>
-          <Rect
-            cornerRadius={10}
-            x={400}
-            y={0}
-            width={100}
-            height={50}
-            fill="#006"
-          />
-          <Text
-            text={"vehicle"}
-            x={425}
-            y={15}
-            fontSize={20}
-            fontFamily={"Calibri"}
-            fill={"#fff"}
-            align={"center"}
-          />
-        </Label>
+        {realNodeLoc.map(element => {
+          return <TransactionBar x={element.x} text={element.node} />;
+        })}
+        {arrows.map(element => {
+          return (
+            <TransactionArrow
+              from={element.from}
+              to={element.to}
+              y={element.y}
+              isRight={element.isRight}
+              text={element.text}
+              textInterval={textInterval}
+            />
+          );
+        })}
       </Layer>
     </Stage>
   );
