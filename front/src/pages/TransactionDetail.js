@@ -18,6 +18,7 @@ const TransactionDetail = props => {
   const params = { ...props.match.params };
   const [rows, setRows] = useState([]);
   const [transactionSummaryInfo, setTransactionSummaryInfo] = useState({});
+  const [rowConnection, setRowConnection] = useState([]);
   const onSummarySubmit = props => {
     setTransactionSummaryInfo(props);
   };
@@ -48,6 +49,14 @@ const TransactionDetail = props => {
         start: rows[0].time,
         end: rows[rows.length - 1].time
       });
+      const tempRowConnection = [];
+      for(let element in rows) {
+        tempRowConnection.push({
+          source: element.source,
+          destination: element.destination,
+          time: element.time
+        });
+      }
     }
   }, [rows]);
 
@@ -116,7 +125,7 @@ const TransactionDetail = props => {
           </div>
           {/* Canvas */}
           <div className={"Canvas"}>
-            <TransactionCanvas />
+            <TransactionCanvas data={rowConnection} />
           </div>
         </div>
       </Paper>
