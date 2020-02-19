@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TransactionCanvas from "./../components/transactionDetail/TransactionCanvas";
 import TransactionTable from "./../components/transactionDetail/TransactionTable";
 import SuccessChip from "../components/SuccessChip";
@@ -9,17 +9,47 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material/react-icon-button";
 import { IoIosUndo } from "react-icons/io";
 import { Link, BrowserRouter as Router } from "react-router-dom";
+import axios from "axios";
 import "../css/common.css";
 import "../css/canvas.css";
+const config = require("../config/config");
 
 const TransactionDetail = props => {
   const params = { ...props.match.params };
+  const [rows, setRows] = useState([]);
   const [transactionSummaryInfo, setTransactionSummaryInfo] = useState({});
-  const [show, setShow] = useState(false);
   const onSummarySubmit = props => {
     setTransactionSummaryInfo(props);
-    setShow(true);
   };
+
+  useEffect(() => {
+    axios
+      .post(config.development.url + "/spa/detail", { message_id: params.mid })
+      .then(res => {
+        setRows(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (rows.length !== 0) {
+      setTransactionSummaryInfo({
+        service_name: rows[0].service_name,
+        message_id: rows[0].message_id,
+        car_id: rows[0].car_id,
+        status: rows[rows.length - 1].success,
+        duration: (
+          0.001 *
+          (new Date(rows[rows.length - 1].time).getTime() -
+            new Date(rows[0].time).getTime())
+        ).toFixed(3),
+        start: rows[0].time,
+        end: rows[rows.length - 1].time
+      });
+    }
+  }, [rows]);
 
   return (
     <div>
@@ -42,42 +72,46 @@ const TransactionDetail = props => {
           {/* Card */}
           <div className={"Card"}>
             <Card className={"Card"}>
-              {show && (
-                <CardContent>
-                  <Typography
-                    className={"CardTitle"}
-                    variant="h6"
-                    color="textSecondary"
-                    gutterBottom
-                    style={{ textAlign: "center" }}
-                  >
-                    <b>Transaction 요약</b>
-                  </Typography>
-                  <Typography color="textPrimary" gutterBottom>
-                    <b>{"서비스 명:\t"}</b>
-                    {transactionSummaryInfo.service_name}
-                  </Typography>
-                  <Typography color="textPrimary" gutterBottom>
-                    <b>{"MID:\t"}</b>{transactionSummaryInfo.message_id}
-                  </Typography>
-                  <Typography color="textPrimary" gutterBottom>
-                    <b>{"VID:\t"}</b>{transactionSummaryInfo.car_id}
-                  </Typography>
-                  <Typography color="textPrimary" gutterBottom>
-                    <b>{"처리상태:\t"}</b>
-                    <SuccessChip status={transactionSummaryInfo.status} />
-                  </Typography>
-                  <Typography color="textPrimary" gutterBottom>
-                    <b>{"총 소요시간:\t"}</b>{transactionSummaryInfo.duration}{" Sec"}
-                  </Typography>
-                  <Typography color="textPrimary" gutterBottom>
-                    <b>{"시작일시:\t"}</b>{transactionSummaryInfo.start}
-                  </Typography>
-                  <Typography color="textPrimary" gutterBottom>
-                    <b>{"종료일시:\t"}</b>{transactionSummaryInfo.end}
-                  </Typography>
-                </CardContent>
-              )}
+              <CardContent>
+                <Typography
+                  className={"CardTitle"}
+                  variant="h6"
+                  color="textSecondary"
+                  gutterBottom
+                  style={{ textAlign: "center" }}
+                >
+                  <b>Transaction 요약</b>
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                  <b>{"서비스 명:\t"}</b>
+                  {transactionSummaryInfo.service_name}
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                  <b>{"MID:\t"}</b>
+                  {transactionSummaryInfo.message_id}
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                  <b>{"VID:\t"}</b>
+                  {transactionSummaryInfo.car_id}
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                  <b>{"처리상태:\t"}</b>
+                  <SuccessChip status={transactionSummaryInfo.status} />
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                  <b>{"총 소요시간:\t"}</b>
+                  {transactionSummaryInfo.duration}
+                  {" Sec"}
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                  <b>{"시작일시:\t"}</b>
+                  {transactionSummaryInfo.start}
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                  <b>{"종료일시:\t"}</b>
+                  {transactionSummaryInfo.end}
+                </Typography>
+              </CardContent>
             </Card>
           </div>
           {/* Canvas */}
@@ -88,7 +122,7 @@ const TransactionDetail = props => {
       </Paper>
       <div>
         {/* Table */}
-        <TransactionTable onSubmit={onSummarySubmit} message_id={params.mid} />
+        <TransactionTable data={rows} />
       </div>
     </div>
   );

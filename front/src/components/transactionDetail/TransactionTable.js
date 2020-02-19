@@ -8,9 +8,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import "./../../css/table.css";
-import axios from "axios";
-
-const config = require("../../config/config");
 
 const columns = [
   {
@@ -51,7 +48,6 @@ const columns = [
 ];
 
 const TransactionTable = props => {
-  const message_id = props.message_id;
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -70,29 +66,8 @@ const TransactionTable = props => {
   };
 
   useEffect(() => {
-    axios
-      .post(config.development.url + "/spa/detail", { message_id: message_id })
-      .then(res => {
-        setRows(res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (rows.length !== 0) {
-      props.onSubmit({
-        service_name: rows[0].service_name,
-        message_id: rows[0].message_id,
-        car_id: rows[0].car_id,
-        status: rows[rows.length - 1].success,
-        duration: (0.001*(new Date(rows[rows.length - 1].time).getTime() - new Date(rows[0].time).getTime())).toFixed(3),
-        start: rows[0].time,
-        end: rows[rows.length - 1].time
-      });
-    }
-  }, [rows]);
+    setRows(props.data);
+  })
 
   return (
     <Paper className={"tableRoot"}>
