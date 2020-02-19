@@ -4,7 +4,6 @@ import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
 import "@material/react-icon-button/dist/icon-button.css";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import { TransactionDetail, TransactionSearch } from "./pages";
-import notification from "./components/notification";
 import "./css/common.css";
 import "./App.css";
 import 'react-notifications/lib/notifications.css';
@@ -29,7 +28,6 @@ function App() {
             <Route path="/detail" component={TransactionDetail} />
             <Route path="/home" component={Dashboard} />
             <Route path="/search" component={TransactionSearch}/>
-            <Route path="/alarm" component={notification}/>
           </div>
         </div>
       </Router>

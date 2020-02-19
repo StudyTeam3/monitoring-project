@@ -9,6 +9,7 @@ var flash = require('connect-flash');
 // Router Import
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var alarmRouter = require('./routes/alarm');
 
 // DB Import
 var sequelize = require('./models').sequelize;
@@ -40,6 +41,7 @@ app.use(flash());
 // Router Connection to app
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/alarm', alarmRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -7,9 +7,15 @@ import { Route, BrowserRouter, Link } from "react-router-dom";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
+import axios from "axios";
+const AlarmUrl = "http://localhost:5000/alarm"
+const alarm = [];
 
 const createNotification = (type) => {
   return () => {
+    let { data: alarms } = axios.get(AlarmUrl);
+    alarm.push(alarms);
+    console.log(alarm);
     for(var i = 0; i < 5; i++){
       NotificationManager.error('dstd-fewq-1234-asdz', '00:00:00 에러발생', 5000, () => {
         alert('detail page로 이동');
@@ -91,7 +97,7 @@ const NavigationDrawer = props => {
                 <NavIcon>
                   <IconButton onClick={createNotification('error')}>
                     <GoBell color={"white"} />
-                    <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>5</p>  
+                      <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>5</p>  
                   </IconButton>
                 </NavIcon>
               </NavItem>
