@@ -50,7 +50,7 @@ const columns = [
   }
 ];
 
-const TransactionTable = (props) => {
+const TransactionTable = props => {
   const message_id = props.message_id;
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
@@ -65,19 +65,34 @@ const TransactionTable = (props) => {
     setPage(0);
   };
 
-  const inspectValue = (value) => {
-    return value === null ? "-" : ( value === true ? "200 OK" : value );
-  }
+  const inspectValue = value => {
+    return value === null ? "-" : value === true ? "200 OK" : value;
+  };
 
   useEffect(() => {
-    axios.post(config.development.url + '/spa/detail', {"message_id": message_id})
-    .then((res) => {
-      setRows(res.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  },[]);
+    axios
+      .post(config.development.url + "/spa/detail", { message_id: message_id })
+      .then(res => {
+        setRows(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (rows.length !== 0) {
+      props.onSubmit({
+        service_name: rows[0].service_name,
+        message_id: rows[0].message_id,
+        car_id: rows[0].car_id,
+        status: rows[rows.length - 1].success,
+        duration: (0.001*(new Date(rows[rows.length - 1].time).getTime() - new Date(rows[0].time).getTime())).toFixed(3),
+        start: rows[0].time,
+        end: rows[rows.length - 1].time
+      });
+    }
+  }, [rows]);
 
   return (
     <Paper className={"tableRoot"}>
@@ -105,8 +120,12 @@ const TransactionTable = (props) => {
                     {columns.map(column => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align} className={"tableCellMargin"}>
-                          { inspectValue(value) }
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          className={"tableCellMargin"}
+                        >
+                          {inspectValue(value)}
                         </TableCell>
                       );
                     })}
