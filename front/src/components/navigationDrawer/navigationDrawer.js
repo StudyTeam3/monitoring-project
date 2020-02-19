@@ -3,25 +3,26 @@ import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
 import { GoSignOut, GoBell } from "react-icons/go";
-import { Route, BrowserRouter, Link } from "react-router-dom";
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { Route } from "react-router-dom";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
 import axios from "axios";
+
 const AlarmUrl = "http://localhost:5000/alarm"
-const alarm = [];
 
 const createNotification = (type) => {
-  return () => {
-    let { data: alarms } = axios.get(AlarmUrl);
-    alarm.push(alarms);
-    console.log(alarm);
-    for(var i = 0; i < 5; i++){
-      NotificationManager.error('dstd-fewq-1234-asdz', '00:00:00 에러발생', 5000, () => {
+
+  return async () => {
+    let { data: alarms } = await axios.get(AlarmUrl);
+
+    for(var i = 0; i < Object.keys(alarms).length; i++){
+      NotificationManager.error(String(alarms[i].id), String(alarms[i].title), 5000, () => {
         alert('detail page로 이동');
       });
     }
   }
+
 }
 
 const NavigationDrawer = props => {
