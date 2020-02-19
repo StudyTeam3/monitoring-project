@@ -48,7 +48,7 @@ const TransactionDetail = props => {
       });
       const tempRowConnection = [];
       for (let element of rows) {
-        if (element.source !== element.destination && element !== rows[0]) {
+        if (element.source !== element.destination && element.source.length < 10) {
           tempRowConnection.push({
             source: element.source,
             destination: element.destination,
