@@ -5,7 +5,6 @@ import SecondChart from "./SecondChart";
 import ThirdChart from "./ThirdChart";
 import DashboardTable from "./DashboardTable";
 import DashboardLogTable from "./DashboardLogTable";
-import Paper from "@material-ui/core/Paper";
 
 import "../../css/dashboard.css";
 import "../../../node_modules/react-vis/dist/style.css";
@@ -14,6 +13,7 @@ import "../../css/common.css";
 
 class Dashboard extends Component {
   render() {
+    if(this.props.isLogined) this.props.history.push('/Login');
     return (
       <div className="dashBoard">
           <h1 className="header">Dashboard</h1>

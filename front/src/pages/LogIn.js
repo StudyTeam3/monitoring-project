@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SocialLogin from '../components/SocialLogin';
+import { connect } from "react-redux";
 
-const LogIn = () => {
+const LogIn = (props) => {
+    if(props.isLogined) props.history.push('/home');
     return (
         <Fragment>
             <div>
@@ -35,4 +37,8 @@ const LogIn = () => {
     );
 };
 
-export default LogIn;
+export default connect(
+    state => ({
+      isLogined: state.loginModules.isLogined
+    }),
+  )(LogIn);
