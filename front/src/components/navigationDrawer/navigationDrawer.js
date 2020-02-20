@@ -3,12 +3,13 @@ import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
 import { GoSignOut, GoBell } from "react-icons/go";
-import { Route, BrowserRouter, Link, Redirect } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
 import {
   NotificationContainer,
   NotificationManager
 } from "react-notifications";
 import { connect } from "react-redux";
+import { logout } from "../../store/modules/loginModules";
 import firebase from "firebase";
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
@@ -35,7 +36,8 @@ const createNotification = (state) => {
 
 const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
-  const isLogined = props.isLogined;
+  let isLogined = props.isLogined;
+  const logout = props.logout;
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
    * isToggled: 토글 되었는지 확인하는 변수
@@ -107,9 +109,13 @@ const NavigationDrawer = props => {
             onSubmit(isToggled);
           }}
           onSelect={selected => {
-            const to = "/" + selected;
-            if (location.pathname !== to) {
-              history.push(to);
+            if (isLogined === false) {
+              history.push("/login");
+            } else {
+              const to = "/" + selected;
+              if (location.pathname !== to) {
+                history.push(to);
+              }
             }
           }}
           expanded={isToggled}
@@ -118,7 +124,10 @@ const NavigationDrawer = props => {
           <SideNav.Nav defaultSelected={selectedPage}>
             <div>
               <p className={"drawerUserName"}>
-                {isToggled && ( isLogined ? firebase.auth().currentUser.displayName : "계정 정보가 없습니다." )}
+                {isToggled &&
+                  (isLogined
+                    ? firebase.auth().currentUser.displayName
+                    : "계정 정보가 없습니다.")}
               </p>
               <hr className={"drawerHeaderLine"} />
             </div>
@@ -156,10 +165,13 @@ const NavigationDrawer = props => {
               <NavItem eventKey="signout" className={"bottomIcons"}>
                 <NavIcon>
                   <Link to="/LogIn">
-                    <IconButton>
+                    <IconButton onClick={() => alert("로그아웃 되었습니다.")}>
                       <GoSignOut
                         color={"white"}
-                        onClick={() => firebase.auth().signOut()}
+                        onClick={() => {
+                          logout();
+                          firebase.auth().signOut();
+                        }}
                       />
                       <Redirect to="LogIn" />
                     </IconButton>
@@ -180,4 +192,9 @@ export default connect(
     // props 값으로 넣어 줄 상태를 정의해줍니다.
     isLogined: state.loginModules.isLogined
   }),
+  dispatch => ({
+    logout: () => {
+      dispatch(logout());
+    }
+  })
 )(NavigationDrawer);
