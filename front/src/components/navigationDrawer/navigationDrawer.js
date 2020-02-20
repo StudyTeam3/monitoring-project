@@ -15,13 +15,16 @@ import "../../css/alarm.css";
 import axios from "axios";
 
 const AlarmUrl = "http://localhost:5000/alarm"
+// let AlarmCount = 0;
 
-const createNotification = () => {
+const createNotification = (state) => {
 
   return async () => {
     let { data: alarms } = await axios.get(AlarmUrl);
-    console.log(alarms);
+    // console.log(state);
+    // state = (Object.keys(alarms).length);
     for(var i = 0; i < Object.keys(alarms).length; i++){
+      if(!alarms[i].success)
       NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
         alert('detail page로 이동');
       });
@@ -29,8 +32,6 @@ const createNotification = () => {
   }
 
 }
-
-
 
 const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
@@ -46,15 +47,44 @@ const NavigationDrawer = props => {
   });
   const { bottomIconState, isToggled, selectedPage } = states;
 
-  useEffect(() => {
-    
-    createNotification();
-  
-    // returned function will be called on component unmount 
-    return () => {
-      createNotification();
+  const [AlarmCount, setAlarmCount] = useState(0);
+
+  const createNotification = () => {
+    return async () => {
+      let { data: alarms } = await axios.get(AlarmUrl);
+      let tempCount = 0;
+      console.log(alarms);
+      for(var i = 0; i < Object.keys(alarms).length; i++){
+        if(!alarms[i].success && alarms[i].commu_type == "Response"){
+          NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
+            alert('detail page로 이동');
+          });
+          tempCount += 1;
+        }
+      }
+      setAlarmCount(tempCount);
     }
-  }, [])
+  }
+
+  useEffect(() => {
+    return async() => {
+      let tempCount = 0;
+      let { data: alarms } = await axios.get(AlarmUrl);
+
+      for(var i = 0; i < Object.keys(alarms).length; i++){
+        if(!alarms[i].success && alarms[i].commu_type == "Response"){
+
+          tempCount += 1;
+        }
+      }
+      setAlarmCount(tempCount);
+      console.log("알람",tempCount);
+    }
+    // returned function will be called on component unmount 
+    // return () => {
+    //   setAlarmCount(1);
+    // }
+  },[AlarmCount]);
 
   return (
     <Route
@@ -115,9 +145,9 @@ const NavigationDrawer = props => {
             <div className={states.bottomIconState}>
               <NavItem eventKey="alarm" className={"bottomIcons"}>
                 <NavIcon>
-                  <IconButton onClick={createNotification()}>
+                  <IconButton onClick={createNotification(AlarmCount)}>
                     <GoBell color={"white"} />
-                      <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>5</p>  
+                      <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>{AlarmCount}</p>  
                   </IconButton>
                 </NavIcon>
               </NavItem>

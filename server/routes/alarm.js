@@ -20,11 +20,10 @@ router.get('/', function(req, res, next) {
     });
 
     client.connect();
-    const sql = "SELECT time, message_id, success FROM spa;";
+    const sql = "SELECT time, message_id, success, commu_type FROM spa;";
 
     client.query(sql)
     .then((result)=>{
-
         console.log(result.rows);
         res.status(200).json(result.rows);
     })
