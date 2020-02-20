@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
@@ -11,7 +11,7 @@ import axios from "axios";
 
 const AlarmUrl = "http://localhost:5000/alarm"
 
-const createNotification = (type) => {
+const createNotification = () => {
 
   return async () => {
     let { data: alarms } = await axios.get(AlarmUrl);
@@ -25,6 +25,8 @@ const createNotification = (type) => {
 
 }
 
+
+
 const NavigationDrawer = props => {
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
@@ -36,6 +38,16 @@ const NavigationDrawer = props => {
     selectedPage: ""
   });
   const { bottomIconState, isToggled, selectedPage } = states;
+
+  useEffect(() => {
+    
+    createNotification();
+  
+    // returned function will be called on component unmount 
+    return () => {
+      createNotification();
+    }
+  }, [])
 
   return (
     <Route
@@ -96,7 +108,7 @@ const NavigationDrawer = props => {
             <div className={states.bottomIconState}>
               <NavItem eventKey="alarm" className={"bottomIcons"}>
                 <NavIcon>
-                  <IconButton onClick={createNotification('error')}>
+                  <IconButton onClick={createNotification()}>
                     <GoBell color={"white"} />
                       <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>5</p>  
                   </IconButton>
