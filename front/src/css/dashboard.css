@@ -34,5 +34,9 @@
 }
 
 h2{
+    text-align: center;
+}
+
+.tableName{
     text-align: left;
 }

@@ -8,9 +8,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import "./../../css/table.css";
-import axios from "axios";
-
-const config = require("../../config/config");
 
 const columns = [
   {
@@ -50,8 +47,7 @@ const columns = [
   }
 ];
 
-const TransactionTable = (props) => {
-  const message_id = props.message_id;
+const TransactionTable = props => {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -65,21 +61,13 @@ const TransactionTable = (props) => {
     setPage(0);
   };
 
-  const inspectValue = (value) => {
-    return value === null ? "-" : ( value === true ? "200 OK" : value );
-  }
+  const inspectValue = value => {
+    return value === null ? "-" : value === true ? "200 OK" : value;
+  };
 
   useEffect(() => {
-    axios.post(config.development.url + '/spa/detail', {"message_id": message_id})
-    .then((res) => {
-      setRows(res.data);
-      console.log(res.data);
-      console.log(typeof res.data[3].success);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  },[]);
+    setRows(props.data);
+  });
 
   return (
     <Paper className={"tableRoot"}>
@@ -107,8 +95,12 @@ const TransactionTable = (props) => {
                     {columns.map(column => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align} className={"tableCellMargin"}>
-                          { inspectValue(value) }
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          className={"tableCellMargin"}
+                        >
+                          {inspectValue(value)}
                         </TableCell>
                       );
                     })}
