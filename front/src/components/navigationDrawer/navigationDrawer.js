@@ -4,8 +4,12 @@ import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
 import { GoSignOut, GoBell } from "react-icons/go";
 import { Route, BrowserRouter, Link, Redirect } from "react-router-dom";
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import firebase from 'firebase';
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
+import { connect } from "react-redux";
+import firebase from "firebase";
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
 import axios from "axios";
@@ -29,6 +33,8 @@ const createNotification = () => {
 
 
 const NavigationDrawer = props => {
+  const onSubmit = props.onSubmit;
+  const isLogined = props.isLogined;
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
    * isToggled: 토글 되었는지 확인하는 변수
@@ -68,7 +74,7 @@ const NavigationDrawer = props => {
                 isToggled: false
               });
             }
-            props.onSubmit(isToggled);
+            onSubmit(isToggled);
           }}
           onSelect={selected => {
             const to = "/" + selected;
@@ -81,9 +87,9 @@ const NavigationDrawer = props => {
           <SideNav.Toggle />
           <SideNav.Nav defaultSelected={selectedPage}>
             <div>
-              <h1 className={"drawerUserName"}>
-                {isToggled && firebase.auth().currentUser.displayName}
-              </h1>
+              <p className={"drawerUserName"}>
+                {isToggled && ( isLogined ? firebase.auth().currentUser.displayName : "계정 정보가 없습니다." )}
+              </p>
               <hr className={"drawerHeaderLine"} />
             </div>
             <NavItem eventKey="home">
@@ -123,6 +129,7 @@ const NavigationDrawer = props => {
                   <IconButton onClick={() => alert("로그아웃 되었습니다")}>
                       <GoSignOut color={"white"} onClick={() => firebase.auth().signOut()} />
                   </IconButton>
+
                   </Link>
                 </NavIcon>
               </NavItem>
@@ -135,4 +142,9 @@ const NavigationDrawer = props => {
   );
 };
 
-export default NavigationDrawer;
+export default connect(
+  state => ({
+    // props 값으로 넣어 줄 상태를 정의해줍니다.
+    isLogined: state.loginModules.isLogined
+  }),
+)(NavigationDrawer);

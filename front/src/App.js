@@ -6,7 +6,7 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { TransactionDetail, TransactionSearch, SignUp, LogIn, ForgotPassword, Setting } from "./pages";
 import "./css/common.css";
 import "./App.css";
-import 'react-notifications/lib/notifications.css';
+import "react-notifications/lib/notifications.css";
 
 
 function App() {
@@ -31,9 +31,9 @@ function App() {
               <Route path="/detail/:mid" component={TransactionDetail} />
               <Route path="/detail" component={TransactionDetail} />
             </Switch>
-            <Route path='/LogIn' component={LogIn}/>
-            <Route path='/SignUp' component={SignUp}/>
-            <Route path='/ForgotPassword' component={ForgotPassword}/>
+            <Route path="/LogIn" component={LogIn} />
+            <Route path="/SignUp" component={SignUp} />
+            <Route path="/ForgotPassword" component={ForgotPassword} />
           </div>
         </div>
       </Router>
