@@ -72,7 +72,7 @@ const NavigationDrawer = props => {
       let { data: alarms } = await axios.get(AlarmUrl);
 
       for(var i = 0; i < Object.keys(alarms).length; i++){
-        if(!alarms[i].success){
+        if(!alarms[i].success && alarms[i].commu_type == "Response"){
 
           tempCount += 1;
         }
