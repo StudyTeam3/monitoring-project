@@ -26,6 +26,15 @@ router.get("/", (req, res, next) => {
           eachResponse["car_id"] = each[0].dataValues.car_id;
           eachResponse["function"] = each[0].dataValues.function;
           eachResponse["status"] = each.slice(-1)[0].dataValues.success;
+          eachResponse["log_level"] = each[0].dataValues.log_level;
+          eachResponse["server_range"] = each[0].dataValues.server_range;
+          eachResponse["protocol"] = each[0].dataValues.protocol;
+          eachResponse["http_method"] = each[0].dataValues.http_method;
+          eachResponse["uri"] = each[0].dataValues.uri;
+          eachResponse["source"] = each[0].dataValues.source;
+          eachResponse["destination"] = each[0].dataValues.destination;
+          eachResponse["commu_type"] = each[0].dataValues.commu_type;
+          eachResponse["contents"] = each[0].dataValues.contents;
           response.push({ ...eachResponse });
           resolve(eachResponse);
         })

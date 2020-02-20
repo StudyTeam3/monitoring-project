@@ -32,8 +32,8 @@ class DashboardTable extends Component {
     render() {
 
         return (
-            <TableContainer component={Paper} style = {{padding:'20px', maxWidth: '80%'}}>
-                <Table className={classes.table} aria-label="simple table">
+            // <TableContainer component={Paper} style = {{padding:'20px', maxWidth: '80%', margin:'0px'}}>
+                <Table className={classes.table} aria-label="simple table" style={{margin:'0px', padding:'20px', maxWidth: '80%'}}>
                     <TableHead className="TableHead">
                     <TableRow>
                         <TableCell><p className="TableHeadFont">서버명</p></TableCell>
@@ -53,7 +53,7 @@ class DashboardTable extends Component {
                     ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
+            // </TableContainer>
         );
     }
 }

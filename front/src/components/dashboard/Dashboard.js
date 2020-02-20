@@ -23,7 +23,6 @@ class Dashboard extends Component {
               height: "1px",
               background: "#00287A",
               marginLeft: "20px",
-              marginRight: "20px"
             }}
           />
           <div className="chartStyle">
@@ -41,12 +40,12 @@ class Dashboard extends Component {
             </div>
           </div>
           <div className="tableStyle">
-            <div style={{ width: "35%" }}>
-              <h2>서버 현황</h2>
+            <div style={{ width: "35%", marginLeft: '30px' }}>
+              <h2 className="tableName">서버 현황</h2>
               <DashboardTable></DashboardTable>
             </div>
             <div style={{ width: "60%" }}>
-              <h2>최근 실패 로그</h2>
+              <h2 className="tableName">최근 실패 로그</h2>
               <DashboardLogTable style={{ width: "70%" }}></DashboardLogTable>
             </div>
           </div>

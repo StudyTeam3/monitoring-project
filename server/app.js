@@ -9,6 +9,7 @@ var flash = require('connect-flash');
 // Router Import
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var alarmRouter = require('./routes/alarm');
 var spaRouter = require('./routes/spa');
 
 // DB Import
@@ -46,6 +47,7 @@ if(config.cors) app.use(require('cors')());
 // Router Connection to app
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/alarm', alarmRouter);
 app.use('/spa',spaRouter);
 
 // catch 404 and forward to error handler

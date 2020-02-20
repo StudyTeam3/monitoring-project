@@ -3,13 +3,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
 import "@material/react-icon-button/dist/icon-button.css";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import {
-  TransactionDetail,
-  TransactionSearch,
-  SignUp,
-  LogIn,
-  ForgotPassword
-} from "./pages";
+import { TransactionDetail, TransactionSearch, SignUp, LogIn, ForgotPassword, Setting } from "./pages";
 import "./css/common.css";
 import "./App.css";
 import "react-notifications/lib/notifications.css";
@@ -33,6 +27,7 @@ function App() {
           </div>
           <div className={whatDrawers}>
             <Route path="/home" component={Dashboard} />
+            <Route path="/setting" component={Setting}/>
             <Route path="/search" component={TransactionSearch} />
             <Switch>
               <Route path="/detail/:mid" component={TransactionDetail} />

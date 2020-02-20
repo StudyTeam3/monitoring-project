@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
@@ -12,16 +12,25 @@ import { connect } from "react-redux";
 import firebase from "firebase";
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
+import axios from "axios";
 
-const createNotification = type => {
-  return () => {
-    for (var i = 0; i < 5; i++) {
-      NotificationManager.error("Error message", "Click me!", 5000, () => {
-        alert("callback");
+const AlarmUrl = "http://localhost:5000/alarm"
+
+const createNotification = () => {
+
+  return async () => {
+    let { data: alarms } = await axios.get(AlarmUrl);
+    console.log(alarms);
+    for(var i = 0; i < Object.keys(alarms).length; i++){
+      NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
+        alert('detail page로 이동');
       });
     }
-  };
-};
+  }
+
+}
+
+
 
 const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
@@ -36,6 +45,16 @@ const NavigationDrawer = props => {
     selectedPage: ""
   });
   const { bottomIconState, isToggled, selectedPage } = states;
+
+  useEffect(() => {
+    
+    createNotification();
+  
+    // returned function will be called on component unmount 
+    return () => {
+      createNotification();
+    }
+  }, [])
 
   return (
     <Route
@@ -96,20 +115,9 @@ const NavigationDrawer = props => {
             <div className={states.bottomIconState}>
               <NavItem eventKey="alarm" className={"bottomIcons"}>
                 <NavIcon>
-                  <IconButton onClick={createNotification("error")}>
+                  <IconButton onClick={createNotification()}>
                     <GoBell color={"white"} />
-                    <p
-                      className="circle"
-                      style={{
-                        position: "absolute",
-                        bottom: "10px",
-                        right: "5px",
-                        color: "#000066",
-                        fontSize: "15px"
-                      }}
-                    >
-                      5
-                    </p>
+                      <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>5</p>  
                   </IconButton>
                 </NavIcon>
               </NavItem>
@@ -130,7 +138,7 @@ const NavigationDrawer = props => {
               </NavItem>
             </div>
           </div>
-          {/* <NotificationContainer/> */}
+          <NotificationContainer/>
         </SideNav>
       )}
     />
