@@ -18,6 +18,7 @@ const createNotification = () => {
     let { data: alarms } = await axios.get(AlarmUrl);
     console.log(alarms);
     for(var i = 0; i < Object.keys(alarms).length; i++){
+      if(!alarms[i].success)
       NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
         alert('detail page로 이동');
       });
