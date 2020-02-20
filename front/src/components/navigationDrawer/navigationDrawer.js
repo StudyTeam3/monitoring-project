@@ -3,8 +3,9 @@ import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
 import { GoSignOut, GoBell } from "react-icons/go";
-import { Route } from "react-router-dom";
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { Route, BrowserRouter, Link, Redirect } from "react-router-dom";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import firebase from 'firebase';
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
 import axios from "axios";
@@ -81,7 +82,7 @@ const NavigationDrawer = props => {
           <SideNav.Nav defaultSelected={selectedPage}>
             <div>
               <h1 className={"drawerUserName"}>
-                {isToggled && "사용자이름아아아"}
+                {isToggled && firebase.auth().currentUser.displayName}
               </h1>
               <hr className={"drawerHeaderLine"} />
             </div>
@@ -118,9 +119,12 @@ const NavigationDrawer = props => {
             <div className={states.bottomIconState}>
               <NavItem eventKey="signout" className={"bottomIcons"}>
                 <NavIcon>
+                  <Link to="/LogIn">
                   <IconButton>
-                    <GoSignOut color={"white"} />
+                    <GoSignOut color={"white"} onClick={() => firebase.auth().signOut()}/>
+                    <Redirect to="LogIn" />
                   </IconButton>
+                  </Link>
                 </NavIcon>
               </NavItem>
             </div>

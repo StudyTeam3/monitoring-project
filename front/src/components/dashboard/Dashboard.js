@@ -12,7 +12,6 @@ import "../../../node_modules/react-vis/dist/style.css";
 import "../../css/common.css";
 
 
-
 class Dashboard extends Component {
   render() {
     return (

@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material/react-icon-button";
 import { IoIosUndo } from "react-icons/io";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import "../css/common.css";
 import "../css/canvas.css";
@@ -19,11 +19,10 @@ const TransactionDetail = props => {
   const [rows, setRows] = useState([]);
   const [transactionSummaryInfo, setTransactionSummaryInfo] = useState({});
   const [rowConnection, setRowConnection] = useState([]);
-  const onSummarySubmit = props => {
-    setTransactionSummaryInfo(props);
-  };
 
   useEffect(() => {
+    // 특정 Transaction을 지칭하지 않았다면, search로 redirect
+    if(params.mid === undefined) props.history.push('/search');
     axios
       .post(config.development.url + "/spa/detail", { message_id: params.mid })
       .then(res => {
@@ -50,13 +49,17 @@ const TransactionDetail = props => {
         end: rows[rows.length - 1].time
       });
       const tempRowConnection = [];
-      for(let element in rows) {
-        tempRowConnection.push({
-          source: element.source,
-          destination: element.destination,
-          time: element.time
-        });
+      for (let element of rows) {
+        if (element.source !== element.destination && element.source.length < 10) {
+          tempRowConnection.push({
+            source: element.source,
+            destination: element.destination,
+            method: element.http_method,
+            function: element.function,
+          });
+        }
       }
+      setRowConnection(tempRowConnection);
     }
   }, [rows]);
 
