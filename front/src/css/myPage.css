@@ -1,0 +1,8 @@
+.column {
+    width: 50vw;
+    padding: 2px;
+    border: 5px solid #000066;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
