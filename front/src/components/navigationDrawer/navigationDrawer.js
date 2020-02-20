@@ -119,10 +119,9 @@ const NavigationDrawer = props => {
             <div className={states.bottomIconState}>
               <NavItem eventKey="signout" className={"bottomIcons"}>
                 <NavIcon>
-                  <Link to="/LogIn">
-                  <IconButton>
-                    <GoSignOut color={"white"} onClick={() => firebase.auth().signOut()}/>
-                    <Redirect to="LogIn" />
+                <Link to="/LogIn">
+                  <IconButton onClick={() => alert("로그아웃 되었습니다")}>
+                      <GoSignOut color={"white"} onClick={() => firebase.auth().signOut()} />
                   </IconButton>
                   </Link>
                 </NavIcon>

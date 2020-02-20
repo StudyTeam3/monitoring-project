@@ -7,9 +7,6 @@ import { TransactionDetail, TransactionSearch, SignUp, LogIn, ForgotPassword, Se
 import "./css/common.css";
 import "./App.css";
 import 'react-notifications/lib/notifications.css';
-// import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-// import { FacebookLoginButton, InstagramLoginButton, GoogleLoginButton } from 'react-social-login-buttons';
-// import SocialLogin from './components/SocialLogin';
 
 
 function App() {
