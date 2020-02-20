@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -26,7 +26,7 @@ const capitalize = (str) => {
 export default function ColumnList() {
   const classes = useStyles();
   const preChecked = window.sessionStorage.getItem("column");
-  const [checked, setChecked] = React.useState(JSON.parse(preChecked));
+  const [checked, setChecked] = React.useState([]);
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
@@ -43,13 +43,14 @@ export default function ColumnList() {
     window.sessionStorage.setItem('column', JSON.stringify(newChecked));
   };
 
+  
   const columns = [
-    "start_time",
-    "end_time",
+    "start",
+    "end",
     "log_level",
     "server_range",
-    "server_name",
-    "service_name",
+    "server",
+    "service",
     "message_id",
     "protocol",
     "http_method",
@@ -57,7 +58,7 @@ export default function ColumnList() {
     "source",
     "destination",
     "commu_type",
-    "success",
+    "status",
     "function",
     "car_id"
   ];
@@ -81,4 +82,3 @@ export default function ColumnList() {
     </List>
   );
 }
-
