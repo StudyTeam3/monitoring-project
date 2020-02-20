@@ -8,8 +8,9 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material/react-icon-button";
 import { IoIosUndo } from "react-icons/io";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { connect } from "react-redux";
 import "../css/common.css";
 import "../css/canvas.css";
 const config = require("../config/config");
@@ -22,15 +23,20 @@ const TransactionDetail = props => {
 
   useEffect(() => {
     // 특정 Transaction을 지칭하지 않았다면, search로 redirect
-    if(params.mid === undefined) props.history.push('/search');
-    axios
-      .post(config.development.url + "/spa/detail", { message_id: params.mid })
-      .then(res => {
-        setRows(res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    if (props.isLogined === false) props.history.push("/login");
+    else {
+      if (params.mid === undefined) props.history.push("/search");
+      axios
+        .post(config.development.url + "/spa/detail", {
+          message_id: params.mid
+        })
+        .then(res => {
+          setRows(res.data);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -50,12 +56,15 @@ const TransactionDetail = props => {
       });
       const tempRowConnection = [];
       for (let element of rows) {
-        if (element.source !== element.destination && element.source.length < 10) {
+        if (
+          element.source !== element.destination &&
+          element.source.length < 10
+        ) {
           tempRowConnection.push({
             source: element.source,
             destination: element.destination,
             method: element.http_method,
-            function: element.function,
+            function: element.function
           });
         }
       }
@@ -140,4 +149,6 @@ const TransactionDetail = props => {
   );
 };
 
-export default TransactionDetail;
+export default connect(state => ({
+  isLogined: state.loginModules.isLogined
+}))(TransactionDetail);
