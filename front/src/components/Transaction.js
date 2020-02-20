@@ -37,17 +37,22 @@ class Transaction extends React.Component {
   }
     render(){
         const handleClick = () => {
-           console.log(this.state.tmp)
+           console.log(this.state.sorted)
         }
         return (
             <StyledTableRow onClick = {handleClick}>
-              
+
+              <TableCell>
+                 <SuccessChip status={sorted.shift()} />
+              </TableCell>
+                            
               <Link 
                 to={`/detail/${this.state.tmp.message_id}`} 
                 style={{ textDecoration: "none" }}
               >
                 <TableCell>{sorted.shift()} </TableCell>
               </Link>
+              
                 {sorted.map(data => (<TableCell>{data}</TableCell>))}
             </StyledTableRow>
         )

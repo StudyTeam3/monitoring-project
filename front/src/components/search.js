@@ -13,8 +13,10 @@ import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
-import Transaction from "./Transaction";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import SuccessChip from "./SuccessChip";
+
 const config = require("./../config/config");
 
 const useStyles1 = makeStyles(theme => ({
@@ -109,15 +111,21 @@ const capitalize = (str) => {
   return str.replace("_"," ");
 }
 
+const StyledTableRow = withStyles(theme => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.background.default
+    }
+  }
+}))(TableRow);
 
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [show, setShow] = React.useState(false);
-  const defaultChecked = ["start_time","end_time"];
 
-  const customCol = window.sessionStorage.getItem('column') || defaultChecked;
+  const customCol = window.sessionStorage.getItem('column');
 
   const emptyRows =
     rowsPerPage -
@@ -128,7 +136,7 @@ export default function CustomPaginationActionsTable() {
   };
 
   const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
@@ -152,17 +160,34 @@ export default function CustomPaginationActionsTable() {
       </TableHead>
       { show &&
       <TableBody>
-        {(rowsPerPage > 0
-          ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          : rows
-        ).map(t => {
+        {rows
+         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+         .map(t => {
           const tmp = {};
+          let sorted = [];
+          const cols = JSON.parse(customCol);
           for(var key in t) {
-            if(customCol.includes(key)) tmp[key] = t[key];
-            
+            if(customCol.includes(key)) tmp[key] = t[key];          
           }
-          console.log(tmp);
-          return (<Transaction tmp = {tmp} customCol = {customCol}/>)
+          cols.map(key => sorted.push(tmp[key]));
+         // console.log(tmp);
+          return ( 
+          <StyledTableRow>
+
+            <TableCell>
+               <SuccessChip status={sorted.shift()} />
+            </TableCell>
+                          
+            <Link 
+              to={`/detail/${tmp.message_id}`} 
+              style={{ textDecoration: "none" }}
+            >
+              <TableCell>{sorted.shift()} </TableCell>
+            </Link>
+            
+              {sorted.map(data => (<TableCell>{data}</TableCell>))}
+          </StyledTableRow>
+          )
         })}
         {emptyRows > 0 && (
           <TableRow style={{ height: 53 * emptyRows }}>
