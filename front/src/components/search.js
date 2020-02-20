@@ -104,11 +104,20 @@ const StyledTableCell = withStyles(theme => ({
   }
 }))(TableCell);
 
+const capitalize = (str) => {
+  str = str.charAt(0).toUpperCase() + str.slice(1);
+  return str.replace("_"," ");
+}
+
+
 export default function CustomPaginationActionsTable() {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [show, setShow] = React.useState(false);
+  const defaultChecked = ["start_time","end_time"];
+
+  const customCol = window.sessionStorage.getItem('column') || defaultChecked;
 
   const emptyRows =
     rowsPerPage -
@@ -138,14 +147,7 @@ export default function CustomPaginationActionsTable() {
     <Table style={{ width: "80%" }}>
       <TableHead>
         <TableRow>
-          <StyledTableCell>Start TIme</StyledTableCell>
-          <StyledTableCell>End Time</StyledTableCell>
-          <StyledTableCell>Message ID</StyledTableCell>
-          <StyledTableCell>Server</StyledTableCell>
-          <StyledTableCell>Service</StyledTableCell>
-          <StyledTableCell>Car ID</StyledTableCell>
-          <StyledTableCell>Function</StyledTableCell>
-          <StyledTableCell>Status</StyledTableCell>
+          {JSON.parse(customCol).map(name =>  <StyledTableCell>{capitalize(name)}</StyledTableCell>)}
         </TableRow>
       </TableHead>
       { show &&
@@ -153,18 +155,15 @@ export default function CustomPaginationActionsTable() {
         {(rowsPerPage > 0
           ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           : rows
-        ).map(t => (
-          <Transaction
-            startTime={t.start}
-            endTime={t.end}
-            MID={t.message_id}
-            server={t.server}
-            service={t.service}
-            CID={t.car_id}
-            function={t.function}
-            status={t.status}
-          />
-        ))}
+        ).map(t => {
+          const tmp = {};
+          for(var key in t) {
+            if(customCol.includes(key)) tmp[key] = t[key];
+            
+          }
+          console.log(tmp);
+          return (<Transaction tmp = {tmp} customCol = {customCol}/>)
+        })}
         {emptyRows > 0 && (
           <TableRow style={{ height: 53 * emptyRows }}>
             <TableCell colSpan={6} />

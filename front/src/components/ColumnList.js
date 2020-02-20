@@ -26,7 +26,7 @@ const capitalize = (str) => {
 export default function ColumnList() {
   const classes = useStyles();
   const preChecked = window.sessionStorage.getItem("column");
-  const [checked, setChecked] = React.useState([]);
+  const [checked, setChecked] = React.useState(["message_id"]);
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
@@ -51,7 +51,6 @@ export default function ColumnList() {
     "server_range",
     "server",
     "service",
-    "message_id",
     "protocol",
     "http_method",
     "uri",
