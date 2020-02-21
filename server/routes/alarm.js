@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-function sendRes(response, returnRes){
-    response.json(returnRes);
-}
-
 router.get('/', function(req, res, next) {
     var returnRes = [];
     let temp = new Object();

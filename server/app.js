@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var alarmRouter = require('./routes/alarm');
 var spaRouter = require('./routes/spa');
+var dashboardRouter = require('./routes/dashboard');
 
 // DB Import
 var sequelize = require('./models').sequelize;
@@ -49,6 +50,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/alarm', alarmRouter);
 app.use('/spa',spaRouter);
+app.use('/home',dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

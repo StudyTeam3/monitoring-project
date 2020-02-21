@@ -15,23 +15,6 @@ import "../../css/alarm.css";
 import axios from "axios";
 
 const AlarmUrl = "http://localhost:5000/alarm"
-// let AlarmCount = 0;
-
-const createNotification = (state) => {
-
-  return async () => {
-    let { data: alarms } = await axios.get(AlarmUrl);
-    // console.log(state);
-    // state = (Object.keys(alarms).length);
-    for(var i = 0; i < Object.keys(alarms).length; i++){
-      if(!alarms[i].success)
-      NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
-        alert('detail page로 이동');
-      });
-    }
-  }
-
-}
 
 const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
