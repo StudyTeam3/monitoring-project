@@ -1,5 +1,3 @@
-import { createAction, handleActions } from 'redux-actions';
-
 export const SETCOLUMNS = 'SETCOLUMNS';
 
 const initialState = {

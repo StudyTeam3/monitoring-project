@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Switch from "@material-ui/core/Switch";
 
@@ -25,7 +24,6 @@ const capitalize = (str) => {
 
 export default function ColumnList() {
   const classes = useStyles();
-  const preChecked = window.sessionStorage.getItem("column");
   const [checked, setChecked] = React.useState(["status", "message_id"]);
 
   const handleToggle = value => () => {

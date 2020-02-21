@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../store/modules/loginModules";
 
@@ -26,8 +25,8 @@ class SocialLogin extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser !== null) {
-        this.props.login();
         window.sessionStorage.setItem("column", JSON.stringify(["status","message_id"]));
+        this.props.login();
       }
     });
   };
