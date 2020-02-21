@@ -1,5 +1,5 @@
 import React from 'react';
-import {XYPlot, ArcSeries} from 'react-vis';
+import {XYPlot, ArcSeries, XAxis, YAxis, Hint } from 'react-vis';
 import axios from "axios";
 
 const FunctionUrl = "http://localhost:5000/home/secondChart";
@@ -69,8 +69,11 @@ class SecondChart extends React.Component {
           colorType = "literal"
           radiusDomain={[0,3]}
           center={{x: 0, y: 0}}
+          showLabels
           data={this.state.data}
         />
+        {/* <XAxis/>
+        <YAxis/> */}
       </XYPlot>
     );
   }
