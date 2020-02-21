@@ -167,7 +167,7 @@ export default function CustomPaginationActionsTable() {
           let sorted = [];
           const cols = JSON.parse(customCol);
           for(var key in t) {
-            if(customCol.includes(key)) tmp[key] = t[key];          
+            if(cols.includes(key)) tmp[key] = t[key];          
           }
           cols.map(key => sorted.push(tmp[key]));
           return ( 

@@ -27,7 +27,6 @@ class SocialLogin extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser !== null) {
-<<<<<<< HEAD
         this.props.login();
         const user_id = 1;
         axios
@@ -41,10 +40,6 @@ class SocialLogin extends Component {
         .catch(err => {
         console.error(err);
       });
-=======
-        window.sessionStorage.setItem("column", JSON.stringify(["status","message_id"]));
-        this.props.login();
->>>>>>> 70bc29b6d346771af20e1798b4fa313a5e2f8e03
       }
     });
   };

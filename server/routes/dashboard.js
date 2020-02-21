@@ -11,7 +11,7 @@ router.get('/firstChart', function(req, res, next) {
         user : 'postgres',
         host : 'localhost',
         database : 'postgres',
-        password : 'apmsetup',
+        password : 'password',
         port : 5432,
     });
 
