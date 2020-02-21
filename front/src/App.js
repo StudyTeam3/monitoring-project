@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Dashboard from "./components/dashboard/Dashboard";
 import NavigationDrawer from "./components/navigationDrawer/navigationDrawer";
 import "@material/react-icon-button/dist/icon-button.css";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import {
-  TransactionDetail,
   TransactionSearch,
   SignUp,
   LogIn,
   ForgotPassword,
   Setting
 } from "./pages";
+import TransactionDetailContainer from "./components/container/TransactionDetailContainer"
+import { connect } from "react-redux";
 import { logout } from "./store/modules/loginModules";
 import "./css/common.css";
 import "./App.css";
@@ -37,8 +38,8 @@ function App(props) {
             <Route path="/setting" component={Setting} />
             <Route path="/search" component={TransactionSearch} />
             <Switch>
-              <Route path="/detail/:mid" component={TransactionDetail} />
-              <Route path="/detail" component={TransactionDetail} />
+              <Route path="/detail/:mid" component={TransactionDetailContainer} />
+              <Route path="/detail" component={TransactionDetailContainer} />
             </Switch>
             <Route path="/SignUp" component={SignUp} />
             <Route path="/ForgotPassword" component={ForgotPassword} />
@@ -49,4 +50,11 @@ function App(props) {
   );
 }
 
-export default App;
+export default connect(
+  null,
+  dispatch => ({
+    logout: () => {
+      dispatch(logout());
+    }
+  })
+)(App);

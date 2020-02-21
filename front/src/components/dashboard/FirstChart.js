@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import '../../../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineMarkSeries, LineSeries, MarkSeries, XAxis, YAxis } from 'react-vis';
+import {XYPlot, LineMarkSeries, XAxis, YAxis } from 'react-vis';
 import axios from "axios";
 
 const TimeUrl = "http://localhost:5000/home/firstChart";
