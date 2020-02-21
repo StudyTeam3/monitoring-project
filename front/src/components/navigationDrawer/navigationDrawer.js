@@ -16,14 +16,11 @@ import "../../css/alarm.css";
 import axios from "axios";
 
 const AlarmUrl = "http://localhost:5000/alarm"
-// let AlarmCount = 0;
 
 const createNotification = (state) => {
 
   return async () => {
     let { data: alarms } = await axios.get(AlarmUrl);
-    // console.log(state);
-    // state = (Object.keys(alarms).length);
     for(var i = 0; i < Object.keys(alarms).length; i++){
       if(!alarms[i].success)
       NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
@@ -38,6 +35,7 @@ const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
   let isLogined = props.isLogined;
   const logout = props.logout;
+
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
    * isToggled: 토글 되었는지 확인하는 변수
@@ -57,7 +55,7 @@ const NavigationDrawer = props => {
       let tempCount = 0;
       console.log(alarms);
       for(var i = 0; i < Object.keys(alarms).length; i++){
-        if(!alarms[i].success && alarms[i].commu_type == "Response"){
+        if(!alarms[i].success && alarms[i].commu_type === "Response"){
           NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
             alert('detail page로 이동');
           });
@@ -74,7 +72,7 @@ const NavigationDrawer = props => {
       let { data: alarms } = await axios.get(AlarmUrl);
 
       for(var i = 0; i < Object.keys(alarms).length; i++){
-        if(!alarms[i].success && alarms[i].commu_type == "Response"){
+        if(!alarms[i].success && alarms[i].commu_type === "Response"){
 
           tempCount += 1;
         }
@@ -165,7 +163,9 @@ const NavigationDrawer = props => {
               <NavItem eventKey="signout" className={"bottomIcons"}>
                 <NavIcon>
                   <Link to="/LogIn">
-                    <IconButton onClick={() => alert("로그아웃 되었습니다.")}>
+                    <IconButton onClick={() => {
+                      if(isLogined === true) alert("로그아웃 되었습니다.");
+                    }}>
                       <GoSignOut
                         color={"white"}
                         onClick={() => {

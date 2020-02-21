@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
     return (

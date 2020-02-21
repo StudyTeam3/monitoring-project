@@ -24,7 +24,6 @@ class Transaction extends React.Component {
   }
   componentWillMount(){
    console.log(this.state.tmp)
-    //console.log(this.props.customCol)
     sorted= [];
     const cols = JSON.parse(this.props.customCol);
     const origin = this.props.tmp;

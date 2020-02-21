@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../store/modules/loginModules";
 
