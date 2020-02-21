@@ -5,6 +5,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Switch from "@material-ui/core/Switch";
+import axisUtils from "react-vis/dist/utils/axis-utils";
+import axios from "axios";
+const config = require("../config/config");
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +27,12 @@ const capitalize = (str) => {
 
 export default function ColumnList() {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(["status", "message_id"]);
+  const preChecked = window.sessionStorage.getItem("column");
+  const [checked, setChecked] = React.useState([]);
+  const user_id = 1;
+  useEffect(() => {
+      setChecked(preChecked);
+  }, []);
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);

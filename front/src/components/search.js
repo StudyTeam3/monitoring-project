@@ -125,7 +125,7 @@ export default function CustomPaginationActionsTable() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [show, setShow] = useState(false);
 
-  const customCol = window.sessionStorage.getItem('column') || ["status", "message_id"];
+  const customCol = window.sessionStorage.getItem('column');
 
   const emptyRows =
     rowsPerPage -
