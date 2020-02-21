@@ -1,8 +1,20 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = (props) => {
+
+    const [form, setFrom] = useState({
+        email: "",
+        password: "",
+        password_verify: "",
+        name: ""
+      });
+
+    const signup = () => {
+
+    }
+
     return (
         <Fragment>
             <div>
@@ -35,7 +47,7 @@ const SignUp = () => {
                 </div>
                 <div className="toLogIn2">
                     <Link to="/LogIn" >
-                    <Button color="primary" size="sm">계정 만들기</Button>
+                    <Button onClick={signup} color="primary" size="sm">계정 만들기</Button>
                     </Link>
                 </div>
             </div>

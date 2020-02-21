@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 
 // Router Import
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/user');
 var alarmRouter = require('./routes/alarm');
 var spaRouter = require('./routes/spa');
 var dashboardRouter = require('./routes/dashboard');
@@ -47,7 +47,7 @@ if(config.cors) app.use(require('cors')());
 
 // Router Connection to app
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/alarm', alarmRouter);
 app.use('/spa',spaRouter);
 app.use('/home',dashboardRouter);
