@@ -1,4 +1,4 @@
-import React, { Component,Fragment } from "react";
+import React, { Component } from "react";
 import ColumnList from "./../components/ColumnList";
 import "../css/common.css";
 import "../css/canvas.css";

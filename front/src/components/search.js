@@ -120,10 +120,10 @@ const StyledTableRow = withStyles(theme => ({
 }))(TableRow);
 
 export default function CustomPaginationActionsTable() {
-  const [page, setPage] = React.useState(0);
-  const [rows, setRows] = React.useState([]);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [show, setShow] = React.useState(false);
+  const [page, setPage] = useState(0);
+  const [rows, setRows] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [show, setShow] = useState(false);
 
   const customCol = window.sessionStorage.getItem('column');
 
@@ -170,7 +170,6 @@ export default function CustomPaginationActionsTable() {
             if(customCol.includes(key)) tmp[key] = t[key];          
           }
           cols.map(key => sorted.push(tmp[key]));
-         // console.log(tmp);
           return ( 
           <StyledTableRow>
 

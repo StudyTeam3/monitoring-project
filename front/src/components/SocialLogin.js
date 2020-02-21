@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../store/modules/loginModules";
 import axios from "axios";
@@ -28,6 +27,7 @@ class SocialLogin extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser !== null) {
+<<<<<<< HEAD
         this.props.login();
         const user_id = 1;
         axios
@@ -41,6 +41,10 @@ class SocialLogin extends Component {
         .catch(err => {
         console.error(err);
       });
+=======
+        window.sessionStorage.setItem("column", JSON.stringify(["status","message_id"]));
+        this.props.login();
+>>>>>>> 70bc29b6d346771af20e1798b4fa313a5e2f8e03
       }
     });
   };

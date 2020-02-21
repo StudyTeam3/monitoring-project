@@ -16,28 +16,14 @@ import "../../css/alarm.css";
 import axios from "axios";
 
 const AlarmUrl = "http://localhost:5000/alarm"
-// let AlarmCount = 0;
-
-const createNotification = (state) => {
-
-  return async () => {
-    let { data: alarms } = await axios.get(AlarmUrl);
-    // console.log(state);
-    // state = (Object.keys(alarms).length);
-    for(var i = 0; i < Object.keys(alarms).length; i++){
-      if(!alarms[i].success)
-      NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
-        alert('detail page로 이동');
-      });
-    }
-  }
-
-}
 
 const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
-  let isLogined = props.isLogined;
+  const token = window.sessionStorage.getItem("token");
+  const isLogined = window.sessionStorage.getItem("isLogined");
+  const isLogined_Redux = props.isLogined;
   const logout = props.logout;
+
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
    * isToggled: 토글 되었는지 확인하는 변수
@@ -56,37 +42,41 @@ const NavigationDrawer = props => {
       let { data: alarms } = await axios.get(AlarmUrl);
       let tempCount = 0;
       console.log(alarms);
-      for(var i = 0; i < Object.keys(alarms).length; i++){
-        if(!alarms[i].success && alarms[i].commu_type == "Response"){
-          NotificationManager.error(String(alarms[i].message_id), String(alarms[i].time+" 에러 발생"), 5000, () => {
-            alert('detail page로 이동');
-          });
+      for (var i = 0; i < Object.keys(alarms).length; i++) {
+        if (!alarms[i].success && alarms[i].commu_type === "Response") {
+          NotificationManager.error(
+            String(alarms[i].message_id),
+            String(alarms[i].time + " 에러 발생"),
+            5000,
+            () => {
+              alert("detail page로 이동");
+            }
+          );
           tempCount += 1;
         }
       }
       setAlarmCount(tempCount);
-    }
-  }
+    };
+  };
 
   useEffect(() => {
-    return async() => {
+    return async () => {
       let tempCount = 0;
       let { data: alarms } = await axios.get(AlarmUrl);
 
-      for(var i = 0; i < Object.keys(alarms).length; i++){
-        if(!alarms[i].success && alarms[i].commu_type == "Response"){
-
+      for (var i = 0; i < Object.keys(alarms).length; i++) {
+        if (!alarms[i].success && alarms[i].commu_type === "Response") {
           tempCount += 1;
         }
       }
       setAlarmCount(tempCount);
-      console.log("알람",tempCount);
-    }
-    // returned function will be called on component unmount 
+      console.log("알람", tempCount);
+    };
+    // returned function will be called on component unmount
     // return () => {
     //   setAlarmCount(1);
     // }
-  },[AlarmCount]);
+  }, [AlarmCount]);
 
   return (
     <Route
@@ -109,7 +99,7 @@ const NavigationDrawer = props => {
             onSubmit(isToggled);
           }}
           onSelect={selected => {
-            if (isLogined === false) {
+            if (token === null || token === undefined) {
               history.push("/login");
             } else {
               const to = "/" + selected;
@@ -156,7 +146,18 @@ const NavigationDrawer = props => {
                 <NavIcon>
                   <IconButton onClick={createNotification(AlarmCount)}>
                     <GoBell color={"white"} />
-                      <p className = "circle" style={{position:"absolute", bottom:"10px", right:"5px", color:"#000066", fontSize: "15px"}}>{AlarmCount}</p>  
+                    <p
+                      className="circle"
+                      style={{
+                        position: "absolute",
+                        bottom: "10px",
+                        right: "5px",
+                        color: "#000066",
+                        fontSize: "15px"
+                      }}
+                    >
+                      {AlarmCount}
+                    </p>
                   </IconButton>
                 </NavIcon>
               </NavItem>
@@ -165,7 +166,11 @@ const NavigationDrawer = props => {
               <NavItem eventKey="signout" className={"bottomIcons"}>
                 <NavIcon>
                   <Link to="/LogIn">
-                    <IconButton onClick={() => alert("로그아웃 되었습니다.")}>
+                    <IconButton
+                      onClick={() => {
+                        if (isLogined) alert("로그아웃 되었습니다.");
+                      }}
+                    >
                       <GoSignOut
                         color={"white"}
                         onClick={() => {
@@ -180,7 +185,7 @@ const NavigationDrawer = props => {
               </NavItem>
             </div>
           </div>
-          <NotificationContainer/>
+          <NotificationContainer />
         </SideNav>
       )}
     />
@@ -188,10 +193,9 @@ const NavigationDrawer = props => {
 };
 
 export default connect(
-  state => ({
-    // props 값으로 넣어 줄 상태를 정의해줍니다.
-    isLogined: state.loginModules.isLogined
-  }),
+  state => {
+    return { isLogined: state.loginModules.isLogined };
+  },
   dispatch => ({
     logout: () => {
       dispatch(logout());
