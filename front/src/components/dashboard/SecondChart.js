@@ -1,17 +1,64 @@
 import React from 'react';
 import {XYPlot, ArcSeries} from 'react-vis';
+import axios from "axios";
+
+const FunctionUrl = "http://localhost:5000/home/secondChart";
 
 class SecondChart extends React.Component {
 
-  render() {
+  state = {
+    data: []
+  }
+
+  async getData() {
     const PI = Math.PI * 2;
-    const myData = [
-      {angle0: 0, angle: PI * 1/3, radius: 1.5, radius0: 2, color: '#355f77'},
-      {angle0: PI * 1/3, angle: PI * 8/15, radius: 1.5, radius0: 2, color: '#5697bf'},
-      {angle0: PI * 8/15, angle: PI * 111/180, radius: 1.5, radius0: 2, color: '#72a6c7'},
-      {angle0: PI * 111/180, angle: PI * 126/180, radius: 1.5, radius0: 2, color: '#91bad1'},
-      {angle0: PI * 126/180, angle: PI, radius: 1.5, radius0: 2,style: {fill: '#FFFFFF', stroke: '#000066'}},
-    ]
+
+    // DB 데이터 파싱
+    let functionCount = {};
+    let { data: functions } = await axios.get(FunctionUrl);
+
+    for(var i = 0; i < Object.keys(functions).length; i++){
+      let functionKind = functions[i].function;
+      if(functionCount[functionKind] == null){
+        functionCount[functionKind] = 1;
+      }
+      else{
+        functionCount[functionKind] += 1;
+      }
+    }
+
+    // 데이터를 차트 데이터로 변형
+    let tempData = [];
+    let currentDegree = 0;
+    let allOfCount = 0;
+    const colorArr = ['#355f77','#5697bf','#72a6c7','#91bad1','#000066'];
+    let loop = 0;
+
+    for(var i in functionCount){
+      allOfCount += functionCount[i];
+    }
+
+    for(var i in functionCount){
+      let tempJson = {};
+      tempJson['angle0'] = currentDegree;
+      tempJson['angle'] = currentDegree +  PI * (functionCount[i]/allOfCount);
+      tempJson['radius'] = 1.5;
+      tempJson['radius0'] = 2;
+      tempJson['color'] = colorArr[loop];
+      loop += 1;
+      currentDegree = tempJson['angle'];
+      tempData.push(tempJson);
+    }
+
+    this.setState({data : tempData});
+  };
+
+  componentWillMount (){
+    this.getData();
+  };
+
+  render() {
+
     return (
       <XYPlot
         xDomain={[-100, 100]}
@@ -22,7 +69,7 @@ class SecondChart extends React.Component {
           colorType = "literal"
           radiusDomain={[0,3]}
           center={{x: 0, y: 0}}
-          data={myData}
+          data={this.state.data}
         />
       </XYPlot>
     );

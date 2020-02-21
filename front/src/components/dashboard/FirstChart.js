@@ -27,8 +27,6 @@ class FirstChart extends Component {
       }
     }
 
-    console.log(timeCount);
-
     let tempData = [];
     for(var i in timeCount){
       let tempJson = {};
@@ -36,7 +34,6 @@ class FirstChart extends Component {
       tempJson['y'] = timeCount[i];
       tempData.push(tempJson);
     }
-    console.log("tempData",tempData);
     this.setState({data : tempData});
   };
 
