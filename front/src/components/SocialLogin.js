@@ -25,8 +25,8 @@ class SocialLogin extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser !== null) {
-        this.props.login();
         window.sessionStorage.setItem("column", JSON.stringify(["status","message_id"]));
+        this.props.login();
       }
     });
   };

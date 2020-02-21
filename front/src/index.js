@@ -7,6 +7,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import configure from "./store/configure";
+import { sessionService } from 'redux-react-session';
 import "bootstrap/dist/css/bootstrap.css";
 
 const theme = createMuiTheme({
@@ -17,6 +18,7 @@ const theme = createMuiTheme({
 
 // Redux Module start
 const store = configure();
+sessionService.initSessionService(store);
 
 ReactDOM.render(
   <Provider store={store}>

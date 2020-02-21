@@ -51,9 +51,7 @@ function App(props) {
 }
 
 export default connect(
-  state => ({
-    isLogined: state.loginModules.isLogined
-  }),
+  null,
   dispatch => ({
     logout: () => {
       dispatch(logout());

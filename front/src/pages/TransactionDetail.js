@@ -10,11 +10,9 @@ import IconButton from "@material/react-icon-button";
 import { IoIosUndo } from "react-icons/io";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
-import firebase from "firebase";
-import { connect } from "react-redux";
-import { login } from "../store/modules/loginModules";
 import "../css/common.css";
 import "../css/canvas.css";
+
 const config = require("../config/config");
 
 const TransactionDetail = props => {
@@ -22,17 +20,14 @@ const TransactionDetail = props => {
   const [rows, setRows] = useState([]);
   const [transactionSummaryInfo, setTransactionSummaryInfo] = useState({});
   const [rowConnection, setRowConnection] = useState([]);
-  const isLogined = props.isLogined;
-  const login = props.login;
+  const token = window.sessionStorage.getItem("token");
 
   const checkSession = () => {
     // 여기에 세션을 유지하고 있는지 확인하는 로직이 있어야 제대로 Redirect됨...
-    if(firebase.auth().currentUser !== null) login();
-    return isLogined === false;
+    return token === null || token === undefined;
   }
 
   useEffect(() => {
-    console.log("useEffect", firebase.auth().currentUser);
     // 특정 Transaction을 지칭하지 않았다면, search로 redirect
     axios
       .post(config.development.url + "/spa/detail", {
@@ -161,11 +156,4 @@ const TransactionDetail = props => {
   );
 };
 
-export default connect(state => ({
-  isLogined: state.loginModules.isLogined
-}),
-  dispatch => ({
-    logout: () => {
-      dispatch(login());
-    }
-  }))(TransactionDetail);
+export default TransactionDetail;

@@ -170,7 +170,6 @@ export default function CustomPaginationActionsTable() {
             if(customCol.includes(key)) tmp[key] = t[key];          
           }
           cols.map(key => sorted.push(tmp[key]));
-         // console.log(tmp);
           return ( 
           <StyledTableRow>
 
