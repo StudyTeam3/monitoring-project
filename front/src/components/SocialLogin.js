@@ -27,12 +27,11 @@ class SocialLogin extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser !== null) {
-
         this.props.login();
         const user_id = 1;
         axios
         .post(config.development.url + "/custom", {
-          params: user_id
+          user_id : user_id
         })
         .then(res => {
           console.log(res.data);
@@ -41,7 +40,6 @@ class SocialLogin extends Component {
         .catch(err => {
         console.error(err);
       });
-
       }
     });
   };

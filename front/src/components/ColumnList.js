@@ -28,11 +28,9 @@ const capitalize = (str) => {
 export default function ColumnList() {
   const classes = useStyles();
   const preChecked = window.sessionStorage.getItem("column");
-  const [checked, setChecked] = React.useState([]);
-  const user_id = 1;
-  useEffect(() => {
-      setChecked(preChecked);
-  }, []);
+  const [checked, setChecked] = React.useState(JSON.parse(preChecked));
+
+
 
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
