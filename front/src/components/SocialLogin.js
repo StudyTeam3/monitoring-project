@@ -31,7 +31,7 @@ class SocialLogin extends Component {
         const user_id = 1;
         axios
         .post(config.development.url + "/custom", {
-          params: user_id
+          user_id : user_id
         })
         .then(res => {
           console.log(res.data);

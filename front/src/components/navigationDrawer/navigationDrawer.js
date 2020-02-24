@@ -14,7 +14,7 @@ import firebase from "firebase";
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
 import axios from "axios";
-
+const config = require("../../config/config")
 const AlarmUrl = "http://localhost:5000/alarm"
 
 const NavigationDrawer = props => {
@@ -169,6 +169,19 @@ const NavigationDrawer = props => {
                     <IconButton
                       onClick={() => {
                         if (isLogined) alert("로그아웃 되었습니다.");
+                        const customCol = window.sessionStorage.getItem('column');
+                        const user_id = 1;
+                        axios
+                        .post(config.development.url + "/custom/update", {
+                          user_id : user_id,
+                          custom_col : JSON.parse(customCol)
+                        })
+                        .then(res => {
+                          console.log('update in DB')
+                        })
+                        .catch(err => {
+                          console.(err);
+                        })
                       }}
                     >
                       <GoSignOut
