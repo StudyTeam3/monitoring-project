@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import {XYPlot, ArcSeries, XAxis, YAxis, Hint } from 'react-vis';
 import axios from "axios";
 
-const FunctionUrl = "http://localhost:5000/home/secondChart";
+let serverName = "";
 const colorArr = ['#355f77','#5697bf','#72a6c7','#91bad1','#000066',
                   '#074e67','#001440','#74d2b3','#05878a','#3d0f2b',
                   '#ff7878','#401a24','#836a7e','#ffcc5c','#ffeead','#daa520'];
@@ -19,6 +19,9 @@ class SecondChart extends React.Component {
 
     // DB 데이터 파싱
     let functionCount = {};
+
+    const FunctionUrl = `http://localhost:5000/home/secondChart/`+serverName;
+    // const FunctionUrl = `http://localhost:5000/home/secondChart/vehicle`;
     let { data: functions } = await axios.get(FunctionUrl);
     for(var i = 0; i < Object.keys(functions).length; i++){
       let functionKind = functions[i].function;
@@ -72,6 +75,7 @@ class SecondChart extends React.Component {
   };
 
   componentWillMount (){
+    serverName = this.props.serverName;
     this.getData();
   };
 

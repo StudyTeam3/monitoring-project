@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/firstChart', function(req, res, next) {
+router.get('/firstChart/:serverName', function(req, res, next) {
     var returnRes = [];
     let temp = new Object();
 
@@ -11,12 +11,14 @@ router.get('/firstChart', function(req, res, next) {
         user : 'postgres',
         host : 'localhost',
         database : 'postgres',
-        password : 'password',
+        password : 'apmsetup',
         port : 5432,
     });
 
+    const serverName = req.params.serverName;
     client.connect();
-    const sql = "SELECT time FROM spa;";
+
+    const sql = "SELECT time FROM "+ serverName +";";
 
     client.query(sql)
     .then((result)=>{
@@ -27,8 +29,7 @@ router.get('/firstChart', function(req, res, next) {
     .catch(e => console.error(e));
 });
 
-
-router.get('/secondChart', function(req, res, next) {
+router.get('/secondChart/:serverName', function(req, res, next) {
     var returnRes = [];
     let temp = new Object();
 
@@ -43,7 +44,9 @@ router.get('/secondChart', function(req, res, next) {
     });
 
     client.connect();
-    const sql = "SELECT function FROM spa;";
+    const serverName = req.params.serverName;
+
+    const sql = "SELECT function FROM "+ serverName +";";
 
     client.query(sql)
     .then((result)=>{
@@ -54,7 +57,7 @@ router.get('/secondChart', function(req, res, next) {
     .catch(e => console.error(e));
 });
 
-router.get('/thirdChart', function(req, res, next) {
+router.get('/thirdChart/:serverName', function(req, res, next) {
     var returnRes = [];
     let temp = new Object();
 
@@ -69,7 +72,9 @@ router.get('/thirdChart', function(req, res, next) {
     });
 
     client.connect();
-    const sql = "SELECT commu_type, success FROM spa;";
+    const serverName = req.params.serverName;
+    
+    const sql = "SELECT commu_type, success FROM "+ serverName +";";
 
     client.query(sql)
     .then((result)=>{
@@ -79,4 +84,5 @@ router.get('/thirdChart', function(req, res, next) {
     .then(()=>client.end())
     .catch(e => console.error(e));
 });
+
 module.exports = router;

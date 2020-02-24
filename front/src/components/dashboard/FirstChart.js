@@ -4,7 +4,7 @@ import '../../../node_modules/react-vis/dist/style.css';
 import {XYPlot, LineMarkSeries, XAxis, YAxis } from 'react-vis';
 import axios from "axios";
 
-const TimeUrl = "http://localhost:5000/home/firstChart";
+let serverName = "";
 
 class FirstChart extends Component {
   
@@ -14,6 +14,7 @@ class FirstChart extends Component {
 
   async getData() {
     let timeCount = {};
+    let TimeUrl = 'http://localhost:5000/home/firstChart/'+serverName;
     let { data: times } = await axios.get(TimeUrl);
 
     for(var i = 0; i < Object.keys(times).length; i++){
@@ -38,6 +39,8 @@ class FirstChart extends Component {
   };
 
   componentWillMount (){
+    serverName = this.props.serverName;
+    console.log("first",serverName);
     this.getData();
   };
   
