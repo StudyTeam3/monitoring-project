@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
     });
 
     client.connect();
-    var user_id = req.body.params;
+    var user_id = req.body.user_id;
     const sql = `SELECT custom_col FROM custom WHERE "user_id" = ${user_id}`;
     
     client.query(sql)
@@ -31,6 +31,26 @@ router.post('/', (req, res, next) => {
     .catch(e => console.error(e));
 });
 
+router.post('/update', (req, res, next) => {
+    const client = new Client({
+        user : 'postgres',
+        host : 'localhost',
+        database : 'postgres',
+        password : '',
+        port : 5432,
+    });
+
+    client.connect();
+    var user_id = req.body.user_id;
+    var custom_col = req.body.custom_col
+    const sql = `UPDATE custom SET "custom_col"='{${custom_col}}' WHERE "user_id" = ${user_id}`;
+    client.query(sql)
+    .then((result)=>{
+        console.log('update custom col');
+    })
+    .then(()=>client.end())
+    .catch(e => console.error(e));
+})
 
 
 
