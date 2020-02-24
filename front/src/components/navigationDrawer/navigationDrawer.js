@@ -180,7 +180,7 @@ const NavigationDrawer = props => {
                           console.log('update in DB')
                         })
                         .catch(err => {
-                          console.(err);
+                          console.error(err);
                         })
                       }}
                     >
