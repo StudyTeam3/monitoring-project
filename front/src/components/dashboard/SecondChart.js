@@ -69,7 +69,6 @@ class SecondChart extends React.Component {
     }
 
     this.setState({data : tempData, dataName: dataName});
-    console.log('data',this.state.dataName);
   };
 
   componentWillMount (){

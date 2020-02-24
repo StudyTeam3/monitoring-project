@@ -34,20 +34,22 @@ class ThirdChart extends Component {
 
     for(var i = 0; i < Object.keys(success).length; i++){
       let successKind = success[i].success;
-      if(successKind){
+      if(successKind && success[i].commu_type == 'Response'){
         if(successCount[0] == null)
           successCount[0] = 1;
         else
           successCount[0] += 1;
       }
-      else{
+      else if(!successKind && success[i].commu_type == 'Response'){
         if(successCount[1] == null)
           successCount[1] = 1;
         else
           successCount[1] += 1;
       }
+      else{
+      }
     }
-
+    console.log(successCount);  
     // 데이터를 차트 데이터로 변형
     // const myData = [
     //   {angle0: 0, angle: PI * 3/4, radius: 1.9, radius0: 2, color: '#000066'},
