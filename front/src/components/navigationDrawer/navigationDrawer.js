@@ -177,10 +177,10 @@ const NavigationDrawer = props => {
                           custom_col : JSON.parse(customCol)
                         })
                         .then(res => {
-                          console.log('update in DB')
+                          console.log('update in DB');
                         })
                         .catch(err => {
-                          console.(err);
+                          console.error(err)
                         })
                       }}
                     >
