@@ -69,7 +69,7 @@ router.get('/thirdChart', function(req, res, next) {
     });
 
     client.connect();
-    const sql = "SELECT success FROM spa;";
+    const sql = "SELECT commu_type, success FROM spa;";
 
     client.query(sql)
     .then((result)=>{
