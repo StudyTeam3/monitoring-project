@@ -116,7 +116,7 @@ const NavigationDrawer = props => {
               <p className={"drawerUserName"}>
                 {isToggled &&
                   (isLogined
-                    ? firebase.auth().currentUser.displayName
+                    ? firebase.auth().currentUser.displayName + " 님"
                     : "계정 정보가 없습니다.")}
               </p>
               <hr className={"drawerHeaderLine"} />
