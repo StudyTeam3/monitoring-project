@@ -47,7 +47,7 @@ const SignUp = (props) => {
                 </div>
                 <div className="toLogIn2">
                     <Link to="/LogIn" >
-                    <Button onClick={signup} color="primary" size="sm">계정 만들기</Button>
+                    <Button onClick={signup} color="primary" size="sm" onClick={() => {alert("회원가입 되었습니다.");}}>계정 만들기</Button>
                     </Link>
                 </div>
             </div>

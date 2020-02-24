@@ -18,7 +18,7 @@ const ForgotPassword = () => {
             <FormGroup className="mb-1">
             <Input type="email" placeholder="이메일"/>
             </FormGroup>
-            <Button className="btn-sm btn-dark mt-0 mb-3" onClick={() => {alert("인증 메일을 보냈습니다");}}>이메일 인증</Button>
+            <Button className="btn-sm btn-dark mt-0 mb-3" onClick={() => {alert("인증 메일을 보냈습니다.");}}>이메일 인증</Button>
             <FormGroup>
             <Input type="password" placeholder="새 비밀번호"/>
             </FormGroup>
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
                 <Link to="/LogIn" >돌아가기</Link>
             </div>
             <Link to="/LogIn" >
-            <Button className="float-right" color="primary" onClick={() => {alert("비밀번호가 변경되었습니다")}}>비밀번호 변경</Button>
+            <Button className="float-right" color="primary" onClick={() => {alert("비밀번호가 변경되었습니다.")}}>비밀번호 변경</Button>
             </Link>
         </Form>
         </Fragment>
