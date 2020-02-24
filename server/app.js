@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 
 // Router Import
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/user');
 var alarmRouter = require('./routes/alarm');
 var spaRouter = require('./routes/spa');
 var customRouter = require('./routes/custom');
@@ -29,16 +29,16 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-// app.use(session({
-//   resave: false,
-//   saveUninitialized: false,
-//   secret: 'cookieParser와 동일',
-//   cookie: {
-//     httpOnly: true,
-//     secure: false,
-//   }
-// }));
+app.use(cookieParser('!@#$%#@#@$%@#!',));
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  secret: '!@#$%#@#@$%@#!',
+  // cookie: {
+  //   httpOnly: true,
+  //   secure: false,
+  // }
+}));
 app.use(flash());
 
 // For CORS
@@ -48,7 +48,7 @@ if(config.cors) app.use(require('cors')());
 
 // Router Connection to app
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/alarm', alarmRouter);
 app.use('/spa',spaRouter);
 app.use('/custom', customRouter);

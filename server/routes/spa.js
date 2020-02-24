@@ -1,16 +1,21 @@
 var express = require("express");
 var router = express.Router();
 var Spa = require("../models/Spa");
+var Vehicle = require("../models/vehicle");
 const { Op } = require("sequelize");
 
 /* GET SPA for search pages */
 router.get("/", (req, res, next) => {
   let response = [];
+  let Data;
+  if(req.query.data === "spa") Data = Spa;
+  else if(req.query.data === "vehicle") Data = Vehicle;
+  else Data = Spa;
 
   // MAKE Response FORM
   const findEach = element => {
     return new Promise(resolve => {
-      Spa.findAll({
+      Data.findAll({
         where: {
           message_id: element.dataValues.message_id
         },
@@ -61,7 +66,7 @@ router.get("/", (req, res, next) => {
   };
 
   // Get all message_id in SPA
-  Spa.findAll({
+  Data.findAll({
     attributes: ["message_id"],
     distinct: true,
     where: {
@@ -85,6 +90,9 @@ router.get("/", (req, res, next) => {
 /* Get Spa for detail pages */
 router.post("/detail", (req, res, next) => {
   let response = [];
+  let Data;
+  if(req.query.data === "spa") Data = Spa;
+  else if(req.query.data === "vehicle") Data = Vehicle;
 
   const formEach = array => {
     return new Promise(resolve => {
@@ -95,7 +103,7 @@ router.post("/detail", (req, res, next) => {
     });
   };
 
-  Spa.findAll({
+  Data.findAll({
     where: {
       message_id: req.body.message_id
     },

@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import SocialLogin from "../components/SocialLogin";
 import { connect } from "react-redux";
 
-const LogIn = props => {
+const LogIn = (props) => {
   let isLogined = props.isLogined;
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const LogIn = props => {
           >
             아이디
           </Label>
-          <Input type="email" placeholder="abcde123@email.com" />
+          <Input type="email" placeholder="이메일을 입력하세요." />
         </FormGroup>
         <FormGroup style={{ marginBottom: 10 }}>
           <Label
@@ -45,7 +45,7 @@ const LogIn = props => {
           >
             비밀번호
           </Label>
-          <Input type="password" placeholder="********" />
+          <Input type="password" placeholder="비밀번호를 입력하세요." />
         </FormGroup>
         <Link to="/Home">
           <Button className="btn-lg btn-block mt-2 mb-2" color="primary">
