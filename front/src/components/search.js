@@ -176,14 +176,16 @@ export default function CustomPaginationActionsTable() {
             <TableCell>
                <SuccessChip status={sorted.shift()} />
             </TableCell>
-                          
+
+            <TableCell>         
             <Link 
               to={`/detail/${tmp.message_id}`} 
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: "#000066" }}
             >
-              <TableCell>{sorted.shift()} </TableCell>
+              {sorted.shift()} 
             </Link>
             
+            </TableCell>     
               {sorted.map(data => (<TableCell>{data}</TableCell>))}
           </StyledTableRow>
           )
