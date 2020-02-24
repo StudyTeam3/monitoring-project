@@ -28,16 +28,16 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-// app.use(session({
-//   resave: false,
-//   saveUninitialized: false,
-//   secret: 'cookieParser와 동일',
-//   cookie: {
-//     httpOnly: true,
-//     secure: false,
-//   }
-// }));
+app.use(cookieParser('!@#$%#@#@$%@#!',));
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  secret: '!@#$%#@#@$%@#!',
+  // cookie: {
+  //   httpOnly: true,
+  //   secure: false,
+  // }
+}));
 app.use(flash());
 
 // For CORS
