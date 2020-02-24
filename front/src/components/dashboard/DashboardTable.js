@@ -43,11 +43,11 @@ class DashboardTable extends Component {
                     <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.serverName}>
-                        <Link to='/search' style={{ textDecoration: 'none' }}>
                         <TableCell component="th" scope="row">
-                            {row.serverName}
+                            <Link to={`/search/${row.serverName}`} style={{ textDecoration: 'none' }}>
+                                {row.serverName}
+                            </Link>
                         </TableCell>
-                        </Link>
                         <TableCell align="right">{row.lastUseTime}</TableCell>
                         </TableRow>
                     ))}

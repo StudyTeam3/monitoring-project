@@ -1,17 +1,17 @@
-const data = require('./parse.json');
+const data = require('./parse2.json');
 const { Pool, Client } = require('pg');
 
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
-    password: '',
+    password: 'apmsetup',
     port: 5432,
   });
 
     function insertQueries (row) {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO spa VALUES(' + 
+        const query = 'INSERT INTO vehicle VALUES(' + 
         `'` + row.time + `',` +
         `'` + row.log_level + `',` +
         `'` + row.server_range + `',` +

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {XYPlot, ArcSeries, XAxis, YAxis, Hint } from 'react-vis';
 import axios from "axios";
 
 const FunctionUrl = "http://localhost:5000/home/secondChart";
+const colorArr = ['#355f77','#5697bf','#72a6c7','#91bad1','#000066'];
 
 class SecondChart extends React.Component {
 
   state = {
-    data: []
+    data: [],
+    dataName: []
   }
 
   async getData() {
@@ -31,13 +33,14 @@ class SecondChart extends React.Component {
     let tempData = [];
     let currentDegree = 0;
     let allOfCount = 0;
-    const colorArr = ['#355f77','#5697bf','#72a6c7','#91bad1','#000066'];
     let loop = 0;
 
     for(var i in functionCount){
-      allOfCount += functionCount[i];
+      if(i != 'null'){
+        allOfCount += functionCount[i];
+      }
     }
-
+    let dataName = [];
     for(var i in functionCount){
       let tempJson = {};
       tempJson['angle0'] = currentDegree;
@@ -48,9 +51,13 @@ class SecondChart extends React.Component {
       loop += 1;
       currentDegree = tempJson['angle'];
       tempData.push(tempJson);
+      let tempName = {};
+      tempName['title'] = i;
+      dataName.push(i);
     }
 
-    this.setState({data : tempData});
+    this.setState({data : tempData, dataName: dataName});
+    console.log(this.state.dataName);
   };
 
   componentWillMount (){
@@ -60,21 +67,30 @@ class SecondChart extends React.Component {
   render() {
 
     return (
-      <XYPlot
-        xDomain={[-100, 100]}
-        yDomain={[-100, 100]}
-        width={300}
-        height={300}>
-        <ArcSeries
-          colorType = "literal"
-          radiusDomain={[0,3]}
-          center={{x: 0, y: 0}}
-          showLabels
-          data={this.state.data}
-        />
-        {/* <XAxis/>
-        <YAxis/> */}
-      </XYPlot>
+      <Fragment>
+        <XYPlot
+          xDomain={[-100, 100]}
+          yDomain={[-100, 100]}
+          width={300}
+          height={230}>
+          <ArcSeries
+            colorType = "literal"
+            radiusDomain={[0,3]}
+            center={{x: 0, y: 0}}
+            data={this.state.data}
+          />
+        </XYPlot>
+        {
+          this.state.dataName.map((value, index) => { if(index < 5 && value != 'null'){
+          return  <div style={{}}>
+                    <div style={{}}>
+                      <div style={{backgroundColor: colorArr[index], width: '10px', height: '10px', margin: '0px', display: 'inline-block', marginRight: '10px', marginLeft: '110px', marginBottom: '10px'}}></div>
+                      <p style={{textAlign: 'center', marign: '0px', display: 'inline', marginBottom: '20px'}}>{value}</p>
+                    </div>
+                  </div>
+          }})
+        }
+      </Fragment>
     );
   }
 }

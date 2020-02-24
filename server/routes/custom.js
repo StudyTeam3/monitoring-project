@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
         user : 'postgres',
         host : 'localhost',
         database : 'postgres',
-        password : '',
+        password : 'apmsetup',
         port : 5432,
     });
 

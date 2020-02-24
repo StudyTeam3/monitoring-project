@@ -61,7 +61,7 @@ class ThirdChart extends Component {
       allOfCount += successCount[i];
     }
     this.setState({percent: successCount[0]/allOfCount});
-    console.log(allOfCount, successCount[0]);
+
     let tempJson = {};
     tempJson['angle0'] = 0;
     tempJson['angle'] = PI * this.state.percent;
@@ -78,7 +78,6 @@ class ThirdChart extends Component {
     tempJson['color'] = '#000066';
     tempData.push(tempJson);
 
-    console.log(tempData);
     this.setState({data : tempData});
   };
 
@@ -92,7 +91,7 @@ class ThirdChart extends Component {
       <div style={wrap}>
         <div style={over}>
           <p>success</p>
-            <p style={{fontSize: '30px',margin:'0 0', display:'inline'}}>{this.state.percent * 100}</p>
+            <p style={{fontSize: '30px',margin:'0 0', display:'inline'}}>{(this.state.percent * 100).toFixed(1)}</p>
           <p style={{display:'inline'}}>%</p>
         </div>
         <XYPlot
