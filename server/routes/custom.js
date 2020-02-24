@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
         user : 'postgres',
         host : 'localhost',
         database : 'postgres',
-        password : '',
+        password : 'notab12',
         port : 5432,
     });
 

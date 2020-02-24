@@ -29,12 +29,12 @@ class SocialLogin extends Component {
       if (firebase.auth().currentUser !== null) {
         this.props.login();
         const user_id = 1;
+        // window.sessionStorage.setItem('column', ['start','end','service_name','car_id','message_id','status']);
         axios
         .post(config.development.url + "/custom", {
           params: user_id
         })
         .then(res => {
-          console.log(res.data);
           window.sessionStorage.setItem('column', JSON.stringify(res.data));
         })
         .catch(err => {
