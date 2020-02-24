@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config.js')[env];
+
 function sendRes(response, returnRes){
     response.json(returnRes);
 }
@@ -11,10 +14,10 @@ router.post('/', (req, res, next) => {
     var returnRes = [];
 
     const client = new Client({
-        user : 'postgres',
+        user : config.username,
         host : 'localhost',
         database : 'postgres',
-        password : 'duddn311',
+        password : config.password,
         port : 5432,
     });
 
@@ -24,7 +27,6 @@ router.post('/', (req, res, next) => {
     
     client.query(sql)
     .then((result)=>{
-        console.log(result.rows);
         res.status(200).json(result.rows[0].custom_col);
     })
     .then(()=>client.end())
@@ -33,10 +35,10 @@ router.post('/', (req, res, next) => {
 
 router.post('/update', (req, res, next) => {
     const client = new Client({
-        user : 'postgres',
+        user : config.username,
         host : 'localhost',
         database : 'postgres',
-        password : '',
+        password : config.password,
         port : 5432,
     });
 

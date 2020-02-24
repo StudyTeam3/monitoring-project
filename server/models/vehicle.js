@@ -3,7 +3,7 @@ const sequelize = require('./index').sequelize;
 
 const Vehicle = sequelize.define('vehicle', {
     time: {
-        type: Sequelize.TIME,
+        type: 'TIMESTAMP',
         allowNull: false,
     },
     log_level: {

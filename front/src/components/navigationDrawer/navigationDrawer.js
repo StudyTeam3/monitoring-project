@@ -21,7 +21,6 @@ const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
   const token = window.sessionStorage.getItem("token");
   const isLogined = window.sessionStorage.getItem("isLogined");
-  const isLogined_Redux = props.isLogined;
   const logout = props.logout;
 
   /*
