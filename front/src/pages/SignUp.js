@@ -14,9 +14,9 @@ const SignUp = () => {
             </div>
             
             <FormGroup className="mb-1">
-            <Input type="email" placeholder="이메일"/>
+            <Input type="email" placeholder="아이디"/>
             </FormGroup>
-            <Button className="btn-sm btn-dark mt-0 mb-3">이메일 인증</Button>
+            <Button className="btn-sm btn-dark mt-0 mb-3">중복 확인</Button>
             <FormGroup>
             <Input type="password" placeholder="비밀번호"/>
             </FormGroup>

@@ -13,6 +13,7 @@ class FirstChart extends Component {
   }
 
   async getData() {
+    console.log("first getData");
     let timeCount = {};
     let { data: times } = await axios.get(TimeUrl);
 
@@ -38,6 +39,7 @@ class FirstChart extends Component {
   };
 
   componentWillMount (){
+    console.log("first mount");
     this.getData();
   };
   

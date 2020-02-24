@@ -10,7 +10,6 @@ import "../../css/dashboard.css";
 import "../../../node_modules/react-vis/dist/style.css";
 import "../../css/common.css";
 
-
 class Dashboard extends Component {
   render() {
     if(this.props.isLogined) this.props.history.push('/Login');

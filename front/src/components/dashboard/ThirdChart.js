@@ -31,6 +31,7 @@ class ThirdChart extends Component {
     // DB 데이터 파싱
     let successCount = {};
     let { data: success } = await axios.get(SuccessUrl);
+    console.log("1");
 
     for(var i = 0; i < Object.keys(success).length; i++){
       let successKind = success[i].success;
@@ -61,7 +62,7 @@ class ThirdChart extends Component {
       allOfCount += successCount[i];
     }
     this.setState({percent: successCount[0]/allOfCount});
-    console.log(allOfCount, successCount[0]);
+
     let tempJson = {};
     tempJson['angle0'] = 0;
     tempJson['angle'] = PI * this.state.percent;
