@@ -3,7 +3,9 @@ import {XYPlot, ArcSeries, XAxis, YAxis, Hint } from 'react-vis';
 import axios from "axios";
 
 const FunctionUrl = "http://localhost:5000/home/secondChart";
-const colorArr = ['#355f77','#5697bf','#72a6c7','#91bad1','#000066'];
+const colorArr = ['#355f77','#5697bf','#72a6c7','#91bad1','#000066',
+                  '#074e67','#001440','#74d2b3','#05878a','#3d0f2b',
+                  '#ff7878','#401a24','#836a7e','#ffcc5c','#ffeead','#daa520'];
 
 class SecondChart extends React.Component {
 
@@ -21,11 +23,13 @@ class SecondChart extends React.Component {
 
     for(var i = 0; i < Object.keys(functions).length; i++){
       let functionKind = functions[i].function;
-      if(functionCount[functionKind] == null){
-        functionCount[functionKind] = 1;
-      }
-      else{
-        functionCount[functionKind] += 1;
+      if(functionKind != 'null'){
+        if(functionCount[functionKind] == null){
+          functionCount[functionKind] = 1;
+        }
+        else{
+          functionCount[functionKind] += 1;
+        }
       }
     }
 
@@ -36,10 +40,9 @@ class SecondChart extends React.Component {
     let loop = 0;
 
     for(var i in functionCount){
-      if(i != 'null'){
-        allOfCount += functionCount[i];
-      }
+      allOfCount += functionCount[i];
     }
+
     let dataName = [];
     for(var i in functionCount){
       let tempJson = {};
@@ -81,12 +84,11 @@ class SecondChart extends React.Component {
           />
         </XYPlot>
         {
-          this.state.dataName.map((value, index) => { if(index < 5 && value != 'null'){
-          return  <div style={{}}>
-                    <div style={{}}>
-                      <div style={{backgroundColor: colorArr[index], width: '10px', height: '10px', margin: '0px', display: 'inline-block', marginRight: '10px', marginLeft: '110px', marginBottom: '10px'}}></div>
-                      <p style={{textAlign: 'center', marign: '0px', display: 'inline', marginBottom: '20px'}}>{value}</p>
-                    </div>
+          // index < 5 && value != 'null'
+          this.state.dataName.map((value, index) => { if(1){
+          return  <div>
+                    <div style={{backgroundColor: colorArr[index], width: '10px', height: '10px', margin: '0px', display: 'inline-block', marginRight: '10px', marginLeft: '110px', marginBottom: '10px'}}></div>
+                    <p style={{textAlign: 'center', marign: '0px', display: 'inline', marginBottom: '20px'}}>{value}</p>
                   </div>
           }})
         }
