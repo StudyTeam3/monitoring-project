@@ -78,38 +78,33 @@ class SecondChart extends React.Component {
   render() {
 
     return (
-      <Fragment>
-        <XYPlot
-          xDomain={[-100, 100]}
-          yDomain={[-100, 100]}
-          width={300}
-          height={230}>
-          <ArcSeries
-            colorType = "literal"
-            radiusDomain={[0,3]}
-            center={{x: 0, y: 0}}
-            data={this.state.data}
-          />
-        </XYPlot>
-        <table>
+      <div>
+        <div style={{position:'relative'}}>
+          <XYPlot
+            xDomain={[-100, 100]}
+            yDomain={[-100, 100]}
+            width={300}
+            height={230}
+            >
+            <ArcSeries
+              colorType = "literal"
+              radiusDomain={[0,3]}
+              center={{x: -20, y: 0}}
+              data={this.state.data}
+            />
+          </XYPlot>
+        </div>
+        <div style={{position:'absolute', top:'325px',zIndex:'10'}}>
         {
-          // index < 5 && value != 'null'
-          // this.state.dataName.map((value, index) => { if(1){
-          // return  <div>
-          //           <div style={{backgroundColor: colorArr[index], width: '10px', height: '10px', margin: '0px', display: 'inline-block', marginRight: '10px', marginLeft: '110px', marginBottom: '10px'}}></div>
-          //           <p style={{textAlign: 'center', marign: '0px', display: 'inline', marginBottom: '20px'}}>{value}</p>
-          //         </div>
-          // }})
-          
-          this.state.dataName.map((value, index) => { if(1){
-          return  <div>
-                    <div style={{backgroundColor: colorArr[index], width: '10px', height: '10px', margin: '0px', display: 'inline-block', marginRight: '10px', marginLeft: '80px', marginBottom: '10px'}}></div>
-                    <p style={{textAlign: 'center', marign: '0px', display: 'inline', marginBottom: '20px'}}>{value}</p>
-                  </div>
+          this.state.dataName.map((value, index) => { if(index <4 ){
+            return  <div>
+                      <div style={{backgroundColor: colorArr[index], width: '10px', height: '10px', margin: '0px', display: 'inline-block', marginRight: '10px', marginLeft: '80px', marginBottom: '3px'}}></div>
+                      <p style={{width: '140px', textAlign: 'center', marign: '0px', display: 'inline', marginBottom: '20px'}}>{value}</p>
+                    </div>
           }})
         }
-        </table>
-      </Fragment>
+        </div>
+      </div>
     );
   }
 }
