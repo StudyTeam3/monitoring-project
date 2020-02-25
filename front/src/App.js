@@ -10,7 +10,7 @@ import {
   ForgotPassword,
   Setting
 } from "./pages";
-import TransactionDetailContainer from "./components/container/TransactionDetailContainer"
+import TransactionDetailContainer from "./components/container/TransactionDetailContainer";
 import { connect } from "react-redux";
 import { logout } from "./store/modules/loginModules";
 import "./css/common.css";
@@ -36,9 +36,13 @@ function App(props) {
             <Route path="/" exact={true} component={Dashboard} />
             <Route path="/home" component={Dashboard} />
             <Route path="/setting" component={Setting} />
-            <Route path="/search" component={TransactionSearch} />
             <Switch>
-              <Route path="/detail/:mid" component={TransactionDetailContainer} />
+              <Route path="/search/:data" component={TransactionSearch} />
+              <Route path="/search" component={TransactionSearch} />
+              <Route
+                path="/detail/:data/:mid"
+                component={TransactionDetailContainer}
+              />
               <Route path="/detail" component={TransactionDetailContainer} />
             </Switch>
             <Route path="/SignUp" component={SignUp} />
@@ -50,11 +54,8 @@ function App(props) {
   );
 }
 
-export default connect(
-  null,
-  dispatch => ({
-    logout: () => {
-      dispatch(logout());
-    }
-  })
-)(App);
+export default connect(null, dispatch => ({
+  logout: () => {
+    dispatch(logout());
+  }
+}))(App);

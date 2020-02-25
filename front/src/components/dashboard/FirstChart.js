@@ -13,6 +13,7 @@ class FirstChart extends Component {
   }
 
   async getData() {
+    console.log("first getData");
     let timeCount = {};
     let TimeUrl = 'http://localhost:5000/home/firstChart/'+serverName;
     let { data: times } = await axios.get(TimeUrl);
@@ -20,12 +21,7 @@ class FirstChart extends Component {
     for(var i = 0; i < Object.keys(times).length; i++){
       let tempSplit = times[i].time.split('T');
       let timeSplit = tempSplit[1].split(':');
-      if(timeCount[timeSplit[0]] == null){
-        timeCount[timeSplit[0]] = 1;
-      }
-      else{
-        timeCount[timeSplit[0]] += 1;
-      }
+      
     }
 
     let tempData = [];

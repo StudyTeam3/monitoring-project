@@ -26,9 +26,9 @@ const SignUp = (props) => {
             </div>
             
             <FormGroup className="mb-1">
-            <Input type="email" placeholder="이메일"/>
+            <Input type="email" placeholder="아이디"/>
             </FormGroup>
-            <Button className="btn-sm btn-dark mt-0 mb-3">이메일 인증</Button>
+            <Button className="btn-sm btn-dark mt-0 mb-3">중복 확인</Button>
             <FormGroup>
             <Input type="password" placeholder="비밀번호"/>
             </FormGroup>
@@ -47,7 +47,7 @@ const SignUp = (props) => {
                 </div>
                 <div className="toLogIn2">
                     <Link to="/LogIn" >
-                    <Button onClick={signup} color="primary" size="sm">계정 만들기</Button>
+                    <Button onClick={signup} color="primary" size="sm" onClick={() => {alert("회원가입 되었습니다.");}}>계정 만들기</Button>
                     </Link>
                 </div>
             </div>

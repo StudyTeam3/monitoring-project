@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config.js')[env];
+
 router.get('/firstChart/:serverName', function(req, res, next) {
     var returnRes = [];
     let temp = new Object();
@@ -8,10 +11,10 @@ router.get('/firstChart/:serverName', function(req, res, next) {
     const { Client } = require('pg');
 
     const client = new Client({
-        user : 'postgres',
+        user : config.username,
         host : 'localhost',
         database : 'postgres',
-        password : 'apmsetup',
+        password : config.password,
         port : 5432,
     });
 
@@ -36,10 +39,10 @@ router.get('/secondChart/:serverName', function(req, res, next) {
     const { Client } = require('pg');
 
     const client = new Client({
-        user : 'postgres',
+        user : config.username,
         host : 'localhost',
         database : 'postgres',
-        password : 'apmsetup',
+        password : config.password,
         port : 5432,
     });
 
@@ -64,10 +67,10 @@ router.get('/thirdChart/:serverName', function(req, res, next) {
     const { Client } = require('pg');
 
     const client = new Client({
-        user : 'postgres',
+        user : config.username,
         host : 'localhost',
         database : 'postgres',
-        password : 'apmsetup',
+        password : config.password,
         port : 5432,
     });
 

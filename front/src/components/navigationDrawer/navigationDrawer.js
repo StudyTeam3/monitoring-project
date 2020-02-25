@@ -21,7 +21,6 @@ const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
   const token = window.sessionStorage.getItem("token");
   const isLogined = window.sessionStorage.getItem("isLogined");
-  const isLogined_Redux = props.isLogined;
   const logout = props.logout;
 
   /*
@@ -116,7 +115,7 @@ const NavigationDrawer = props => {
               <p className={"drawerUserName"}>
                 {isToggled &&
                   (isLogined
-                    ? firebase.auth().currentUser.displayName
+                    ? firebase.auth().currentUser.displayName + " 님"
                     : "계정 정보가 없습니다.")}
               </p>
               <hr className={"drawerHeaderLine"} />
@@ -177,7 +176,7 @@ const NavigationDrawer = props => {
                           custom_col : JSON.parse(customCol)
                         })
                         .then(res => {
-                          console.log('update in DB')
+                          console.log('update in DB');
                         })
                         .catch(err => {
                           console.error(err);

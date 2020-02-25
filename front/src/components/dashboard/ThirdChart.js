@@ -32,6 +32,7 @@ class ThirdChart extends Component {
     let successCount = {};
     const SuccessUrl = `http://localhost:5000/home/thirdChart/`+serverName;
     let { data: success } = await axios.get(SuccessUrl);
+    console.log("1");
 
     for(var i = 0; i < Object.keys(success).length; i++){
       let successKind = success[i].success;

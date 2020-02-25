@@ -15,12 +15,12 @@ import "../css/canvas.css";
 
 const config = require("../config/config");
 
-const TransactionDetail = props => {
-  const mid = props.mid;
+const TransactionDetail = (props) => {
   const [rows, setRows] = useState([]);
   const [transactionSummaryInfo, setTransactionSummaryInfo] = useState({});
   const [rowConnection, setRowConnection] = useState([]);
   const token = window.sessionStorage.getItem("token");
+  const {data,mid} = props;
 
   const checkSession = () => {
     // 여기에 세션을 유지하고 있는지 확인하는 로직이 있어야 제대로 Redirect됨...
@@ -29,9 +29,11 @@ const TransactionDetail = props => {
 
   useEffect(() => {
     // 특정 Transaction을 지칭하지 않았다면, search로 redirect
+    console.log(props,data,mid);
     axios
-      .post(config.development.url + "/spa/detail", {
-        message_id: mid
+      .post(config.development.url + "/data/detail", {
+        message_id: mid,
+        data: data,
       })
       .then(res => {
         setRows(res.data);
@@ -84,7 +86,7 @@ const TransactionDetail = props => {
           <div className={"title"}>
             <div className={"titleInLine"}>
               <h1 className={"header"}>트랜잭션 상세정보</h1>
-              <Link to={"/search"}>
+              <Link to={`/search/${data}`}>
                 <IconButton size={"medium"} style={{ marginRight: "5vw" }}>
                   <IoIosUndo color={"#006"} />
                 </IconButton>
