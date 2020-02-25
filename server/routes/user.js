@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/user");
+var Custom = require("../models/custom");
 
 /* GET All Users */
 router.get("/", (req, res, next) => {
@@ -28,6 +29,11 @@ router.post("/signup", (req, res, next) => {
             email: req.body.email,
             password: req.body.password,
             name: req.body.name
+          });
+          await Custom.create({
+            user_id: newUser.dataValues.email,
+            custom_col: ["start","end","message_id","http_method","status"],
+            platform: req.body.platform
           });
           res.json({ result: "success", data: newUser });
         }

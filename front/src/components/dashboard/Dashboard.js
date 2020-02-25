@@ -29,7 +29,6 @@ class Dashboard extends Component {
   }
   
   render() {
-    if(this.props.isLogined) this.props.history.push('/Login');
     return (
       <div className="dashBoard">
           <div className="header">
