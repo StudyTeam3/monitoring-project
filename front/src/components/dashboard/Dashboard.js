@@ -24,6 +24,10 @@ class Dashboard extends Component {
     console.log(serverName, this.state.currentServer);
   };
 
+  componentDidUpdate(){
+
+  }
+  
   render() {
     if(this.props.isLogined) this.props.history.push('/Login');
     return (

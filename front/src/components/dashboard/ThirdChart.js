@@ -32,7 +32,6 @@ class ThirdChart extends Component {
     let successCount = {};
     const SuccessUrl = `http://localhost:5000/home/thirdChart/`+serverName;
     let { data: success } = await axios.get(SuccessUrl);
-    console.log("1");
 
     for(var i = 0; i < Object.keys(success).length; i++){
       let successKind = success[i].success;
@@ -51,7 +50,6 @@ class ThirdChart extends Component {
       else{
       }
     }
-    console.log(successCount);  
     // 데이터를 차트 데이터로 변형
     // const myData = [
     //   {angle0: 0, angle: PI * 3/4, radius: 1.9, radius0: 2, color: '#000066'},
