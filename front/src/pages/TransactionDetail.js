@@ -15,25 +15,24 @@ import "../css/canvas.css";
 
 const config = require("../config/config");
 
-const TransactionDetail = (props) => {
+const TransactionDetail = props => {
   const [rows, setRows] = useState([]);
   const [transactionSummaryInfo, setTransactionSummaryInfo] = useState({});
   const [rowConnection, setRowConnection] = useState([]);
   const token = window.sessionStorage.getItem("token");
-  const {data,mid} = props;
+  const { data, mid } = props;
 
   const checkSession = () => {
     // 여기에 세션을 유지하고 있는지 확인하는 로직이 있어야 제대로 Redirect됨...
     return token === null || token === undefined;
-  }
+  };
 
   useEffect(() => {
     // 특정 Transaction을 지칭하지 않았다면, search로 redirect
-    console.log(props,data,mid);
     axios
       .post(config.development.url + "/data/detail", {
         message_id: mid,
-        data: data,
+        data: data
       })
       .then(res => {
         setRows(res.data);
@@ -77,10 +76,10 @@ const TransactionDetail = (props) => {
   }, [rows]);
   return (
     <div>
-      { checkSession() ? (
-        <Redirect to={"/Login"} />
+      {checkSession() ? (
+        <Redirect to={"Login"} />
       ) : mid === undefined ? (
-        <Redirect to={"/search"} />
+        <Redirect to={"search"} />
       ) : (
         <Paper>
           <div className={"title"}>

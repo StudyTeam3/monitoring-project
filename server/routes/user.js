@@ -3,6 +3,9 @@ var router = express.Router();
 var User = require("../models/user");
 var Custom = require("../models/custom");
 
+let jwt = require("jsonwebtoken");
+let secretObj = require("../config/jwt");
+
 /* GET All Users */
 router.get("/", (req, res, next) => {
   User.findAll()
@@ -32,7 +35,7 @@ router.post("/signup", (req, res, next) => {
           });
           await Custom.create({
             user_id: newUser.dataValues.email,
-            custom_col: ["start","end","message_id","http_method","status"],
+            custom_col: ["start", "end", "message_id", "http_method", "status"],
             platform: req.body.platform
           });
           res.json({ result: "success", data: newUser });
@@ -110,8 +113,81 @@ router.post("/modify", (req, res, next) => {
 });
 
 /* Signin */
-router.get("/signin", (req, res, next) => {
-  res.send(req.session);
+router.post("/signin", (req, res, next) => {
+  // default : HMAC SHA256
+  let token = jwt.sign(
+    {
+      email: req.body.email
+    },
+    secretObj.secret, // 비밀 키
+    {
+      expiresIn: "1h" // 유효 시간은 1시간
+    }
+  );
+
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    .then(user => {
+      // 비밀번호 검증
+      if (user.dataValues.password === req.body.password) {
+        res.json({
+          result: "success",
+          name: user.dataValues.name,
+          email: user.dataValues.email,
+          token: token
+        });
+      } else {
+        res.status(403).json({
+          result: "fail",
+          message: "not logged in"
+        });
+      }
+    })
+    .catch(err => {
+      console.error("err");
+    });
+});
+
+/* Token Check */
+router.post("/check", (req, res, next) => {
+  // default : HMAC SHA256
+  const token = req.headers["x-access-token"] || req.body.token;
+
+  // token does not exist
+  if (!token) {
+    return res.status(403).json({
+      result: "fail",
+      message: "not logged in"
+    });
+  }
+
+  let decoded = new Promise((resolve, reject) => {
+    jwt.verify(token, secretObj.secret, (err, decoded) => {
+      if (err) reject(err);
+      resolve(decoded);
+    });
+  });
+
+  // if token is valid, it will respond with its info
+  const respond = token => {
+    res.json({
+      result: "success",
+      token: token
+    });
+  };
+
+  // if it has failed to verify, it will return an error message
+  const onError = error => {
+    res.status(403).json({
+      result: "fail",
+      message: error.message
+    });
+  };
+
+  decoded.then(respond).catch(onError);
 });
 
 module.exports = router;

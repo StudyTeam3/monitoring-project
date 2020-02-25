@@ -12,7 +12,7 @@ import {
 } from "./pages";
 import TransactionDetailContainer from "./components/container/TransactionDetailContainer";
 import { connect } from "react-redux";
-import { logout } from "./store/modules/loginModules";
+import { logout, login } from "./store/modules/loginModules";
 import "./css/common.css";
 import "./App.css";
 import "react-notifications/lib/notifications.css";
@@ -32,7 +32,7 @@ function App(props) {
             <NavigationDrawer onSubmit={onSearchSubmit} logout={logout} />
           </div>
           <div className={whatDrawers}>
-            <Route path="/LogIn" component={LogIn} />
+            <Route path="/LogIn" component={LogIn} login={login} />
             <Route path="/" exact={true} component={Dashboard} />
             <Route path="/home" component={Dashboard} />
             <Route path="/setting" component={Setting} />
@@ -57,5 +57,8 @@ function App(props) {
 export default connect(null, dispatch => ({
   logout: () => {
     dispatch(logout());
+  },
+  login: () => {
+    dispatch(login());
   }
 }))(App);

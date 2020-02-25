@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 
 const SignUp = (props) => {
 
@@ -12,9 +13,8 @@ const SignUp = (props) => {
       });
 
     const signup = () => {
-
     }
-
+    
     return (
         <Fragment>
             <div>

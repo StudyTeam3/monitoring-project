@@ -35,6 +35,7 @@ router.post('/', (req, res, next) => {
     
     client.query(sql)
     .then((result)=>{
+        // console.log("result",result.rows);
         // CUSTOM에 없으면 새로 만든다.
         if(result.rows.length === 0) {
             const pushSql = `INSERT INTO custom VALUES('${user_id}','{start,end,message_id,http_method,status}','${platform}') RETURNING custom_col;`
@@ -62,8 +63,11 @@ router.post('/update', (req, res, next) => {
 
     client.connect();
     var user_id = req.body.user_id;
-    var custom_col = req.body.custom_col
-    const sql = `UPDATE custom SET "custom_col"='{${custom_col}}' WHERE "user_id" = '${user_id}';`;
+    var custom_col = req.body.custom_col;
+    var platform = req.body.platform;
+    // console.log("platform: ",platform);
+    // console.log("custom_col: ",custom_col);
+    const sql = `UPDATE custom SET "custom_col"='{${custom_col}}' WHERE "user_id" = '${user_id}' AND "platform" = '${platform}';`;
     client.query(sql)
     .then((result)=>{
         console.log('update custom col');

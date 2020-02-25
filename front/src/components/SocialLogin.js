@@ -27,7 +27,7 @@ class SocialLogin extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser !== null) {
-        this.props.login();
+        this.props.login({token:firebase.auth().currentUser.uid});
         const user_id = firebase.auth().currentUser.email;
         const platform = firebase.auth().currentUser.providerData[0].providerId;
         // Social Login시 custom
@@ -63,8 +63,8 @@ export default connect(
     isLogined: state.loginModules.isLogined
   }),
   dispatch => ({
-    login: () => {
-      dispatch(login());
+    login: (data) => {
+      dispatch(login(data));
     }
   })
 )(SocialLogin);

@@ -14,15 +14,15 @@ import firebase from "firebase";
 import "../../css/NavigationDrawer.css";
 import "../../css/alarm.css";
 import axios from "axios";
-const config = require("../../config/config")
-const AlarmUrl = "http://localhost:5000/alarm"
+const config = require("../../config/config");
+const AlarmUrl = "http://localhost:5000/alarm";
 
 const NavigationDrawer = props => {
   const onSubmit = props.onSubmit;
   const token = window.sessionStorage.getItem("token");
   const isLogined = window.sessionStorage.getItem("isLogined");
   const logout = props.logout;
-
+  const displayName = window.sessionStorage.getItem("name");
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
    * isToggled: 토글 되었는지 확인하는 변수
@@ -115,7 +115,9 @@ const NavigationDrawer = props => {
               <p className={"drawerUserName"}>
                 {isToggled &&
                   (isLogined
-                    ? firebase.auth().currentUser.displayName + " 님"
+                    ? firebase.auth().currentUser !== null
+                      ? firebase.auth().currentUser.displayName
+                      : displayName
                     : "계정 정보가 없습니다.")}
               </p>
               <hr className={"drawerHeaderLine"} />
@@ -168,26 +170,50 @@ const NavigationDrawer = props => {
                     <IconButton
                       onClick={() => {
                         if (isLogined) alert("로그아웃 되었습니다.");
-                        const customCol = window.sessionStorage.getItem('column');
-                        const user_id = 1;
-                        axios
-                        .post(config.development.url + "/custom/update", {
-                          user_id : user_id,
-                          custom_col : JSON.parse(customCol)
-                        })
-                        .then(res => {
-                          console.log('update in DB');
-                        })
-                        .catch(err => {
-                          console.error(err);
-                        })
                       }}
                     >
                       <GoSignOut
                         color={"white"}
                         onClick={() => {
+                          const customCol = window.sessionStorage.getItem(
+                            "column"
+                          );
+                          if (firebase.auth().currentUser !== null) {
+                            firebase.auth().signOut();
+                            const user_id = firebase.auth().currentUser.email;
+                            const platform = firebase.auth().currentUser
+                              .providerData[0].providerId;
+                            axios
+                              .post(config.development.url + "/custom/update", {
+                                user_id: user_id,
+                                custom_col: JSON.parse(customCol),
+                                platform: platform
+                              })
+                              .then(res => {
+                                console.log("update in DB");
+                              })
+                              .catch(err => {
+                                console.error(err);
+                              });
+                          } else {
+                            const user_id = window.sessionStorage.getItem(
+                              "email"
+                            );
+                            const platform = "base";
+                            axios
+                              .post(config.development.url + "/custom/update", {
+                                user_id: user_id,
+                                custom_col: JSON.parse(customCol),
+                                platform: platform
+                              })
+                              .then(res => {
+                                console.log("update in DB");
+                              })
+                              .catch(err => {
+                                console.error(err);
+                              });
+                          }
                           logout();
-                          firebase.auth().signOut();
                         }}
                       />
                       <Redirect to="LogIn" />
