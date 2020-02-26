@@ -29,23 +29,29 @@ const LogIn = props => {
         password: password
       })
       .then(res => {
-        // module 토큰저장로직
-        login({
-          token: res.data.token,
-          name: res.data.name,
-          email: res.data.email
-        });
-        axios
-          .post(config.development.url + "/custom", {
-            user_id: res.data.email,
-            platform: "base"
-          })
-          .then(res => {
-            window.sessionStorage.setItem("column", JSON.stringify(res.data));
-          })
-          .catch(err => {
-            console.error(err);
+        // 로그인 성공
+        if (res.data.result === "success") {
+          // module 토큰저장로직
+          login({
+            token: res.data.token,
+            name: res.data.name,
+            email: res.data.email
           });
+          axios
+            .post(config.development.url + "/custom", {
+              user_id: res.data.email,
+              platform: "base"
+            })
+            .then(res => {
+              window.sessionStorage.setItem("column", JSON.stringify(res.data));
+            })
+            .catch(err => {
+              console.error(err);
+            });
+        }
+        else {
+          alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+        }
       })
       .catch(err => {
         console.error(err);
@@ -105,6 +111,9 @@ const LogIn = props => {
             onChange={onChangeInput}
             type="password"
             placeholder="비밀번호를 입력하세요."
+            onKeyPress={e => {
+              if (e.key === "Enter") loginLogic();
+            }}
           />
         </FormGroup>
         <Button

@@ -31,7 +31,7 @@ router.post("/signup", (req, res, next) => {
           const newUser = await User.create({
             email: req.body.email,
             password: req.body.password,
-            name: req.body.name
+            name: req.body.username
           });
           await Custom.create({
             user_id: newUser.dataValues.email,
@@ -140,7 +140,7 @@ router.post("/signin", (req, res, next) => {
           token: token
         });
       } else {
-        res.status(403).json({
+        res.json({
           result: "fail",
           message: "not logged in"
         });
