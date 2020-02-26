@@ -22,7 +22,7 @@ const NavigationDrawer = props => {
   const token = window.sessionStorage.getItem("token");
   const isLogined = window.sessionStorage.getItem("isLogined");
   const logout = props.logout;
-  const displayName = window.sessionStorage.getItem("name");
+  const [displayName,setDisplayName] = useState(window.sessionStorage.getItem("name"));
   /*
    * bottomIconState: 토글 될 때마다 css를 바꿔주기 위한 변수
    * isToggled: 토글 되었는지 확인하는 변수
@@ -57,6 +57,11 @@ const NavigationDrawer = props => {
       setAlarmCount(tempCount);
     };
   };
+ 
+  useEffect(() => {
+    // 로그인시 displayName 바꾸기
+    setDisplayName(window.sessionStorage.getItem("name"));
+  },[isLogined]);
 
   useEffect(() => {
     return async () => {
@@ -214,9 +219,11 @@ const NavigationDrawer = props => {
                               });
                           }
                           logout();
+                          // 로그아웃시 displayName 바뀌기
+                          setDisplayName(window.sessionStorage.getItem("name"));
+                          history.push("/Login");
                         }}
                       />
-                      <Redirect to="LogIn" />
                     </IconButton>
                   </Link>
                 </NavIcon>

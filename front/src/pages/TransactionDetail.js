@@ -77,9 +77,9 @@ const TransactionDetail = props => {
   return (
     <div>
       {checkSession() ? (
-        <Redirect to={"Login"} />
+        <Redirect to={"/Login"} />
       ) : mid === undefined ? (
-        <Redirect to={"search"} />
+        <Redirect to={`/search`} />
       ) : (
         <Paper>
           <div className={"title"}>

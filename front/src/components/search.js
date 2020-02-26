@@ -176,6 +176,7 @@ const CustomPaginationActionsTable = props => {
                 if (cols.includes(key)) tmp[key] = t[key];
               }
               cols.map(key => sorted.push(tmp[key]));
+              console.log(rows);
               return (
                 <StyledTableRow>
                   {sorted.map(data => {
