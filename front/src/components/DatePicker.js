@@ -1,19 +1,22 @@
-import React from 'react';
-import moment from 'moment';
-import '../css/DatePicker.css'
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import React from "react";
+import moment from "moment";
+import "../css/DatePicker.css";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import "react-day-picker/lib/style.css";
+import { connect } from "react-redux";
+import { formatDate, parseDate } from "react-day-picker/moment";
+import { fromAction, toAction } from "../store/modules/filterModules";
 
-import { formatDate, parseDate } from 'react-day-picker/moment';
-
-export default class DatePicker extends React.Component {
+class DatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.handleFromChange = this.handleFromChange.bind(this);
     this.handleToChange = this.handleToChange.bind(this);
+    this.fromAction = this.props.fromAction.bind(this);
+    this.toAction = this.props.toAction.bind(this);
     this.state = {
       from: undefined,
-      to: undefined,
+      to: undefined
     };
   }
 
@@ -22,7 +25,7 @@ export default class DatePicker extends React.Component {
     if (!from) {
       return;
     }
-    if (moment(to).diff(moment(from), 'months') < 2) {
+    if (moment(to).diff(moment(from), "months") < 2) {
       this.to.getDayPicker().showMonth(from);
     }
   }
@@ -30,10 +33,11 @@ export default class DatePicker extends React.Component {
   handleFromChange(from) {
     // Change the from date and focus the "to" input field
     this.setState({ from });
+    this.fromAction(from);
   }
 
   handleToChange(to) {
-    this.setState({ to }, this.showFromMonth);
+    this.setState({ to }, this.showFromMonth,  this.toAction(to));
   }
 
   render() {
@@ -53,11 +57,11 @@ export default class DatePicker extends React.Component {
             toMonth: to,
             modifiers,
             numberOfMonths: 2,
-            onDayClick: () => this.to.getInput().focus(),
+            onDayClick: () => this.to.getInput().focus()
           }}
           onDayChange={this.handleFromChange}
-        />{' '}
-        —{' '}
+        />{" "}
+        —{" "}
         <span className="InputFromTo-to">
           <DayPickerInput
             ref={el => (this.to = el)}
@@ -72,13 +76,24 @@ export default class DatePicker extends React.Component {
               modifiers,
               month: from,
               fromMonth: from,
-              numberOfMonths: 2,
+              numberOfMonths: 2
             }}
             onDayChange={this.handleToChange}
           />
         </span>
- 
       </div>
     );
   }
 }
+
+export default connect(
+  null,
+  dispatch => ({
+    fromAction: (data) => {
+      dispatch(fromAction(data));
+    },
+    toAction: (data) => {
+      dispatch(toAction(data));
+    }
+  })
+)(DatePicker);

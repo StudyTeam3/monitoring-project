@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -7,8 +7,10 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
-import DatePicker from './DatePicker'
-import '../css/filter.css'
+import DatePicker from "./DatePicker";
+import { connect } from "react-redux";
+import { filterAction } from "../store/modules/filterModules";
+import "../css/filter.css";
 
 const SelectService = () => {
   const classes = useStyles();
@@ -131,7 +133,6 @@ const SearchCarID = () => {
 
   const handleChange = event => {
     setCarID(event.target.value);
-
   };
 
   return (
@@ -145,7 +146,6 @@ const SearchCarID = () => {
     </FormControl>
   );
 };
-
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -164,59 +164,69 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
+
 class filter extends Component {
-
   state = {
-      starTime: '',
-      endTime: '',
-      MID: '',
-      server: '',
-      service: '',
-      carID: '',
-      function: '',
-      status: '',
-  }
+    starTime: "",
+    endTime: "",
+    MID: "",
+    server: "",
+    service: "",
+    carID: "",
+    function: "",
+    status: ""
+  };
 
-  handleChange = (e) => {
-      this.setState({
-          [e.target.name]: e.target.value
-      });
-  }
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
 
-  handleSearch = (e) => {
+  handleSearch = e => {
+    // console.log(this.props.from);
+    // console.log(this.props.to);
+    this.props.filterAction(true);
+  };
 
-    console.log(this.state);
+  handleTest = data => {
+    console.log(data);
+  };
 
-  }
-  handleTest = (data) =>{
-    console.log(data)
-  }
   render() {
-
     return (
-        //여기에 state만들어서 위에 있는 함수들에서 state를 변경하게끔 
-        //여기에 handle
-        
+      //여기에 state만들어서 위에 있는 함수들에서 state를 변경하게끔
+      //여기에 handle
+
+      <div>
         <div>
-         <div>
-            <DatePicker/>
-            <IconButton color="primary" onClick={this.handleSearch}>
-            <SearchIcon/>
-            </IconButton>
-         </div>
-         <div>
-           <SelectFunction/>
-           <SelectStatus/>
-           <SelectService/>
-         </div>
-         <div>
-           <SearchMessageID/>
-           <SearchCarID />
-           <SelectServer/>
-         </div>
+          <DatePicker />
+          <IconButton color="primary" onClick={this.handleSearch}>
+            <SearchIcon />
+          </IconButton>
         </div>
+        <div>
+          <SelectFunction />
+          <SelectStatus />
+          <SelectService />
+        </div>
+        <div>
+          <SearchMessageID />
+          <SearchCarID />
+          <SelectServer />
+        </div>
+      </div>
     );
   }
 }
 
-export default filter;
+export default connect(
+  state => {
+    return { from: state.filterModules.from, to: state.filterModules.to };
+  },
+  dispatch => ({
+    filterAction: data => {
+      dispatch(filterAction(data));
+    }
+  })
+)(filter);
