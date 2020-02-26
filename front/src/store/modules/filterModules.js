@@ -48,12 +48,12 @@ export default handleActions(
     [DATA]: (state, { type, payload }) => ({ ...state, data: payload }),
     [FROM]: (state, { type, payload }) => ({ ...state, from: payload }),
     [TO]: (state, { type, payload }) => ({ ...state, to: payload }),
-    [FUNCTION]: (state, action) => ({ from: state.function }),
-    [STATUS]: (state, action) => ({ from: state.status }),
-    [SERVICE]: (state, action) => ({ from: state.service }),
-    [SERVER]: (state, action) => ({ from: state.server }),
-    [MESSAGE_ID]: (state, action) => ({ from: state.message_id }),
-    [CAR_ID]: (state, action) => ({ from: state.car_id })
+    [FUNCTION]: (state, { type, payload }) => ({ ...state, function: payload }),
+    [STATUS]: (state, { type, payload }) => ({ ...state, status: payload }),
+    [SERVICE]: (state, { type, payload }) => ({ ...state, service: payload }),
+    [SERVER]: (state, { type, payload }) => ({ ...state, server: payload }),
+    [MESSAGE_ID]: (state, { type, payload }) => ({ ...state, message_id: payload }),
+    [CAR_ID]: (state, { type, payload }) => ({ ...state, car_id: payload })
   },
   initialState
 );

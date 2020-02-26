@@ -9,15 +9,24 @@ import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
 import DatePicker from "./DatePicker";
 import { connect } from "react-redux";
-import { filterAction } from "../store/modules/filterModules";
+import {
+  filterAction,
+  funcAction,
+  statusAction,
+  serviceAction,
+  serverAction,
+  message_idAction,
+  car_idAction
+} from "../store/modules/filterModules";
 import "../css/filter.css";
 
-const SelectService = () => {
+const SelectService = props => {
   const classes = useStyles();
   const [service, setService] = React.useState("");
 
   const handleChange = event => {
     setService(event.target.value);
+    props.function(event.target.value);
   };
   return (
     <FormControl className={classes.formControl}>
@@ -35,12 +44,13 @@ const SelectService = () => {
   );
 };
 
-const SelectStatus = () => {
+const SelectStatus = props => {
   const classes = useStyles();
   const [status, setStatus] = React.useState("");
 
   const handleChange = event => {
     setStatus(event.target.value);
+    props.function(event.target.value);
   };
   return (
     <FormControl className={classes.formControl}>
@@ -59,12 +69,13 @@ const SelectStatus = () => {
   );
 };
 
-const SelectFunction = () => {
+const SelectFunction = props => {
   const classes = useStyles();
   const [func, serFunc] = React.useState("");
 
   const handleChange = event => {
     serFunc(event.target.value);
+    props.function(event.target.value);
   };
   return (
     <FormControl className={classes.formControl}>
@@ -83,12 +94,13 @@ const SelectFunction = () => {
   );
 };
 
-const SelectServer = () => {
+const SelectServer = props => {
   const classes = useStyles();
   const [server, setServer] = React.useState("");
 
   const handleChange = event => {
     setServer(event.target.value);
+    props.function(event.target.value);
   };
   return (
     <FormControl className={classes.formControl}>
@@ -107,12 +119,13 @@ const SelectServer = () => {
   );
 };
 
-const SearchMessageID = () => {
+const SearchMessageID = props => {
   const classes = useStyles();
   const [messageID, setMessageID] = React.useState("");
 
   const handleChange = event => {
     setMessageID(event.target.value);
+    props.function(event.target.value);
   };
 
   return (
@@ -127,12 +140,13 @@ const SearchMessageID = () => {
   );
 };
 
-const SearchCarID = () => {
+const SearchCarID = props => {
   const classes = useStyles();
   const [carID, setCarID] = React.useState("");
 
   const handleChange = event => {
     setCarID(event.target.value);
+    props.function(event.target.value);
   };
 
   return (
@@ -184,8 +198,7 @@ class filter extends Component {
   };
 
   handleSearch = e => {
-    // console.log(this.props.from);
-    // console.log(this.props.to);
+    // console.log(this.props);
     this.props.filterAction(true);
   };
 
@@ -206,14 +219,14 @@ class filter extends Component {
           </IconButton>
         </div>
         <div>
-          <SelectFunction />
-          <SelectStatus />
-          <SelectService />
+          <SelectFunction function={this.props.funcAction} />
+          <SelectStatus function={this.props.statusAction} />
+          <SelectService function={this.props.serviceAction} />
         </div>
         <div>
-          <SearchMessageID />
-          <SearchCarID />
-          <SelectServer />
+          <SearchMessageID function={this.props.message_idAction} />
+          <SearchCarID function={this.props.car_idAction} />
+          <SelectServer function={this.props.serverAction} />
         </div>
       </div>
     );
@@ -222,11 +235,39 @@ class filter extends Component {
 
 export default connect(
   state => {
-    return { from: state.filterModules.from, to: state.filterModules.to };
+    return {
+      from: state.filterModules.from,
+      to: state.filterModules.to,
+      service: state.filterModules.service,
+      server: state.filterModules.server,
+      car_id: state.filterModules.car_id,
+      message_id: state.filterModules.message_id,
+      status: state.filterModules.status,
+      function: state.filterModules.function
+    };
   },
+  // null,
   dispatch => ({
     filterAction: data => {
       dispatch(filterAction(data));
+    },
+    funcAction: data => {
+      dispatch(funcAction(data));
+    },
+    statusAction: data => {
+      dispatch(statusAction(data));
+    },
+    serviceAction: data => {
+      dispatch(serviceAction(data));
+    },
+    serverAction: data => {
+      dispatch(serverAction(data));
+    },
+    message_idAction: data => {
+      dispatch(message_idAction(data));
+    },
+    car_idAction: data => {
+      dispatch(car_idAction(data));
     }
   })
 )(filter);
