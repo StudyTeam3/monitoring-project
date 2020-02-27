@@ -2,7 +2,31 @@ var express = require("express");
 var router = express.Router();
 var Spa = require("../models/Spa");
 var Vehicle = require("../models/vehicle");
+const sequelize = require('../models/index').sequelize;
 const { Op } = require("sequelize");
+
+/* Get All table names */
+router.get("/getAllTables", async (req,res,next) => {
+  const getTime = (mapped) => {
+    return new Promise(async resolve => {
+      for(let index = 0; index < mapped.length; index++) {
+        const each = await sequelize.query(`select * from public.` + mapped[index].tablename + ` order by time desc limit 1;`);
+        mapped[index]['time'] = each[0][0].time;
+      }
+      resolve(mapped);
+    })
+  }
+
+  try {
+    const results = await sequelize.query(`SELECT DISTINCT tablename FROM pg_tables WHERE schemaname='public' AND tablename NOT IN ('user', 'custom');`);
+    let mapped = results[0].map(element => element);
+    let response = await getTime(mapped);
+    res.json(response);
+  }
+  catch(err) {
+    console.error(err);
+  }
+});
 
 /* GET SPA for search pages */
 router.get("/", (req, res, next) => {
@@ -91,8 +115,9 @@ router.get("/", (req, res, next) => {
 router.post("/detail", (req, res, next) => {
   let response = [];
   let Data;
-  if(req.query.data === "spa") Data = Spa;
-  else if(req.query.data === "vehicle") Data = Vehicle;
+  if(req.body.data === "spa") Data = Spa;
+  else if(req.body.data === "vehicle") Data = Vehicle;
+  else Data = Spa;
 
   const formEach = array => {
     return new Promise(resolve => {

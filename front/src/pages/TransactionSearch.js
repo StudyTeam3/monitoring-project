@@ -21,9 +21,8 @@ class Dashboard extends Component {
                     }}
                 />
             </div>
-            
-            <SearchResult/>
-            <div></div>
+            <div><Filter/></div>
+            <div><SearchResult data={this.props.match.params.data}/></div>
         </Fragment>
     );
   }

@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config.js')[env];
+
 router.get('/', function(req, res, next) {
     var returnRes = [];
     let temp = new Object();
@@ -8,10 +11,10 @@ router.get('/', function(req, res, next) {
     const { Client } = require('pg');
 
     const client = new Client({
-        user : 'postgres',
+        user : config.username,
         host : 'localhost',
         database : 'postgres',
-        password : 'apmsetup',
+        password : config.password,
         port : 5432,
     });
 

@@ -27,14 +27,16 @@ class SocialLogin extends Component {
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(() => {
       if (firebase.auth().currentUser !== null) {
-        this.props.login();
-        const user_id = 1;
+        this.props.login({token:firebase.auth().currentUser.uid});
+        const user_id = firebase.auth().currentUser.email;
+        const platform = firebase.auth().currentUser.providerData[0].providerId;
+        // Social Login시 custom
         axios
         .post(config.development.url + "/custom", {
-          user_id : user_id
+          user_id : user_id,
+          platform: platform
         })
         .then(res => {
-          console.log(res.data);
           window.sessionStorage.setItem('column', JSON.stringify(res.data));
         })
         .catch(err => {
@@ -61,8 +63,8 @@ export default connect(
     isLogined: state.loginModules.isLogined
   }),
   dispatch => ({
-    login: () => {
-      dispatch(login());
+    login: (data) => {
+      dispatch(login(data));
     }
   })
 )(SocialLogin);

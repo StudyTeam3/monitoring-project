@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import SuccessChip from "./SuccessChip";
 import Filter from "./filter";
 import { getScalePropTypesByAttribute } from "react-vis/dist/utils/scales-utils";
+import "./../css/common.css";
 
 const config = require("./../config/config");
 const _ = require('lodash')
@@ -108,10 +109,10 @@ const StyledTableCell = withStyles(theme => ({
   }
 }))(TableCell);
 
-const capitalize = (str) => {
+const capitalize = str => {
   str = str.charAt(0).toUpperCase() + str.slice(1);
-  return str.replace("_"," ");
-}
+  return str.replace("_", " ");
+};
 
 const StyledTableRow = withStyles(theme => ({
   root: {
@@ -121,14 +122,17 @@ const StyledTableRow = withStyles(theme => ({
   }
 }))(TableRow);
 
-export default function CustomPaginationActionsTable() {
+const CustomPaginationActionsTable = props => {
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [show, setShow] = useState(false);
-  const [status, setStatus] = useState([true, null]);
-  const [messageID, setMessageID] = useState("");
-  const customCol = window.sessionStorage.getItem('column');
+  // const [status, setStatus] = useState([true, null]);
+  // const [messageID, setMessageID] = useState("");
+  let thisData = props.data;
+  if (thisData === undefined) thisData = "spa";
+
+  const customCol = window.sessionStorage.getItem("column");
 
   const emptyRows =
     rowsPerPage -
@@ -144,94 +148,90 @@ export default function CustomPaginationActionsTable() {
   };
 
   const onSearchSubmit = (state) => {
-   // setStatus([value]);
-   console.log(state)
-   // state.status === "success" ? setStatus([true]) : "fail" ? setStatus([null]) : setStatus([true, null])
-    let success = "";
-    if(state.status === "success") success = true;
-    else if (state.status = "fail") success = null;
+    // let success = "";
+    // if(state.status === "success") success = true;
+    // else if (state.status = "fail") success = null;
 
-    setMessageID(state.message_id.toLowerCase())
+    // setMessageID(state.message_id.toLowerCase())
 
-    axios.post(config.development.url + '/spa/filter', {
-      message_id : state.message_id.toLowerCase(),
-      success : success
-    })
-    .then((res) => {
-      setRows(res.data);
-      setShow(true);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+    // axios.post(config.development.url + '/spa/filter', {
+    //   message_id : state.message_id.toLowerCase(),
+    //   success : success
+    // })
+    // .then((res) => {
+    //   setRows(res.data);
+    //   setShow(true);
+    // })
+    // .catch((err) => {
+    //   console.error(err);
+    // })
   }
 
   useEffect(() => {
-    axios.get(config.development.url + '/spa')
-    .then((res) => {
-      setRows(res.data);
-      setShow(true);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  },[]);
+    axios
+      .get(config.development.url + `/data?data=${thisData}`)
+      .then(res => {
+        setRows(res.data);
+        setShow(true);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
 
 
   return (
-    <div>
-    <div>
-        <Filter onSubmit={onSearchSubmit}/>
-    </div>
     <Table style={{ width: "80%" }}>
       <TableHead>
         <TableRow>
-          {JSON.parse(customCol).map(name =>  <StyledTableCell>{capitalize(name)}</StyledTableCell>)}
+          {JSON.parse(customCol).map(name => (
+            <StyledTableCell>{capitalize(name)}</StyledTableCell>
+          ))}
         </TableRow>
       </TableHead>
-      { show &&
-      <TableBody>
-        {rows
-         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-         
-         .map(t => {
-          const tmp = {};
-          let sorted = [];
-          const cols = JSON.parse(customCol);
-          for(var key in t) {
-           // console.log(t["status"])
-            // if(!status.includes(t["status"])) return;
-            //console.log(t["message_id"].indexOf(messageID))
-            // if(t["message_id"].indexOf(messageID) < 0) return;
-            if(cols.includes(key)) tmp[key] = t[key];          
-          }
-          cols.map(key => sorted.push(tmp[key]));
-          return ( 
-          <StyledTableRow>
-
-            <TableCell>
-               <SuccessChip status={sorted.shift()} />
-            </TableCell>
-
-            <TableCell>         
-            <Link 
-              to={`/detail/${tmp.message_id}`} 
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              {sorted.shift()} 
-            </Link>
-            
-            </TableCell>     
-              {sorted.map(data => (<TableCell>{data}</TableCell>))}
-          </StyledTableRow>
-          )
-        })}
-        {emptyRows > 0 && (
-          <TableRow style={{ height: 53 * emptyRows }}>
-            <TableCell colSpan={6} />
-          </TableRow>
-        )}
-      </TableBody>}
+      {show && (
+        <TableBody>
+          {rows
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map(t => {
+              const tmp = {};
+              let sorted = [];
+              const cols = JSON.parse(customCol);
+              for (var key in t) {
+                if (cols.includes(key)) tmp[key] = t[key];
+              }
+              cols.map(key => sorted.push(tmp[key]));
+              console.log(rows);
+              return (
+                <StyledTableRow>
+                  {sorted.map(data => {
+                    if (t.status === data)
+                      return (
+                        <TableCell>
+                          <SuccessChip status={data} />
+                        </TableCell>
+                      );
+                    else if (t.message_id === data)
+                      return (
+                        <Link
+                          to={`/detail/${thisData}/${tmp.message_id}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <TableCell>{data} </TableCell>
+                        </Link>
+                      );
+                    else return <TableCell>{data}</TableCell>;
+                  })}
+                </StyledTableRow>
+              );
+            })}
+          {emptyRows > 0 && (
+            <TableRow style={{ height: 53 * emptyRows }}>
+              <TableCell colSpan={6} />
+            </TableRow>
+          )}
+        </TableBody>
+      )}
       <TableFooter>
         <TableRow>
           <TablePagination
@@ -250,7 +250,8 @@ export default function CustomPaginationActionsTable() {
           />
         </TableRow>
       </TableFooter>
-      </Table>
-      </div>
+    </Table>
   );
-}
+};
+
+export default CustomPaginationActionsTable;
