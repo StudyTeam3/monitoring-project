@@ -142,4 +142,35 @@ router.post("/detail", (req, res, next) => {
   })
 });
 
+
+router.post("/filter", (req, res, next) => {
+  let response = [];
+  let Data;
+  if(req.query.data === "spa") Data = Spa;
+  else if(req.query.data === "vehicle") Data = Vehicle;
+  else Data = Spa;
+
+  const formEach = array => {
+    return new Promise(resolve => {
+      for (const element of array) {
+        response.push({...element.dataValues});
+        if(element === array[array.length - 1]) res.json(response);
+      }
+    });
+  };
+
+  Data.findAll({
+    where: {
+      success: req.body.success,
+      message_id: {[Op.like]: `%${req.body.message_id}%`}
+    },
+    order: [["time", "ASC"]]
+  })
+  .then((each) => {
+    formEach(each);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+}) 
 module.exports = router;

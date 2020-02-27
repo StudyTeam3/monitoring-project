@@ -13,19 +13,26 @@ import "../../css/common.css";
 class Dashboard extends Component {
 
   state = {
-    currentServer: "spa"
+    currentServer: ""
   }
  
   changeServer = () => {
-    const idSelect = document.getElementById("serverName");
+    const idSelect = document.getElementById("serverName"); 
     const serverName = idSelect.value;
-    this.setState({currentServer : serverName})
     
-    console.log(serverName, this.state.currentServer);
+    console.log("before", serverName, this.state.currentServer);
+    this.setState({currentServer : serverName})
+    this.state.currentServer = serverName;
+    console.log("after", serverName, this.state.currentServer);
   };
 
-  componentDidUpdate(){
+  componentWillMount(){
+    this.state.currentServer = "spa";
+    console.log("Dashboard_wiilmount",this.state.currentServer);
+  }
 
+  componentDidUpdate(){
+    console.log("Dashboard_updateServer",this.state.currentServer);
   }
   
   render() {
@@ -34,8 +41,8 @@ class Dashboard extends Component {
           <div className="header">
             <h1 style={{display:'inline'}}>Dashboard</h1>
             <select id="serverName" style={{float:'right', marginTop:'30px'}} onChange={this.changeServer} >
-              <option value="spa">spa</option>
-              <option value="vehicle">vehicle</option>
+              <option value="spa">vehicle</option>
+              <option value="vehicle">spa</option>
             </select>
           </div>
           <hr
@@ -67,7 +74,7 @@ class Dashboard extends Component {
             </div>
             <div style={{ width: "60%" }}>
               <h2 className="tableName">최근 실패 로그</h2>
-              <DashboardLogTable style={{ width: "70%" }}></DashboardLogTable>
+              <DashboardLogTable serverName={this.state.currentServer} style={{ width: "70%" }}></DashboardLogTable>
             </div>
           </div>
       </div>

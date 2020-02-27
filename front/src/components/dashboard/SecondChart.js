@@ -3,6 +3,7 @@ import {XYPlot, ArcSeries, XAxis, YAxis, Hint } from 'react-vis';
 import axios from "axios";
 
 let serverName = "";
+let count = 0;
 const colorArr = ['#355f77','#5697bf','#72a6c7','#91bad1','#000066',
                   '#074e67','#001440','#74d2b3','#05878a','#3d0f2b',
                   '#ff7878','#401a24','#836a7e','#ffcc5c','#ffeead','#daa520'];
@@ -79,8 +80,21 @@ class SecondChart extends React.Component {
     this.getData();
   };
 
-  render() {
+  shouldComponentUpdate(nextProps, nextState){
+    if(count == 0){
+      count += 1;
+      return true;
+    }
+    const propsChange = (this.props.serverName !== nextProps.serverName);
+    return propsChange;
+  }
 
+  componentDidUpdate(){
+    serverName = this.props.serverName;
+    this.getData();
+  }
+
+  render() {
     return (
       <div>
         <div style={{position:'relative'}}>

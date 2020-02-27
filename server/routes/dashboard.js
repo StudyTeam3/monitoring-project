@@ -88,4 +88,33 @@ router.get('/thirdChart/:serverName', function(req, res, next) {
     .catch(e => console.error(e));
 });
 
+router.get('/logtable/:serverName', function(req, res, next) {
+    var returnRes = [];
+    let temp = new Object();
+
+    const { Client } = require('pg');
+    console.log('logTable');
+    const client = new Client({
+        user : config.username,
+        host : 'localhost',
+        database : 'postgres',
+        password : config.password,
+        port : 5432,
+    });
+
+    client.connect();
+    const serverName = req.params.serverName;
+    
+    const sql = "SELECT message_id, time, function, service_name FROM "+ serverName +" where commu_type = 'Response' and success = true "+
+                "ORDER BY time desc;";
+
+    client.query(sql)
+    .then((result)=>{
+        console.log(result.rows);
+        res.status(200).json(result.rows);
+    })
+    .then(()=>client.end())
+    .catch(e => console.error(e));
+});
+
 module.exports = router;
