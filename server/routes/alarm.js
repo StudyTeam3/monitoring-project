@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
         user : 'postgres',
         host : 'localhost',
         database : 'postgres',
-        password : 'apmsetup',
+        password : 'duddn311',
         port : 5432,
     });
 

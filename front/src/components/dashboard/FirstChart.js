@@ -20,7 +20,12 @@ class FirstChart extends Component {
     for(var i = 0; i < Object.keys(times).length; i++){
       let tempSplit = times[i].time.split('T');
       let timeSplit = tempSplit[1].split(':');
-      
+      if(timeCount[timeSplit[0]] == null){
+        timeCount[timeSplit[0]] = 1;
+      }
+      else{
+        timeCount[timeSplit[0]] += 1;
+      }
     }
 
     let tempData = [];
