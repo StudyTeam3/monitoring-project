@@ -181,9 +181,7 @@ const SearchCarID = props => {
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    marginTop: 10,
-    marginLeft: 20,
-    minWidth: 170
+    minWidth: 650,
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
@@ -217,6 +215,8 @@ class filter extends Component {
 
   handleSearch = e => {
     this.props.filterAction(true);
+    // e.preventDefault();
+    // this.props.onSubmit(this.state);
   };
 
   refresh = () => {

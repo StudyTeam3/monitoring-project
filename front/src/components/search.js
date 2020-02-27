@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import SuccessChip from "./SuccessChip";
 import { filterAction, dataAction } from "../store/modules/filterModules";
+// import { getScalePropTypesByAttribute } from "react-vis/dist/utils/scales-utils";
 import "./../css/common.css";
 
 const config = require("./../config/config");
@@ -128,6 +129,8 @@ const CustomPaginationActionsTable = props => {
   const [rows, setRows] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [show, setShow] = useState(false);
+  // const [status, setStatus] = useState([true, null]);
+  // const [messageID, setMessageID] = useState("");
   let thisData = props.data;
   const dataAction = props.dataAction;
 
@@ -147,6 +150,26 @@ const CustomPaginationActionsTable = props => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const onSearchSubmit = (state) => {
+    // let success = "";
+    // if(state.status === "success") success = true;
+    // else if (state.status = "fail") success = null;
+
+    // setMessageID(state.message_id.toLowerCase())
+
+    // axios.post(config.development.url + '/spa/filter', {
+    //   message_id : state.message_id.toLowerCase(),
+    //   success : success
+    // })
+    // .then((res) => {
+    //   setRows(res.data);
+    //   setShow(true);
+    // })
+    // .catch((err) => {
+    //   console.error(err);
+    // })
+  }
 
   useEffect(() => {
     axios
