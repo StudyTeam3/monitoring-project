@@ -5,8 +5,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import DatePicker from "./DatePicker";
 import { connect } from "react-redux";
 import {
@@ -16,13 +18,18 @@ import {
   serviceAction,
   serverAction,
   message_idAction,
-  car_idAction
+  car_idAction,
+  refreshAction
 } from "../store/modules/filterModules";
 import "../css/filter.css";
 
-const SelectService = props => {
+const SelectService = (props, ref) => {
   const classes = useStyles();
   const [service, setService] = React.useState("");
+
+  const refresh = () => {
+    setService("");
+  };
 
   const handleChange = event => {
     setService(event.target.value);
@@ -48,6 +55,10 @@ const SelectStatus = props => {
   const classes = useStyles();
   const [status, setStatus] = React.useState("");
 
+  const refresh = () => {
+    setStatus("");
+  };
+
   const handleChange = event => {
     setStatus(event.target.value);
     props.function(event.target.value);
@@ -61,9 +72,8 @@ const SelectStatus = props => {
         value={status}
         onChange={handleChange}
       >
-        <MenuItem value={"start"}>start</MenuItem>
-        <MenuItem value={"ing"}>ing</MenuItem>
-        <MenuItem value={"end"}>end</MenuItem>
+        <MenuItem value={"success"}>success</MenuItem>
+        <MenuItem value={"fail"}>fail</MenuItem>
       </Select>
     </FormControl>
   );
@@ -71,25 +81,25 @@ const SelectStatus = props => {
 
 const SelectFunction = props => {
   const classes = useStyles();
-  const [func, serFunc] = React.useState("");
+  const [func, setFunc] = React.useState("");
+
+  const refresh = () => {
+    setFunc("");
+  };
 
   const handleChange = event => {
-    serFunc(event.target.value);
+    setFunc(event.target.value);
     props.function(event.target.value);
   };
+
   return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Select Function</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+    <FormControl className={classes.input}>
+      <TextField
+        id="standard-basic"
+        label="Search Function"
         value={func}
         onChange={handleChange}
-      >
-        <MenuItem value={"park"}>park</MenuItem>
-        <MenuItem value={"location"}>location</MenuItem>
-        <MenuItem value={"control"}>control</MenuItem>
-      </Select>
+      />
     </FormControl>
   );
 };
@@ -98,23 +108,23 @@ const SelectServer = props => {
   const classes = useStyles();
   const [server, setServer] = React.useState("");
 
+  const refresh = () => {
+    setServer("");
+  };
+
   const handleChange = event => {
     setServer(event.target.value);
     props.function(event.target.value);
   };
+
   return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Select Server</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
+    <FormControl className={classes.input}>
+      <TextField
+        id="standard-basic"
+        label="Search Server"
         value={server}
         onChange={handleChange}
-      >
-        <MenuItem value={"client"}>client</MenuItem>
-        <MenuItem value={"spa"}>spa</MenuItem>
-        <MenuItem value={"vehicle"}>vehicle</MenuItem>
-      </Select>
+      />
     </FormControl>
   );
 };
@@ -122,6 +132,10 @@ const SelectServer = props => {
 const SearchMessageID = props => {
   const classes = useStyles();
   const [messageID, setMessageID] = React.useState("");
+
+  const refresh = () => {
+    setMessageID("");
+  };
 
   const handleChange = event => {
     setMessageID(event.target.value);
@@ -143,6 +157,10 @@ const SearchMessageID = props => {
 const SearchCarID = props => {
   const classes = useStyles();
   const [carID, setCarID] = React.useState("");
+
+  const refresh = () => {
+    setCarID("");
+  };
 
   const handleChange = event => {
     setCarID(event.target.value);
@@ -198,12 +216,22 @@ class filter extends Component {
   };
 
   handleSearch = e => {
-    // console.log(this.props);
     this.props.filterAction(true);
   };
 
-  handleTest = data => {
-    console.log(data);
+  refresh = () => {
+    // this.setState({
+    //   starTime: "",
+    //   endTime: "",
+    //   MID: "",
+    //   server: "",
+    //   service: "",
+    //   carID: "",
+    //   function: "",
+    //   status: ""
+    // })
+    // console.log(this.refs);
+    // this.date.refresh();
   };
 
   render() {
@@ -217,6 +245,14 @@ class filter extends Component {
           <IconButton color="primary" onClick={this.handleSearch}>
             <SearchIcon />
           </IconButton>
+          <Button
+            variant="contained"
+            color="primary"
+            endIcon={<RefreshIcon />}
+            onClick={this.refresh}
+          >
+            Refresh
+          </Button>
         </div>
         <div>
           <SelectFunction function={this.props.funcAction} />
@@ -268,6 +304,9 @@ export default connect(
     },
     car_idAction: data => {
       dispatch(car_idAction(data));
+    },
+    refreshAction: data => {
+      dispatch(refreshAction());
     }
   })
 )(filter);

@@ -15,8 +15,8 @@ class DatePicker extends React.Component {
     this.fromAction = this.props.fromAction.bind(this);
     this.toAction = this.props.toAction.bind(this);
     this.state = {
-      from: undefined,
-      to: undefined
+      from: this.props.from,
+      to: this.props.to
     };
   }
 
@@ -37,7 +37,7 @@ class DatePicker extends React.Component {
   }
 
   handleToChange(to) {
-    this.setState({ to }, this.showFromMonth,  this.toAction(to));
+    this.setState({ to }, this.showFromMonth, this.toAction(to));
   }
 
   render() {
@@ -87,12 +87,14 @@ class DatePicker extends React.Component {
 }
 
 export default connect(
-  null,
+  state => {
+    return { from: state.filterModules.from, from: state.filterModules.to };
+  },
   dispatch => ({
-    fromAction: (data) => {
+    fromAction: data => {
       dispatch(fromAction(data));
     },
-    toAction: (data) => {
+    toAction: data => {
       dispatch(toAction(data));
     }
   })

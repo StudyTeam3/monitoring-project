@@ -12,18 +12,20 @@ const SERVICE = "SERVICE";
 const SERVER = "SERVER";
 const MESSAGE_ID = "MESSAGE_ID";
 const CAR_ID = "CAR_ID";
+const REFRESH = "REFRESH";
 
 // 액션 생성 함수를 만듭니다.
 export const filterAction = createAction(FILTER, data => data);
 export const dataAction = createAction(DATA, data => data);
 export const fromAction = createAction(FROM, data => data);
 export const toAction = createAction(TO, data => data);
-export const funcAction = createAction(FUNCTION);
-export const statusAction = createAction(STATUS);
-export const serviceAction = createAction(SERVICE);
-export const serverAction = createAction(SERVER);
-export const message_idAction = createAction(MESSAGE_ID);
-export const car_idAction = createAction(CAR_ID);
+export const funcAction = createAction(FUNCTION, data => data);
+export const statusAction = createAction(STATUS, data => data);
+export const serviceAction = createAction(SERVICE, data => data);
+export const serverAction = createAction(SERVER, data => data);
+export const message_idAction = createAction(MESSAGE_ID, data => data);
+export const car_idAction = createAction(CAR_ID, data => data);
+export const refreshAction = createAction(REFRESH);
 
 // Reducer Codes
 // 모듈의 초기 상태를 정의합니다.
@@ -52,8 +54,26 @@ export default handleActions(
     [STATUS]: (state, { type, payload }) => ({ ...state, status: payload }),
     [SERVICE]: (state, { type, payload }) => ({ ...state, service: payload }),
     [SERVER]: (state, { type, payload }) => ({ ...state, server: payload }),
-    [MESSAGE_ID]: (state, { type, payload }) => ({ ...state, message_id: payload }),
-    [CAR_ID]: (state, { type, payload }) => ({ ...state, car_id: payload })
+    [MESSAGE_ID]: (state, { type, payload }) => ({
+      ...state,
+      message_id: payload
+    }),
+    [CAR_ID]: (state, { type, payload }) => ({ ...state, car_id: payload }),
+    [REFRESH]: (state, actions) => {
+      return ({
+        ...state,
+        filterOn: false,
+        data: [],
+        from: null,
+        to: null,
+        function: "",
+        status: "",
+        service: "",
+        server: "",
+        message_id: "",
+        car_id: ""
+      });
+    }
   },
   initialState
 );
