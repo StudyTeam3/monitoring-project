@@ -7,13 +7,19 @@ const LOGIN = "loginLogic/LOGIN";
 const LOGOUT = "loginLogic/LOGOUT";
 
 // 액션 생성 함수를 만듭니다.
-export const login = createAction(LOGIN, () => {
+export const login = createAction(LOGIN, (data) => {
   window.sessionStorage.setItem("isLogined",true);
-  window.sessionStorage.setItem("token","abc");
+  window.sessionStorage.setItem("token",data.token);
+  window.sessionStorage.setItem("name",data.name);
+  window.sessionStorage.setItem("email",data.email);
 });
 export const logout = createAction(LOGOUT, () => {
   window.sessionStorage.removeItem("isLogined");
   window.sessionStorage.removeItem("token");
+  window.sessionStorage.removeItem("column");
+  window.sessionStorage.removeItem("name");
+  window.sessionStorage.removeItem("email");
+  window.localStorage.removeItem("firebaseui::rememberedAccounts");
 });
 
 // Reducer Codes

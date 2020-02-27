@@ -11,11 +11,33 @@ import "../../../node_modules/react-vis/dist/style.css";
 import "../../css/common.css";
 
 class Dashboard extends Component {
+
+  state = {
+    currentServer: "spa"
+  }
+ 
+  changeServer = () => {
+    const idSelect = document.getElementById("serverName");
+    const serverName = idSelect.value;
+    this.setState({currentServer : serverName})
+    
+    console.log(serverName, this.state.currentServer);
+  };
+
+  componentDidUpdate(){
+
+  }
+  
   render() {
-    if(this.props.isLogined) this.props.history.push('/Login');
     return (
       <div className="dashBoard">
-          <h1 className="header">Dashboard</h1>
+          <div className="header">
+            <h1 style={{display:'inline'}}>Dashboard</h1>
+            <select id="serverName" style={{float:'right', marginTop:'30px'}} onChange={this.changeServer} >
+              <option value="spa">spa</option>
+              <option value="vehicle">vehicle</option>
+            </select>
+          </div>
           <hr
             style={{
               color: "#000066",
@@ -27,15 +49,15 @@ class Dashboard extends Component {
           <div className="chartStyle">
             <div>
               <h2>시간대별 요청 흐름</h2>
-              <FirstChart></FirstChart>
+              <FirstChart serverName={this.state.currentServer}></FirstChart>
             </div>
             <div>
               <h2>기능별 요청 빈도</h2>
-              <SecondChart></SecondChart>
+              <SecondChart serverName={this.state.currentServer}></SecondChart>
             </div>
             <div>
               <h2>트랜잭션 성공률</h2>
-              <ThirdChart></ThirdChart>
+              <ThirdChart serverName={this.state.currentServer}></ThirdChart>
             </div>
           </div>
           <div className="tableStyle">

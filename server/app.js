@@ -10,7 +10,7 @@ var flash = require('connect-flash');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var alarmRouter = require('./routes/alarm');
-var spaRouter = require('./routes/spa');
+var dataRouter = require('./routes/data');
 var customRouter = require('./routes/custom');
 var dashboardRouter = require('./routes/dashboard');
 
@@ -29,16 +29,16 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('!@#$%#@#@$%@#!',));
-app.use(session({
-  resave: false,
-  saveUninitialized: true,
-  secret: '!@#$%#@#@$%@#!',
-  // cookie: {
-  //   httpOnly: true,
-  //   secure: false,
-  // }
-}));
+app.use(cookieParser());
+// app.use(session({
+//   resave: false,
+//   saveUninitialized: true,
+//   secret: '!@#$%#@#@$%@#!',
+//   cookie: {
+//     httpOnly: true,
+//     secure: false,
+//   }
+// }));
 app.use(flash());
 
 // For CORS
@@ -50,7 +50,7 @@ if(config.cors) app.use(require('cors')());
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/alarm', alarmRouter);
-app.use('/spa',spaRouter);
+app.use('/data',dataRouter);
 app.use('/custom', customRouter);
 app.use('/home',dashboardRouter);
 

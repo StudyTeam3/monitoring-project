@@ -59,21 +59,3 @@ class Transaction extends React.Component {
 }
 
 export default Transaction;
-
-{/* <StyledTableRow onClick={handleClick}>
-<Link
-  to={`/detail/${this.props.MID}`}
-  style={{ textDecoration: "none" }}
->
-  <TableCell>{this.props.startTime}</TableCell>
-</Link>
-<TableCell>{this.props.endTime}</TableCell>
-<TableCell>{this.props.MID}</TableCell>
-<TableCell>{this.props.server}</TableCell>
-<TableCell>{this.props.service}</TableCell>
-<TableCell>{this.props.CID}</TableCell>
-<TableCell>{this.props.function}</TableCell>
-<TableCell>
-  <SuccessChip status={this.props.status} />
-</TableCell>
-</StyledTableRow> */}
