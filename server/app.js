@@ -34,10 +34,10 @@ app.use(cookieParser());
 //   resave: false,
 //   saveUninitialized: true,
 //   secret: '!@#$%#@#@$%@#!',
-//   // cookie: {
-//   //   httpOnly: true,
-//   //   secure: false,
-//   // }
+//   cookie: {
+//     httpOnly: true,
+//     secure: false,
+//   }
 // }));
 app.use(flash());
 
