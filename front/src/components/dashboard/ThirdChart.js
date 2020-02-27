@@ -5,6 +5,7 @@ import {XYPlot, ArcSeries} from 'react-vis';
 import axios from "axios";
 
 let serverName = "";
+let count = 0;
 
 const wrap = {
   position: 'relative',
@@ -63,7 +64,6 @@ class ThirdChart extends Component {
       allOfCount += successCount[i];
     }
     this.setState({percent: successCount[0]/allOfCount});
-
     let tempJson = {};
     tempJson['angle0'] = 0;
     tempJson['angle'] = PI * this.state.percent;
@@ -88,8 +88,21 @@ class ThirdChart extends Component {
     this.getData();
   };
 
+  shouldComponentUpdate(nextProps, nextState){
+    if(count == 0){
+      count += 1;
+      return true;
+    }
+    const propsChange = (this.props.serverName !== nextProps.serverName);
+    return propsChange;
+  }
+
+  componentDidUpdate(){
+    serverName = this.props.serverName;
+    this.getData();
+  }
+
   render() {
-    
     return (
       <div style={wrap}>
         <div style={over}>
@@ -111,6 +124,7 @@ class ThirdChart extends Component {
         </XYPlot>
       </div>
     );
+
   }
 }
 

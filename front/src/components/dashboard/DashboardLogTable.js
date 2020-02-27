@@ -8,25 +8,57 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import '../../css/dashboardtable.css';
+import axios from "axios";
 
 const classes = makeStyles({
-    table: {
-      minWidth: 650,
-    },
-  });
+        table: {
+        minWidth: 650,
+        },
+    });
   
-  function createData( logId, time, functionName, service ) {
+function createData( logId, time, functionName, service ) {
     return { logId, time, functionName, service };
-  }
+}
   
-  const rows = [
-    createData('d2fjdff-22-dfsdf', "00:00 00.00", 'location/park', 'bluelink'),
-    createData('d2fjdff-22-dfsdf', "00:00 00.00", 'control', 'bluelink'),
-    createData('d2fjdff-22-dfsdf', "00:00 00.00", 'tracetime', 'uvo'),
-  ];
-
+let rows = [];
 
 class DashboardLogTable extends Component {
+
+    state = {
+        serverName: "spa"
+    }
+
+    async getData() {
+        console.log("logGetData");
+        let logUrl = 'http://localhost:5000/home/logtable/'+this.state.serverName;
+        console.log("logtable",logUrl);
+        let { data: logs } = await axios.get(logUrl);
+        console.log("logs",logs);
+        for(var i = 0; i < 3; i++){
+            console.log(logs[i]);
+            rows.push(createData(logs[i].message_id, logs[i].time, logs[i].function, logs[i].service_name));
+        }
+        console.log("logRows",rows);
+    };
+
+    // shouldComponentUpdate(nextProps, nextState){
+    //     const propsChange = (this.props.serverName !== nextProps.serverName);
+    //     const stateChange = (this.state.serverName !== nextState.serverName);
+    
+    //     return propsChange || stateChange;
+    //   }
+
+    componentWillMount (){
+        this.state.serverName = this.props.serverName;
+        console.log('logWillMount');
+        this.getData();
+    };
+
+    componentWillUpdate(nextProps, nextState){
+        this.state.serverName = nextProps.serverName;
+        console.log('logWillUpdate',this.state.serverName);
+        this.getData();
+    };
 
     render() {
 
