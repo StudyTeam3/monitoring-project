@@ -7,7 +7,8 @@ module.exports = {
         "database": "postgres",
         "host": "127.0.0.1",
         "dialect": "postgres",
-        "operatorsAliases": false
+        "operatorsAliases": false,
+        "cors" : true,
     },
     "test": {
         "username": security.username,
@@ -15,7 +16,8 @@ module.exports = {
         "database": "postgres",
         "host": "127.0.0.1",
         "dialect": "postgres",
-        "operatorsAliases": false
+        "operatorsAliases": false,
+        "cors" : true,
     },
     "production": {
         "username": security.username,
@@ -23,6 +25,7 @@ module.exports = {
         "database": "postgres",
         "host": "127.0.0.1",
         "dialect": "postgres",
-        "operatorsAliases": false
+        "operatorsAliases": false,
+        "cors" : false,
     }
 };  

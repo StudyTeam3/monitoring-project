@@ -8,7 +8,11 @@ var flash = require('connect-flash');
 
 // Router Import
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/user');
+var alarmRouter = require('./routes/alarm');
+var dataRouter = require('./routes/data');
+var customRouter = require('./routes/custom');
+var dashboardRouter = require('./routes/dashboard');
 
 // DB Import
 var sequelize = require('./models').sequelize;
@@ -28,8 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(session({
 //   resave: false,
-//   saveUninitialized: false,
-//   secret: 'cookieParser와 동일',
+//   saveUninitialized: true,
+//   secret: '!@#$%#@#@$%@#!',
 //   cookie: {
 //     httpOnly: true,
 //     secure: false,
@@ -37,9 +41,18 @@ app.use(cookieParser());
 // }));
 app.use(flash());
 
+// For CORS
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config/config')[env];
+if(config.cors) app.use(require('cors')());
+
 // Router Connection to app
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
+app.use('/alarm', alarmRouter);
+app.use('/data',dataRouter);
+app.use('/custom', customRouter);
+app.use('/home',dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
