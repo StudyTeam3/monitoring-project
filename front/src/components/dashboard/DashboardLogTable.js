@@ -34,7 +34,10 @@ class DashboardLogTable extends Component {
         console.log("logtable",logUrl);
         let { data: logs } = await axios.get(logUrl);
         console.log("logs",logs);
-        for(var i = 0; i < 3; i++){
+        for(var i = 0; i < Object.keys(logs).length; i++){
+            if(i >= 3){
+                break;
+            }
             console.log(logs[i]);
             rows.push(createData(logs[i].message_id, logs[i].time, logs[i].function, logs[i].service_name));
         }
@@ -60,6 +63,9 @@ class DashboardLogTable extends Component {
         this.getData();
     };
 
+    componentDidUpdate() {
+        rows = [];
+    }
     render() {
 
         return (
