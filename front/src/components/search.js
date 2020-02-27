@@ -16,9 +16,11 @@ import LastPageIcon from "@material-ui/icons/LastPage";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SuccessChip from "./SuccessChip";
+import Filter from "./filter";
+import { getScalePropTypesByAttribute } from "react-vis/dist/utils/scales-utils";
 
 const config = require("./../config/config");
-
+const _ = require('lodash')
 const useStyles1 = makeStyles(theme => ({
   root: {
     flexShrink: 0,
@@ -124,7 +126,8 @@ export default function CustomPaginationActionsTable() {
   const [rows, setRows] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [show, setShow] = useState(false);
-
+  const [status, setStatus] = useState([true, null]);
+  const [messageID, setMessageID] = useState("");
   const customCol = window.sessionStorage.getItem('column');
 
   const emptyRows =
@@ -140,6 +143,29 @@ export default function CustomPaginationActionsTable() {
     setPage(0);
   };
 
+  const onSearchSubmit = (state) => {
+   // setStatus([value]);
+   console.log(state)
+   // state.status === "success" ? setStatus([true]) : "fail" ? setStatus([null]) : setStatus([true, null])
+    let success = "";
+    if(state.status === "success") success = true;
+    else if (state.status = "fail") success = null;
+
+    setMessageID(state.message_id.toLowerCase())
+
+    axios.post(config.development.url + '/spa/filter', {
+      message_id : state.message_id.toLowerCase(),
+      success : success
+    })
+    .then((res) => {
+      setRows(res.data);
+      setShow(true);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
+
   useEffect(() => {
     axios.get(config.development.url + '/spa')
     .then((res) => {
@@ -151,7 +177,12 @@ export default function CustomPaginationActionsTable() {
     })
   },[]);
 
+
   return (
+    <div>
+    <div>
+        <Filter onSubmit={onSearchSubmit}/>
+    </div>
     <Table style={{ width: "80%" }}>
       <TableHead>
         <TableRow>
@@ -162,11 +193,16 @@ export default function CustomPaginationActionsTable() {
       <TableBody>
         {rows
          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+         
          .map(t => {
           const tmp = {};
           let sorted = [];
           const cols = JSON.parse(customCol);
           for(var key in t) {
+           // console.log(t["status"])
+            // if(!status.includes(t["status"])) return;
+            //console.log(t["message_id"].indexOf(messageID))
+            // if(t["message_id"].indexOf(messageID) < 0) return;
             if(cols.includes(key)) tmp[key] = t[key];          
           }
           cols.map(key => sorted.push(tmp[key]));
@@ -180,7 +216,7 @@ export default function CustomPaginationActionsTable() {
             <TableCell>         
             <Link 
               to={`/detail/${tmp.message_id}`} 
-              style={{ textDecoration: "none", color: "#000066" }}
+              style={{ textDecoration: "none", color: "black" }}
             >
               {sorted.shift()} 
             </Link>
@@ -215,5 +251,6 @@ export default function CustomPaginationActionsTable() {
         </TableRow>
       </TableFooter>
       </Table>
+      </div>
   );
 }

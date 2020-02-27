@@ -21,8 +21,8 @@ class Dashboard extends Component {
                     }}
                 />
             </div>
-            <div><Filter/></div>
-            <div><SearchResult/></div>
+            
+            <SearchResult/>
             <div></div>
         </Fragment>
     );

@@ -10,169 +10,175 @@ import IconButton from "@material-ui/core/IconButton";
 import DatePicker from './DatePicker'
 import '../css/filter.css'
 
-const SelectService = () => {
-  const classes = useStyles();
-  const [service, setService] = React.useState("");
+// const SelectService = () => {
+//   const classes = useStyles();
+//   const [service, setService] = React.useState("");
 
-  const handleChange = event => {
-    setService(event.target.value);
-  };
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Select Service</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={service}
-        onChange={handleChange}
-      >
-        <MenuItem value={"bluelink"}>bluelink</MenuItem>
-        <MenuItem value={"uvo"}>uvo</MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
+//   const handleChange = event => {
+//     setService(event.target.value);
+//   };
+//   return (
+//     <FormControl className={classes.formControl}>
+//       <InputLabel id="demo-simple-select-label">Select Service</InputLabel>
+//       <Select
+//         labelId="demo-simple-select-label"
+//         id="demo-simple-select"
+//         value={service}
+//         onChange={handleChange}
+//       >
+//         <MenuItem value={"bluelink"}>bluelink</MenuItem>
+//         <MenuItem value={"uvo"}>uvo</MenuItem>
+//       </Select>
+//     </FormControl>
+//   );
+// };
 
-const SelectStatus = () => {
-  const classes = useStyles();
-  const [status, setStatus] = React.useState("");
+// const SelectStatus = () => {
+//   const classes = useStyles();
+//   const [status, setStatus] = React.useState("");
 
-  const handleChange = event => {
-    setStatus(event.target.value);
-  };
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Select Status</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={status}
-        onChange={handleChange}
-      >
-        <MenuItem value={"start"}>start</MenuItem>
-        <MenuItem value={"ing"}>ing</MenuItem>
-        <MenuItem value={"end"}>end</MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
+//   const handleChange = event => {
+//     setStatus(event.target.value);
+//   };
+//   return (
+//     <FormControl className={classes.formControl}>
+//       <InputLabel id="demo-simple-select-label">Select Status</InputLabel>
+//       <Select
+//         labelId="demo-simple-select-label"
+//         id="demo-simple-select"
+//         value={status}
+//         onChange={handleChange}
+//       >
+//         <MenuItem value={"start"}>start</MenuItem>
+//         <MenuItem value={"ing"}>ing</MenuItem>
+//         <MenuItem value={"end"}>end</MenuItem>
+//       </Select>
+//     </FormControl>
+//   );
+// };
 
-const SelectFunction = () => {
-  const classes = useStyles();
-  const [func, serFunc] = React.useState("");
+// const SelectFunction = () => {
+//   const classes = useStyles();
+//   const [func, serFunc] = React.useState("");
 
-  const handleChange = event => {
-    serFunc(event.target.value);
-  };
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Select Function</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={func}
-        onChange={handleChange}
-      >
-        <MenuItem value={"park"}>park</MenuItem>
-        <MenuItem value={"location"}>location</MenuItem>
-        <MenuItem value={"control"}>control</MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
+//   const handleChange = event => {
+//     serFunc(event.target.value);
+//   };
+//   return (
+//     <FormControl className={classes.formControl}>
+//       <InputLabel id="demo-simple-select-label">Select Function</InputLabel>
+//       <Select
+//         labelId="demo-simple-select-label"
+//         id="demo-simple-select"
+//         value={func}
+//         onChange={handleChange}
+//       >
+//         <MenuItem value={"park"}>park</MenuItem>
+//         <MenuItem value={"location"}>location</MenuItem>
+//         <MenuItem value={"control"}>control</MenuItem>
+//       </Select>
+//     </FormControl>
+//   );
+// };
 
-const SelectServer = () => {
-  const classes = useStyles();
-  const [server, setServer] = React.useState("");
+// const SelectServer = () => {
+//   const classes = useStyles();
+//   const [server, setServer] = React.useState("");
 
-  const handleChange = event => {
-    setServer(event.target.value);
-  };
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="demo-simple-select-label">Select Server</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={server}
-        onChange={handleChange}
-      >
-        <MenuItem value={"client"}>client</MenuItem>
-        <MenuItem value={"spa"}>spa</MenuItem>
-        <MenuItem value={"vehicle"}>vehicle</MenuItem>
-      </Select>
-    </FormControl>
-  );
-};
+//   const handleChange = event => {
+//     setServer(event.target.value);
+//   };
+//   return (
+//     <FormControl className={classes.formControl}>
+//       <InputLabel id="demo-simple-select-label">Select Server</InputLabel>
+//       <Select
+//         labelId="demo-simple-select-label"
+//         id="demo-simple-select"
+//         value={server}
+//         onChange={handleChange}
+//       >
+//         <MenuItem value={"client"}>client</MenuItem>
+//         <MenuItem value={"spa"}>spa</MenuItem>
+//         <MenuItem value={"vehicle"}>vehicle</MenuItem>
+//       </Select>
+//     </FormControl>
+//   );
+// };
 
-const SearchMessageID = () => {
-  const classes = useStyles();
-  const [messageID, setMessageID] = React.useState("");
+// const SearchMessageID = () => {
+//   const classes = useStyles();
+//   const [messageID, setMessageID] = React.useState("");
 
-  const handleChange = event => {
-    setMessageID(event.target.value);
-  };
+//   const handleChange = event => {
+//     setMessageID(event.target.value);
+//   };
 
-  return (
-    <FormControl className={classes.input}>
-      <TextField
-        id="standard-basic"
-        label="Search Message ID"
-        value={messageID}
-        onChange={handleChange}
-      />
-    </FormControl>
-  );
-};
+//   return (
+//     <FormControl className={classes.input}>
+//       <TextField
+//         id="standard-basic"
+//         label="Search Message ID"
+//         value={messageID}
+//         onChange={handleChange}
+//       />
+//     </FormControl>
+//   );
+// };
 
-const SearchCarID = () => {
-  const classes = useStyles();
-  const [carID, setCarID] = React.useState("");
+// const SearchCarID = () => {
+//   const classes = useStyles();
+//   const [carID, setCarID] = React.useState("");
 
-  const handleChange = event => {
-    setCarID(event.target.value);
+//   const handleChange = event => {
+//     setCarID(event.target.value);
 
-  };
+//   };
 
-  return (
-    <FormControl className={classes.input}>
-      <TextField
-        id="standard-basic"
-        label="Search Car ID"
-        value={carID}
-        onChange={handleChange}
-      />
-    </FormControl>
-  );
-};
+//   return (
+//     <FormControl className={classes.input}>
+//       <TextField
+//         id="standard-basic"
+//         label="Search Car ID"
+//         value={carID}
+//         onChange={handleChange}
+//       />
+//     </FormControl>
+//   );
+// };
 
-
-const useStyles = makeStyles(theme => ({
+const classes = makeStyles({
   formControl: {
-    marginTop: 10,
-    marginLeft: 20,
-    minWidth: 170
+    minWidth: 650,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  },
-  input: {
-    "& > *": {
-      marginTop: 10,
-      marginLeft: 20,
-      width: 170
-    }
-  }
-}));
+});
+
+// const classes = makeStyles(theme => ({
+//   formControl: {
+//     marginTop: 10,
+//     marginLeft: 20,
+//     minWidth: 170
+//   },
+//   selectEmpty: {
+//     marginTop: theme.spacing(2)
+//   },
+//   input: {
+//     "& > *": {
+//       marginTop: 10,
+//       marginLeft: 20,
+//       width: 170
+//     }
+//   }
+// }));
+
 class filter extends Component {
 
   state = {
-      starTime: '',
-      endTime: '',
-      MID: '',
+      start: '',
+      end: '',
+      message_id: '',
       server: '',
       service: '',
-      carID: '',
+      car_id: '',
       function: '',
       status: '',
   }
@@ -184,13 +190,15 @@ class filter extends Component {
   }
 
   handleSearch = (e) => {
-
-    console.log(this.state);
-
+   e.preventDefault();
+    console.log(this.state)
+    this.props.onSubmit(this.state);
   }
   handleTest = (data) =>{
     console.log(data)
   }
+
+  
   render() {
 
     return (
@@ -205,14 +213,31 @@ class filter extends Component {
             </IconButton>
          </div>
          <div>
-           <SelectFunction/>
-           <SelectStatus/>
-           <SelectService/>
+           <FormControl className="formControl" style={{minWidth : 170, marginLeft:20}}>
+            <InputLabel id="select-status-label">Select Status</InputLabel>
+                <Select
+                  labelId="select-status-label"
+                  id="select-status"
+                  name="status"
+                  value={this.state.status}
+                  onChange={this.handleChange}
+                >
+                  <MenuItem value={"success"}>success</MenuItem>
+                  <MenuItem value={"fail"}>fail</MenuItem>
+                </Select>
+           </FormControl>
+           <FormControl className="formControl" style={{minWidth : 170, marginLeft:20}}>
+              <TextField
+                id="search_message"
+                label="Search Message ID"
+                name="message_id"
+                value={this.state.message_id}
+                onChange={this.handleChange}
+              />
+           </FormControl>
          </div>
          <div>
-           <SearchMessageID/>
-           <SearchCarID />
-           <SelectServer/>
+        
          </div>
         </div>
     );
