@@ -14,11 +14,14 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import axios from "axios";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import SuccessChip from "./SuccessChip";
+import { filterAction, dataAction } from "../store/modules/filterModules";
 import "./../css/common.css";
 
 const config = require("./../config/config");
+const _ = require("lodash");
 
 const useStyles1 = makeStyles(theme => ({
   root: {
@@ -126,6 +129,8 @@ const CustomPaginationActionsTable = props => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [show, setShow] = useState(false);
   let thisData = props.data;
+  const dataAction = props.dataAction;
+
   if (thisData === undefined) thisData = "spa";
 
   const customCol = window.sessionStorage.getItem("column");
@@ -148,12 +153,82 @@ const CustomPaginationActionsTable = props => {
       .get(config.development.url + `/data?data=${thisData}`)
       .then(res => {
         setRows(res.data);
+        dataAction(res.data);
         setShow(true);
       })
       .catch(err => {
         console.error(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (props.filterOn === true) {
+      setRows(
+        _.chain(props.data)
+        // 날짜 필터링
+        .filter((item) => {
+          if(props.from === null || props.to === null ) return true;
+          else return (
+            _.inRange(
+              new Date(item.start).getTime(),
+              new Date(props.from).getTime(),
+              new Date(props.to).getTime()
+            ) &&
+            _.inRange(
+              new Date(item.end).getTime(),
+              new Date(props.from).getTime(),
+              new Date(props.to).getTime()
+            )
+          );
+        })
+        // Service 필터링
+        .filter((item) => {
+          if( props.service === "" ) return true;
+          else {
+            return _.includes( item.service, props.service );
+          }
+        })
+        // Server 필터링
+        .filter((item) => {
+          if( props.server === "" ) return true;
+          else {
+            return _.includes( item.server, props.server );
+          }
+        })
+        // Car_id 필터링
+        .filter((item) => {
+          if( props.car_id === "" ) return true;
+          else {
+            return _.includes( item.car_id, props.car_id );
+          }
+        })
+        // Message_id 필터링
+        .filter((item) => {
+          if( props.message_id === "" ) return true;
+          else {
+            return _.includes( item.message_id, props.message_id );
+          }
+        })
+        // Stauts 필터링
+        .filter((item) => {
+          if( props.status === "" ) return true;
+          else {
+            if( props.status === "success" ) return item.status === true;
+            else return item.status === null;
+          }
+        })
+        // Function 필터링
+        .filter((item) => {
+          if( props.function === "" ) return true;
+          else {
+            return _.includes( item.function, props.function );
+          }
+        })
+        .value()
+      );
+      props.filterAction(false);
+    }
+  }, [props.filterOn]);
 
   return (
     <Table style={{ width: "80%" }}>
@@ -176,7 +251,6 @@ const CustomPaginationActionsTable = props => {
                 if (cols.includes(key)) tmp[key] = t[key];
               }
               cols.map(key => sorted.push(tmp[key]));
-              console.log(rows);
               return (
                 <StyledTableRow>
                   {sorted.map(data => {
@@ -229,4 +303,27 @@ const CustomPaginationActionsTable = props => {
   );
 };
 
-export default CustomPaginationActionsTable;
+export default connect(
+  state => {
+    return {
+      data: state.filterModules.data,
+      filterOn: state.filterModules.filterOn,
+      from: state.filterModules.from,
+      to: state.filterModules.to,
+      service: state.filterModules.service,
+      server: state.filterModules.server,
+      car_id: state.filterModules.car_id,
+      message_id: state.filterModules.message_id,
+      status: state.filterModules.status,
+      function: state.filterModules.function
+    };
+  },
+  dispatch => ({
+    filterAction: data => {
+      dispatch(filterAction(data));
+    },
+    dataAction: data => {
+      dispatch(dataAction(data));
+    }
+  })
+)(CustomPaginationActionsTable);

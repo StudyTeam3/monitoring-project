@@ -3,7 +3,7 @@ import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import IconButton from "@material/react-icon-button";
 import { MdDashboard, MdSearch, MdSettings } from "react-icons/md";
 import { GoSignOut, GoBell } from "react-icons/go";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import {
   NotificationContainer,
   NotificationManager
@@ -230,7 +230,7 @@ const NavigationDrawer = props => {
               </NavItem>
             </div>
           </div>
-          <NotificationContainer />
+          {/* <NotificationContainer /> */}
         </SideNav>
       )}
     />
